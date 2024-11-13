@@ -1,0 +1,27 @@
+.success-message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .tick-mark {
+    font-size: 1.5rem;
+    color: green;
+    animation: tickAnimation 0.5s ease-in-out;
+  }
+  
+  @keyframes tickAnimation {
+    0% {
+      opacity: 0;
+      transform: scale(0.5);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.2);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  

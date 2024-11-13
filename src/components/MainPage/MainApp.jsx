@@ -19,9 +19,6 @@ const MainApp = () => {
     <BrowserRouter>
       <Homescreen />
     </BrowserRouter>
-    <div id='home'>
-      <MainHome/>
-    </div>
     </>
   )
 }

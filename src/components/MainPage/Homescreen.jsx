@@ -2,15 +2,27 @@ import React, { useState } from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
 import MainHome from './MainHome';
-import MainAbout from './mainabout';
-import MainBlogs from './mainblogs';
+import MainAbout from './MainAbout';
+import MainBlogs from './MainBlogs';
 import MainSignUp from './MainSignUp';
 import MainServices from './MainServices';
 import App from '../../App';
+import MainLogin from './MainLogin';
+import PrivateRoute from '../PrivateRoutes';
+import LogoutButton from './Logout';
 
 const Homescreen = () => {
   const [menu, setMenu] = useState(false);
-  const [showForm, setShowForm] = useState(false);
+  const [showSignUpForm, setShowSignUpForm] = useState(false);
+  const [showLoginForm, setShowLoginForm] = useState(false);
+
+  const openSignUpForm = () => setShowSignUpForm(true);
+  const closeSignUpForm = () => setShowSignUpForm(false);
+
+  const openLoginForm = () => setShowLoginForm(true);
+  const closeLoginForm = () => setShowLoginForm(false);
+
+  const handleMenuToggle = () => setMenu(!menu);
 
   const handleChange = () => {
     setMenu(!menu);
@@ -70,22 +82,35 @@ const Homescreen = () => {
             </Link>
           </nav>
 
-          <div className="hidden lg:flex">
-            <button
-              className="bg-brightColor text-white px-4 py-2 rounded-md hover:bg-yellow-300 transition duration-300 ease-in-out"
-              onClick={openForm}
-            >
-              Sign In
-            </button>
-          </div>
-          {showForm && <MainSignUp closeForm={closeForm} />}
-          <div className="lg:hidden flex items-center cursor-pointer text-white">
-            {menu ? (
-              <AiOutlineClose size={28} onClick={handleChange} />
-            ) : (
-              <AiOutlineMenu size={28} onClick={handleChange} />
-            )}
-          </div>
+          <div className="hidden lg:flex space-x-4">
+        <button
+          className="bg-brightColor text-white px-4 py-2 rounded-md hover:bg-yellow-300 transition duration-300 ease-in-out"
+          onClick={openSignUpForm}
+        >
+          Sign Up
+        </button>
+        <button
+          className="bg-brightColor text-white px-4 py-2 rounded-md hover:bg-yellow-300 transition duration-300 ease-in-out"
+          onClick={openLoginForm}
+        >
+          Log In
+        </button>
+       
+      </div>
+
+      {/* Show Forms Conditionally */}
+      {showSignUpForm && <MainSignUp closeForm={closeSignUpForm} />}
+      {showLoginForm && <MainLogin closeForm={closeLoginForm} />}
+
+      {/* Mobile Menu Toggle */}
+      <div className="lg:hidden flex items-center cursor-pointer text-white">
+        {menu ? (
+          <AiOutlineClose size={28} onClick={handleMenuToggle} />
+        ) : (
+          <AiOutlineMenu size={28} onClick={handleMenuToggle} />
+        )}
+      </div>
+
         </div>
         <div className={`${menu ? "translate-x-0" : "-translate-x-full"
           } lg:hidden flex flex-col absolute bg-backgroundColor text-white left-0 top-16 font-semibold text-2xl text-center pt-8 pb-4 gap-8 w-full h-fit transition-transform duration-300 cursor-pointer`}>
