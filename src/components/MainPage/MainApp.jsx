@@ -3,7 +3,7 @@ import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import { Link } from 'react-scroll';
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
 import MainHome from './MainHome';
-import MainAbout from './mainabout';
+import MainAbout from './MainAbout';
 import MainBlogs from './mainblogs';
 import MainSignUp from './MainSignUp';
 import MainContact from './MainServices';

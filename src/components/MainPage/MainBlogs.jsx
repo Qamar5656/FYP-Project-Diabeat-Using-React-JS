@@ -4,19 +4,17 @@ const SevenDayMealPlan = () => {
   const [mealPlan, setMealPlan] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [accessToken, setAccessToken] = useState('');  // Assuming the token is stored in state or localStorage
+  const [saving, setSaving] = useState(false);
+  const [accessToken, setAccessToken] = useState('');
+  const [message, setMessage] = useState('');
+  const [isFetched, setIsFetched] = useState(false); // Tracks if a meal plan has been fetched
 
   useEffect(() => {
-    // Check if access token is available (can also fetch from localStorage or context)
-    const token = localStorage.getItem('access_token') || ''; // Adjust depending on how you're storing it
-
-    // If no token, handle error or redirect
+    const token = localStorage.getItem('access_token') || '';
     if (!token) {
       setError('Access token is missing. Please log in again.');
       return;
     }
-
-    // Set the token in the state
     setAccessToken(token);
   }, []);
 
@@ -25,13 +23,15 @@ const SevenDayMealPlan = () => {
       setError('Access token is missing. Please log in again.');
       return;
     }
+    setLoading(true);
+    setError(null);
+    setMessage(''); // Clear success message when fetching a new meal plan
 
-    setLoading(true); // Set loading state to true when API call is made
     try {
       const response = await fetch('http://localhost:8000/api/seven_days_meal_plan/', {
         method: 'GET',
         headers: {
-          'Authorization': `Bearer ${accessToken}`,  // Include the token in the Authorization header
+          Authorization: `Bearer ${accessToken}`,
           'Content-Type': 'application/json',
         },
       });
@@ -42,14 +42,40 @@ const SevenDayMealPlan = () => {
 
       const data = await response.json();
       setMealPlan(data);
+      setIsFetched(true); // Set as fetched
     } catch (err) {
       setError(err.message);
     } finally {
-      setLoading(false); // Set loading state to false after API call
+      setLoading(false);
     }
   };
 
-  // Handle click on a meal to show more details
+  const saveMealPlan = async () => {
+    setMessage(''); // Clear previous messages
+    setSaving(true);
+    try {
+      const response = await fetch('http://localhost:8000/api/seven_days_meal_plan/', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ meal_plan: mealPlan }),
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        setMessage(data.message || 'Meal plan saved successfully!');
+      } else {
+        setMessage(data.error || 'Failed to save meal plan.');
+      }
+    } catch (error) {
+      setMessage('An error occurred while saving the meal plan.');
+    } finally {
+      setSaving(false);
+    }
+  };
+
   const handleMealClick = (meal) => {
     alert(`You clicked on ${meal}`);
   };
@@ -58,7 +84,6 @@ const SevenDayMealPlan = () => {
     <div className="container mx-auto p-6">
       <h2 className="text-3xl font-bold mb-6 text-center text-blue-600">Your 7-Day Meal Plan</h2>
 
-      {/* Introduction to diabetes */}
       <div className="mb-6">
         <p className="text-lg text-gray-700">
           Diabetes is a condition that affects how your body processes blood sugar (glucose). It’s important for people with diabetes to manage their diet and nutrition to help control blood sugar levels.
@@ -68,21 +93,28 @@ const SevenDayMealPlan = () => {
         </p>
       </div>
 
-      {/* Button to fetch meal plan */}
       <div className="text-center">
         <button
-          className="bg-blue-500 text-white px-6 py-3 rounded-lg text-lg font-medium hover:bg-blue-600"
+          className="bg-blue-500 text-white px-6 py-3 rounded-lg text-lg font-medium hover:bg-blue-600 mr-4"
           onClick={fetchMealPlan}
           disabled={loading}
         >
-          {loading ? 'Fetching Meal Plan...' : 'Fetch Your 7-Day Meal Plan'}
+          {loading ? 'Fetching Meal Plan...' : isFetched ? 'Want Another Meal Plan?' : 'Get Your 7-Day Meal Plan'}
+        </button>
+
+        <button
+          className={`px-6 py-3 rounded-lg text-lg font-medium ${mealPlan.length === 0 ? 'bg-gray-400 text-white cursor-not-allowed' : 'bg-green-500 text-white hover:bg-green-600'}`}
+          onClick={saveMealPlan}
+          disabled={saving || mealPlan.length === 0}
+        >
+          {saving ? 'Saving...' : 'Save Meal Plan'}
         </button>
       </div>
 
-      {/* Error Message */}
+      {message && <div className="mt-4 text-center text-lg font-medium text-green-500">{message}</div>}
+
       {error && <div className="text-red-500 text-center mt-4">{error}</div>}
 
-      {/* Meal Plan Display */}
       {mealPlan.length === 0 ? (
         <p className="text-center text-gray-500 mt-6">No meal plan available. Please click the button above to fetch the plan.</p>
       ) : (
