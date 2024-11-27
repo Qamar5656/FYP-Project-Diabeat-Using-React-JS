@@ -8,8 +8,6 @@ import MainApp from './components/MainPage/MainApp';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    {/* <App /> */}
-    {/* <Navbar/> */}
     <MainApp/>
   </StrictMode>
 )

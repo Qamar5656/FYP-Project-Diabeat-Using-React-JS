@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import Navbar from './components/DoctorPortal/Navbar'
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from './components/DoctorPortal/Home'
 import About from './components/DoctorPortal/About'
 import Doctors from './components/DoctorPortal/Doctors'
@@ -53,7 +54,10 @@ const App = () => {
         <div id="footer" data-aos="flip-down">
           <Footer />
         </div>
-      </main>
+      </main> 
+      
+     
+
     </>
   )
 }

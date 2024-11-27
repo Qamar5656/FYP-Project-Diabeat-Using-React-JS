@@ -6,6 +6,8 @@ import MainAbout from './MainAbout';
 import MainBlogs from './MainBlogs';
 import MainSignUp from './MainSignUp';
 import MainServices from './MainServices';
+import Doctors from '../DoctorPortal/Doctors';
+import DoctorDetail from '../DoctorPortal/DoctorDetail';
 import App from '../../App';
 import MainLogin from './MainLogin';
 import PrivateRoute from '../PrivateRoutes';
@@ -60,7 +62,7 @@ const Homescreen = () => {
               to="/about"
               className="hover:text-yellow-300 transition-all cursor-pointer"
             >
-              About Us
+             Get Meal Recommendation
             </Link>
             <Link
               to="/services"
@@ -78,7 +80,7 @@ const Homescreen = () => {
               to="/blog"
               className="hover:text-yellow-300 transition-all cursor-pointer"
             >
-              Blog
+              Generate Meal Plan
             </Link>
           </nav>
 
@@ -126,14 +128,14 @@ const Homescreen = () => {
             className="hover:text-hoverColor transition-all cursor-pointer"
             onClick={closeMenu}
           >
-            About Us
+            Get Meal Recommendation
           </Link>
           <Link
             to="/services"
             className="hover:text-hoverColor transition-all cursor-pointer"
             onClick={closeMenu}
           >
-            Services
+            
           </Link>
           <Link
             to="/app"
@@ -161,6 +163,8 @@ const Homescreen = () => {
       </div>
       <Routes>
         <Route path='/app' element={<App />} />
+        <Route path="/doctors" element={<Doctors />} />
+        <Route path="/doctor/:id" element={<DoctorDetail />} />
         <Route path='/home' element={<MainHome />} />
         <Route path='/about' element={<MainAbout />} />
         <Route path='/blog' element={<MainBlogs />} />

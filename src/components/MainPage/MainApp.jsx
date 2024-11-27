@@ -4,7 +4,7 @@ import { Link } from 'react-scroll';
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
 import MainHome from './MainHome';
 import MainAbout from './MainAbout';
-import MainBlogs from './mainblogs';
+import MainBlogs from './MainBlogs';
 import MainSignUp from './MainSignUp';
 import MainContact from './MainServices';
 import Button from '../DoctorPortal/layouts/Button';

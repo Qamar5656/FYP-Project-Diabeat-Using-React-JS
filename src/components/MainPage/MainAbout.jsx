@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import 'animate.css';
 
 const SugarInputForm = () => {
   const [sugarLevel, setSugarLevel] = useState('');
@@ -41,14 +42,27 @@ const SugarInputForm = () => {
       setError('An error occurred while connecting to the server.');
     }
   };
-  
 
   return (
     <div className="max-w-md mx-auto p-6 bg-slate-200 shadow-md rounded-lg">
-      <h2 className="text-2xl font-bold mb-4">Enter Sugar Level and Meal</h2>
+      {/* Animated Welcome Text */}
+      <div className="text-center mb-6">
+        <p className="text-xl font-medium text-gray-800 animate__animated animate__fadeIn animate__delay-1s">
+          Enter your sugar level and meal details to receive personalized meal recommendations!
+        </p>
+      </div>
+
+      {/* Animated Header Text */}
+      <h2 className="text-2xl font-bold mb-4 animate__animated animate__bounceInLeft">
+        Enter Sugar Level and Meal
+      </h2>
+
+      {/* Animated Form Fields */}
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700 mb-2">Sugar Level</label>
+          <label className="block text-sm font-medium text-gray-700 mb-2 animate__animated animate__fadeIn animate__delay-2s">
+            Sugar Level
+          </label>
           <input
             type="number"
             value={sugarLevel}
@@ -60,7 +74,9 @@ const SugarInputForm = () => {
         </div>
         
         <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700 mb-2">Measurement Time</label>
+          <label className="block text-sm font-medium text-gray-700 mb-2 animate__animated animate__fadeIn animate__delay-3s">
+            Measurement Time
+          </label>
           <select
             value={measurementTime}
             onChange={(e) => setMeasurementTime(e.target.value)}
@@ -72,7 +88,9 @@ const SugarInputForm = () => {
         </div>
         
         <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700 mb-2">Meal</label>
+          <label className="block text-sm font-medium text-gray-700 mb-2 animate__animated animate__fadeIn animate__delay-4s">
+            Meal
+          </label>
           <input
             type="text"
             value={meal}
@@ -88,14 +106,16 @@ const SugarInputForm = () => {
         </button>
       </form>
       
+      {/* Animated Recommendation Text */}
       {recommendation && (
-        <div className="mt-4 text-green-600">
+        <div className="mt-4 text-green-600 animate__animated animate__fadeIn animate__delay-5s">
           Recommendation: <strong>{recommendation}</strong>
         </div>
       )}
       
+      {/* Animated Error Text */}
       {error && (
-        <div className="mt-4 text-red-600">
+        <div className="mt-4 text-red-600 animate__animated animate__shakeX animate__delay-5s">
           <strong>{error}</strong>
         </div>
       )}

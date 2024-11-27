@@ -1,47 +1,38 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { FaArrowLeft } from "react-icons/fa";
-import { FaArrowRight } from "react-icons/fa";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
 const Doctors = () => {
-  //Doctors images array
-  const data = [
-    {
-      img: "/src/assets/img/doc1.jpg",
-      name: "Dr. Serena Mitchell",
-      specialties: "Orthopedic Surgeon",
-    },
-    {
-      img: "/src/assets/img/doc2.jpg",
-      name: "Dr. Julian Bennett",
-      specialties: "Cardiologist",
-    },
-    {
-      img: "/src/assets/img/doc3.jpg",
-      name: "Dr. Camila Rodriguez",
-      specialties: "Pediatrician",
-    },
-    {
-      img: "/src/assets/img/doc4.jpg",
-      name: "Dr. Victor Nguyen",
-      specialties: "Neurologist",
-    },
-    {
-      img: "/src/assets/img/doc5.jpg",
-      name: "Dr. Ethan Carter",
-      specialties: "Dermatologist",
-    },
-    {
-      img: "/src/assets/img/doc6.jpg",
-      name: "Dr. Olivia Martinez",
-      specialties: "Ophthalmologist",
-    },
-  ];
-
-  // hook for slider
+  const [doctors, setDoctors] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const slider = useRef(null);
+
+  useEffect(() => {
+    const fetchDoctors = async () => {
+      try {
+        const response = await fetch("http://localhost:8000/api/doctors/", {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        if (!response.ok) {
+          throw new Error("Failed to fetch doctors");
+        }
+        const data = await response.json();
+        setDoctors(data);
+        setLoading(false);
+      } catch (err) {
+        setError(err.message);
+        setLoading(false);
+      }
+    };
+
+    fetchDoctors();
+  }, []);
 
   const settings = {
     accessibility: true,
@@ -52,83 +43,76 @@ const Doctors = () => {
     slidesToShow: 3,
     slidesToScroll: 1,
     responsive: [
-      {
-        breakpoint:1023,
-        settings:{
-          slidesToShow: 3,
-          slidesToScroll: 1,
-          dots: true,
-          infinite: true,
-        },
-      },
-      {
-        breakpoint:768,
-        settings:{
-          slidesToShow: 2,
-          slidesToScroll: 2,
-          initialSlide:2,
-        },
-      },
-      {
-        breakpoint:480,
-        settings:{
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          initialSlide:2,
-        },
-      },
-    ]
+      { breakpoint: 1023, settings: { slidesToShow: 3, slidesToScroll: 1 } },
+      { breakpoint: 768, settings: { slidesToShow: 2, slidesToScroll: 2 } },
+      { breakpoint: 480, settings: { slidesToShow: 1, slidesToScroll: 1 } },
+    ],
   };
 
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <p>Loading doctors...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <p className="text-red-500">{error}</p>
+      </div>
+    );
+  }
+
   return (
-    <div className=" min-h-screen flex flex-col justify-center lg:px-32 px-5 pt-16">
-      <div className=" flex flex-col items-center lg:flex-row justify-between mb-10 lg:mb-0">
+    <div className="min-h-screen flex flex-col justify-center lg:px-32 px-5 pt-16">
+      <div className="flex flex-col items-center lg:flex-row justify-between mb-10 lg:mb-0">
         <div>
-          <h1 className=" text-4xl font-semibold text-center lg:text-start">
+          <h1 className="text-4xl font-semibold text-center lg:text-start">
             Our Doctors
           </h1>
-          <p className=" mt-2 text-center lg:text-start">
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Natus,
-            quidem.
+          <p className="mt-2 text-center lg:text-start">
+            Connect with our talented doctors
           </p>
         </div>
         <div className="flex gap-5 mt-4 lg:mt-0">
-          {/* Buttons onclick events */}
           <button
-            className=" bg-[#d5f2ec] text-backgroundColor px-4 py-2 rounded-lg active:bg-[#ade9dc]"
+            className="bg-[#d5f2ec] text-backgroundColor px-4 py-2 rounded-lg active:bg-[#ade9dc]"
             onClick={() => slider.current.slickPrev()}
           >
             <FaArrowLeft size={25} />
           </button>
           <button
-            className=" bg-[#d5f2ec] text-backgroundColor px-4 py-2 rounded-lg active:bg-[#ade9dc]"
+            className="bg-[#d5f2ec] text-backgroundColor px-4 py-2 rounded-lg active:bg-[#ade9dc]"
             onClick={() => slider.current.slickNext()}
           >
             <FaArrowRight size={25} />
           </button>
         </div>
       </div>
-      <div className=" mt-5">
-        {/* Slider Functionality */}
+      <div className="mt-5">
         <Slider ref={slider} {...settings}>
-          {data.map((e, index) => (
-            <div
+          {doctors.map((doctor) => (
+            <Link
+              to={`/doctor/${doctor.id}`} // Dynamic Link
+              key={doctor.id}
               className="h-[350px] text-black rounded-xl shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px] mb-2 cursor-pointer"
-              key={index}
             >
               <div>
                 <img
-                  src={e.img}
-                  alt="img"
-                  className=" h-56 rounded-t-xl w-full"
+                  src={doctor.profile_pic || "/src/assets/img/default-doctor.jpg"}
+                  alt={doctor.first_name}
+                  className="h-56 rounded-t-xl w-full object-cover"
                 />
               </div>
-
-              <div className=" flex flex-col justify-center items-center">
-                <h1 className=" font-semibold text-xl pt-4">{e.name}</h1>
-                <h3 className=" pt-2">{e.specialties}</h3>
+              <div className="flex flex-col justify-center items-center">
+                <h1 className="font-semibold text-xl pt-4">
+                  {doctor.first_name} {doctor.last_name}
+                </h1>
+                <h3 className="pt-2">{doctor.designation}</h3>
               </div>
-            </div>
+            </Link>
           ))}
         </Slider>
       </div>
