@@ -4,7 +4,7 @@ import { Link } from "react-scroll";
 import Button from '../DoctorPortal/layouts/Button';
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import Contact from "../DoctorPortal/models/Contact";
-import Homescreen from "../MainPage/Homescreen";
+import MainNavbar from "../MainPage/MainNavbar";
 
 const Navbar = () => {
   const [menu, setMenu] = useState(false);
@@ -37,9 +37,9 @@ const Navbar = () => {
             </Link>
           </div>
 
-          <nav className="hidden lg:flex flex-row items-center text-lg font-medium gap-8">
+          <nav className="hidden lg:flex flex-row items-center text-lg font-medium gap-16">
             <RouterLink
-              to="/homescreen"
+              to="/home"
               className="hover:text-yellow-300 transition-all cursor-pointer"
             >
               Home
@@ -105,7 +105,7 @@ const Navbar = () => {
             } lg:hidden flex flex-col absolute bg-backgroundColor text-white left-0 top-16 font-semibold text-2xl text-center pt-8 pb-4 gap-8 w-full h-fit transition-transform duration-300`}
         >
           <RouterLink
-            to="/homescreen"
+            to="/home"
             className="hover:text-hoverColor transition-all cursor-pointer"
             onClick={closeMenu}
           >
@@ -163,7 +163,7 @@ const Navbar = () => {
         </div>
       </div>
       <Routes>
-        <Route path="/homescreen" element={<Homescreen />} />
+        <Route path="/home" element={<MainNavbar />} />
       </Routes>
     </div>
   );
