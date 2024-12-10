@@ -91,7 +91,6 @@ return (
     {/* Recommended Meals */}
     {recommendedMeals.length > 0 && (
       <div className="mt-8 animate__animated animate__fadeIn animate__delay-2s">
-        <h3 className="text-lg font-semibold text-gray-800 mb-4">Top 10 Meals:</h3>
         <ul className="list-disc pl-5 space-y-2">
           {recommendedMeals.map((meal, index) => (
             <li key={index} className="text-gray-700 text-base">
