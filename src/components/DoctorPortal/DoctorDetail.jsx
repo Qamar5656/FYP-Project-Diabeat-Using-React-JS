@@ -36,7 +36,7 @@ const DoctorDetail = () => {
 
   return (
     <div className="flex justify-center py-10 bg-gray-100 min-h-screen">
-      <div className="bg-white shadow-xl rounded-lg p-8 w-full max-w-4xl">
+      <div className="bg-white shadow-xl rounded-lg p-8 w-full max-w-4xl mt-5">
         <div className="flex items-center justify-center space-x-6 mb-8">
           <img
             src={doctor.profile_pic || "/src/assets/img/default-doctor.jpg"}

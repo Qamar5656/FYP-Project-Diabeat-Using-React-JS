@@ -43,57 +43,65 @@ const RecommendedMeals = () => {
     }
   };
 
-  return (
-    <div className="max-w-md mx-auto mt-6 p-6 bg-white shadow-md rounded-lg">
-      <h2 className="text-2xl font-bold mb-4 animate__animated animate__fadeIn">
-        Recommended Meals
-      </h2>
+return (
+<div className="max-w-md mx-auto px-8 py-20 bg-white shadow-md rounded-lg">
+  <div className="mt-6">
+    {/* Heading */}
+    <h2 className="text-2xl font-bold mb-4 text-gray-800 animate__animated animate__fadeIn">
+      Recommended Meals
+    </h2>
 
-      {/* Personalized greeting */}
-      <div className="mb-4">
-        <p className="text-xl animate__animated animate__fadeIn animate__delay-0s">
-          Hello, {userName}!
+    {/* Personalized Greeting */}
+    <div className="mb-6">
+      <p className="text-xl font-medium text-gray-800 animate__animated animate__fadeIn">
+        Hello, {userName}!
+      </p>
+      <p className="text-base text-gray-600 mt-2 leading-relaxed animate__animated animate__fadeIn animate__delay-1s">
+        Not sure what to eat? Click the button below to receive meal recommendations based on your previous sugar levels.
+      </p>
+    </div>
+
+    {/* Action Button */}
+    <button
+      onClick={fetchRecommendedMeals}
+      className="w-full bg-blue-500 text-white py-2 rounded-md text-lg font-medium hover:bg-blue-600 transition-colors animate__animated animate__bounceIn animate__delay-1s"
+    >
+      Get Recommendations
+    </button>
+
+    {/* Error Message */}
+    {error && (
+      <div className="mt-4 text-red-600 text-sm animate__animated animate__shakeX">
+        <strong>{error}</strong>
+      </div>
+    )}
+
+    {/* Last Recorded Sugar Level */}
+    {lastSugarLevel && measurementTime && (
+      <div className="mt-6 bg-gray-100 p-4 rounded-md animate__animated animate__fadeIn animate__delay-2s">
+        <p className="text-gray-700">
+          <strong>Last Recorded Sugar Level:</strong> {lastSugarLevel}
         </p>
-        <p className="text-lg text-gray-700 mt-2 animate__animated animate__fadeIn animate__delay-1s">
-          Not sure what to eat? Click the button below to receive meal recommendations based on your previous sugar levels.
+        <p className="text-gray-700 mt-1">
+          <strong>Measurement Time:</strong> {measurementTime}
         </p>
       </div>
+    )}
 
-      <button
-        onClick={fetchRecommendedMeals}
-        className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 animate__animated animate__bounceIn animate__delay-1s"
-      >
-        Get Recommendations
-      </button>
-
-      {error && (
-        <div className="mt-4 text-red-600 animate__animated animate__shakeX">
-          <strong>{error}</strong>
-        </div>
-      )}
-
-      {lastSugarLevel && measurementTime && (
-        <div className="mt-4 animate__animated animate__fadeIn animate__delay-2s">
-          <p>
-            <strong>Last Recorded Sugar Level:</strong> {lastSugarLevel}
-          </p>
-          <p>
-            <strong>Measurement Time:</strong> {measurementTime}
-          </p>
-        </div>
-      )}
-
-      {recommendedMeals.length > 0 && (
-        <div className="mt-6 animate__animated animate__fadeIn animate__delay-2s">
-          <h3 className="text-lg font-bold mb-2">Top 10 Meals:</h3>
-          <ul className="list-disc pl-5">
-            {recommendedMeals.map((meal, index) => (
-              <li key={index} className="mb-1">{meal}</li>
-            ))}
-          </ul>
-        </div>
-      )}
-    </div>
+    {/* Recommended Meals */}
+    {recommendedMeals.length > 0 && (
+      <div className="mt-8 animate__animated animate__fadeIn animate__delay-2s">
+        <ul className="list-disc pl-5 space-y-2">
+          {recommendedMeals.map((meal, index) => (
+            <li key={index} className="text-gray-700 text-base">
+              {meal}
+            </li>
+          ))}
+        </ul>
+      </div>
+    )}
+  </div>
+</div>
   );
 };
 

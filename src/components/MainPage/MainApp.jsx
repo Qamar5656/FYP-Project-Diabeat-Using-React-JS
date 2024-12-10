@@ -1,25 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
-import { Link } from 'react-scroll';
-import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
-import MainHome from './MainHome';
-import MainAbout from './MainAbout';
-import MainBlogs from './MainBlogs';
-import MainSignUp from './MainSignUp';
-import MainContact from './MainServices';
-import Button from '../DoctorPortal/layouts/Button';
-import App from '../../App';
-import Homescreen from './Homescreen';
+import MainNavbar from './MainNavbar';
 
 
 const MainApp = () => {
 
   return (
-    <>
+  <>
     <BrowserRouter>
-      <Homescreen />
+      <MainNavbar />
     </BrowserRouter>
-    </>
+  </>
   )
 }
 

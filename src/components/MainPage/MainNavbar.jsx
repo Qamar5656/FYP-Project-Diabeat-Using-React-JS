@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
 import MainHome from './MainHome';
-import MainAbout from './MainAbout';
-import MainBlogs from './MainBlogs';
+import SugarInputForm from './SugarInputForm';
+import SevenDayMealPlan from './SevenDayMealPlan';
 import MainSignUp from './MainSignUp';
 import MainServices from './MainServices';
 import Doctors from '../DoctorPortal/Doctors';
@@ -13,7 +13,7 @@ import MainLogin from './MainLogin';
 import PrivateRoute from '../PrivateRoutes';
 import LogoutButton from './Logout';
 
-const Homescreen = () => {
+const MainNavbar = () => {
   const [menu, setMenu] = useState(false);
   const [showSignUpForm, setShowSignUpForm] = useState(false);
   const [showLoginForm, setShowLoginForm] = useState(false);
@@ -48,7 +48,7 @@ const Homescreen = () => {
       <div className="fixed w-full z-10 bg-[#00CCCD]">
         <div className='flex justify-around p-5'>
           <div>
-            <Link to='/' className='text-white text-2xl font-semibold cursor-pointer'>Diabeat</Link>
+            <Link to='/home' className='text-white text-2xl font-semibold cursor-pointer'>Diabeat</Link>
           </div>
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex text-white text-lg font-medium flex-row items-center gap-14 cursor-pointer">
@@ -59,7 +59,7 @@ const Homescreen = () => {
               Home
             </Link>
             <Link
-              to="/about"
+              to="/sugarlevel"
               className="hover:text-yellow-300 transition-all cursor-pointer"
             >
              Get Meal Recommendation
@@ -77,7 +77,7 @@ const Homescreen = () => {
               Doctors
             </Link>
             <Link
-              to="/blog"
+              to="/weekplan"
               className="hover:text-yellow-300 transition-all cursor-pointer"
             >
               Generate Meal Plan
@@ -124,7 +124,7 @@ const Homescreen = () => {
             Home
           </Link>
           <Link
-            to="/about"
+            to="/sugarlevel"
             className="hover:text-hoverColor transition-all cursor-pointer"
             onClick={closeMenu}
           >
@@ -135,7 +135,7 @@ const Homescreen = () => {
             className="hover:text-hoverColor transition-all cursor-pointer"
             onClick={closeMenu}
           >
-            
+            Services
           </Link>
           <Link
             to="/app"
@@ -145,11 +145,11 @@ const Homescreen = () => {
             Doctors
           </Link>
           <Link
-            to="/blog"
+            to="/weekplan"
             className="hover:text-hoverColor transition-all cursor-pointer"
             onClick={closeMenu}
           >
-            Blog
+            Generate Meal Plan
           </Link>
           <div className="lg:hidden">
             <button
@@ -166,12 +166,12 @@ const Homescreen = () => {
         <Route path="/doctors" element={<Doctors />} />
         <Route path="/doctor/:id" element={<DoctorDetail />} />
         <Route path='/home' element={<MainHome />} />
-        <Route path='/about' element={<MainAbout />} />
-        <Route path='/blog' element={<MainBlogs />} />
+        <Route path='/sugarlevel' element={<SugarInputForm />} />
+        <Route path='/weekplan' element={<SevenDayMealPlan />} />
         <Route path='/services' element={<MainServices />} />
       </Routes>
     </>
   );
 };
 
-export default Homescreen;
+export default MainNavbar;
