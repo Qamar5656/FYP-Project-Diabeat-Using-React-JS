@@ -45,13 +45,13 @@ const MainNavbar = () => {
 
   return (
     <>
-      <div className="fixed w-full z-10 bg-[#00CCCD]">
+      <div className="fixed w-full z-10 ">
         <div className='flex justify-around p-5'>
           <div>
-            <Link to='/home' className='text-white text-2xl font-semibold cursor-pointer'>Diabeat</Link>
+            <Link to='/home' className='text-orange-400 text-2xl font-semibold cursor-pointer'>Diabeat</Link>
           </div>
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex text-white text-lg font-medium flex-row items-center gap-14 cursor-pointer">
+          <nav className="hidden lg:flex font-bold text-white text-lg flex-row items-center gap-14 cursor-pointer">
             <Link
               to="/home"
               className="hover:text-yellow-300 transition-all cursor-pointer"

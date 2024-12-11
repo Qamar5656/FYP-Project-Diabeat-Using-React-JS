@@ -44,19 +44,14 @@ const RecommendedMeals = () => {
   };
 
 return (
-<div className="max-w-md mx-auto px-8 py-20 bg-white shadow-md rounded-lg">
+<div className="h-screen flex flex-col justify-center text-center text-black bg-[url('assets/img/bgg.jpg')]">
   <div className="mt-6">
-    {/* Heading */}
-    <h2 className="text-2xl font-bold mb-4 text-gray-800 animate__animated animate__fadeIn">
-      Recommended Meals
-    </h2>
-
     {/* Personalized Greeting */}
     <div className="mb-6">
-      <p className="text-xl font-medium text-gray-800 animate__animated animate__fadeIn">
+      <p className="text-xl font-medium text-white animate__animated animate__fadeIn mt-20">
         Hello, {userName}!
       </p>
-      <p className="text-base text-gray-600 mt-2 leading-relaxed animate__animated animate__fadeIn animate__delay-1s">
+      <p className="text-base text-white mt-2 leading-relaxed animate__animated animate__fadeIn animate__delay-1s ">
         Not sure what to eat? Click the button below to receive meal recommendations based on your previous sugar levels.
       </p>
     </div>
@@ -64,7 +59,7 @@ return (
     {/* Action Button */}
     <button
       onClick={fetchRecommendedMeals}
-      className="w-full bg-blue-500 text-white py-2 rounded-md text-lg font-medium hover:bg-blue-600 transition-colors animate__animated animate__bounceIn animate__delay-1s"
+      className="w-72 bg-blue-500 text-white py-2 rounded-md text-lg font-medium hover:bg-blue-600 transition-colors animate__animated animate__bounceIn animate__delay-1s"
     >
       Get Recommendations
     </button>
@@ -78,7 +73,7 @@ return (
 
     {/* Last Recorded Sugar Level */}
     {lastSugarLevel && measurementTime && (
-      <div className="mt-6 bg-gray-100 p-4 rounded-md animate__animated animate__fadeIn animate__delay-2s">
+      <div className="mt-6 animate__animated animate__fadeIn animate__delay-2s">
         <p className="text-gray-700">
           <strong>Last Recorded Sugar Level:</strong> {lastSugarLevel}
         </p>
@@ -90,16 +85,17 @@ return (
 
     {/* Recommended Meals */}
     {recommendedMeals.length > 0 && (
-      <div className="mt-8 animate__animated animate__fadeIn animate__delay-2s">
-        <ul className="list-disc pl-5 space-y-2">
-          {recommendedMeals.map((meal, index) => (
-            <li key={index} className="text-gray-700 text-base">
-              {meal}
-            </li>
-          ))}
-        </ul>
-      </div>
-    )}
+        <div className="mt-8 animate__animated animate__fadeIn animate__delay-2s">
+          <ul className="flex space-x-4 text-white">
+            {recommendedMeals.map((meal, index) => (
+              <li key={index} className="text-base">
+                {meal}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
   </div>
 </div>
   );

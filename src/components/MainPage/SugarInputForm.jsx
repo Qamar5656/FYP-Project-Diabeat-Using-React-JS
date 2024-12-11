@@ -100,7 +100,7 @@ const SugarInputForm = () => {
 
   return (
     <div
-      className={`w-full h-screen flex lg:flex-row flex-col justify-center px-5 text-center bg-[url('assets/img/diabetes.jpg')] bg-no-repeat bg-cover opacity-90 relative transition-all duration-300 ${loadingMeals ? 'blur-sm' : ''}`}
+      className={`w-full h-screen flex lg:flex-row flex-col justify-center px-5 text-center bg-[url('assets/img/diabetes.jpg')] bg-no-repeat bg-cover opacity-90 relative transition-all duration-300 `}
     >
       {/* Semi-Transparent Overlay */}
       <div className="absolute inset-0 bg-black bg-opacity-50"></div>
@@ -110,7 +110,7 @@ const SugarInputForm = () => {
         <p className="animate__animated animate__fadeIn animate__delay-1s mt-20">
           Simply enter your sugar level, choose the time of day (e.g., fasting, post-meal), and select your meal 
         </p>
-        <p className='font-semibold'>
+        <p className=' font-semibold animate__animated animate__heartBeat text-gray-900'>
           Based on this information, we’ll recommend meals that suit your condition and help you maintain healthy sugar levels.
         </p>
       </div>
@@ -147,7 +147,7 @@ const SugarInputForm = () => {
               onChange={(e) => setMeasurementTime(e.target.value)}
               className="w-full sm:w-96 bg-gray-800 text-white border-2 border-gray-400 rounded-md p-2 focus:outline-none focus:ring focus:ring-blue-500"
             >
-              <option value="Fasting">Fasting</option>
+              <option value="fasting">Fasting</option>
               <option value="post-meal">Post-meal</option>
             </select>
           </div>
@@ -188,7 +188,7 @@ const SugarInputForm = () => {
         {/* Modal for meal carousel */}
         {isModalOpen && (
           <div className="fixed inset-0 z-50 bg-black bg-opacity-75 flex justify-center items-center">
-            <div className="relative p-6 rounded-lg max-w-lg w-full bg-[url('assets/img/plates.jpg')]">
+            <div className="relative p-6 rounded-lg max-w-lg w-full animate__animated animate__bounceInDown bg-[url('assets/img/plates.jpg')] ">
               <button
                 onClick={() => setIsModalOpen(false)} // Close modal
                 className="absolute top-2 right-2 text-xl text-black"
@@ -196,7 +196,7 @@ const SugarInputForm = () => {
                 &times;
               </button>
 
-              <h3 className="text-lg font-bold mb-4 text-black">Available Meals</h3>
+              <h3 className="text-lg font-bold mb-4 text-black animate__animated animate__fadeIn">Available Meals</h3>
 
               {/* Meal Carousel */}
               {meals.length > 0 && (
@@ -204,10 +204,10 @@ const SugarInputForm = () => {
                   {meals.map((meal, index) => (
                     <div
                       key={index}
-                      className="text-black p-4 rounded-lg shadow-md cursor-pointer"
+                      className="text-black p-4 rounded-lg shadow-md cursor-pointer animate__animated animate__backInDown"
                       onClick={() => handleMealClick(meal.name)} // Meal click handler
                     >
-                      <h4 className="font-extrabold">{meal.name}</h4>
+                      <h4 className="font-extrabold animate-pulse">{meal.name}</h4>
                       <p>{meal.gi_level} GI</p>
                     </div>
                   ))}
