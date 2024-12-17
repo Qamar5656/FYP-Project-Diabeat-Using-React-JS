@@ -36,7 +36,7 @@ const RecommendedMeals = () => {
         setMeasurementTime(data.measurement_time);
         setRecommendedMeals(data.recommended_meals);
       } else {
-        setError(data.error || 'Failed to fetch recommendations.');
+        setError(data.error || 'Please Login Again.');
       }
     } catch (err) {
       setError('An error occurred while connecting to the server.');
@@ -44,14 +44,24 @@ const RecommendedMeals = () => {
   };
 
 return (
-<div className="h-screen flex flex-col justify-center text-center text-black bg-[url('assets/img/bgg.jpg')]">
-  <div className="mt-6">
+<div className="h-screen flex flex-col justify-center text-center text-black relative">
+  {/* Background Image */}
+  <div 
+    className="absolute inset-0 bg-[url('assets/img/services.jpg')] bg-cover bg-center" 
+    style={{ opacity: 0.6 }}
+  ></div>
+  
+  {/* Overlay for better contrast */}
+  <div className="absolute inset-0 bg-black opacity-50"></div>
+  
+  {/* Content */}
+  <div className="relative mt-6">
     {/* Personalized Greeting */}
     <div className="mb-6">
       <p className="text-xl font-medium text-white animate__animated animate__fadeIn mt-20">
         Hello, {userName}!
       </p>
-      <p className="text-base text-white mt-2 leading-relaxed animate__animated animate__fadeIn animate__delay-1s ">
+      <p className="text-base text-white mt-2 leading-relaxed animate__animated animate__fadeIn animate__delay-1s">
         Not sure what to eat? Click the button below to receive meal recommendations based on your previous sugar levels.
       </p>
     </div>
@@ -74,10 +84,10 @@ return (
     {/* Last Recorded Sugar Level */}
     {lastSugarLevel && measurementTime && (
       <div className="mt-6 animate__animated animate__fadeIn animate__delay-2s">
-        <p className="text-gray-700">
+        <p className="text-gray-200">
           <strong>Last Recorded Sugar Level:</strong> {lastSugarLevel}
         </p>
-        <p className="text-gray-700 mt-1">
+        <p className="text-gray-200 mt-1">
           <strong>Measurement Time:</strong> {measurementTime}
         </p>
       </div>
@@ -85,19 +95,19 @@ return (
 
     {/* Recommended Meals */}
     {recommendedMeals.length > 0 && (
-        <div className="mt-8 animate__animated animate__fadeIn animate__delay-2s">
-          <ul className="flex space-x-4 text-white">
-            {recommendedMeals.map((meal, index) => (
-              <li key={index} className="text-base">
-                {meal}
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-
+      <div className="mt-8 animate__animated animate__fadeIn animate__delay-2s">
+        <ul className="flex space-x-4 text-white">
+          {recommendedMeals.map((meal, index) => (
+            <li key={index} className="text-base">
+              {meal}
+            </li>
+          ))}
+        </ul>
+      </div>
+    )}
   </div>
 </div>
+
   );
 };
 

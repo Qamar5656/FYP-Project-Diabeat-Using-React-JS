@@ -40,7 +40,7 @@ const SevenDayMealPlan = () => {
       });
 
       if (!response.ok) {
-        throw new Error('Failed to fetch meal plan.');
+        throw new Error('Please Login Again');
       }
 
       const data = await response.json();
