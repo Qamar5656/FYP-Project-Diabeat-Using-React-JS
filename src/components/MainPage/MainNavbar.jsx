@@ -46,7 +46,7 @@ const MainNavbar = () => {
   return (
     <>
       <div className="fixed w-full z-10 ">
-        <div className='flex justify-around p-5'>
+        <div className='flex justify-around bg-gray-800 bg-opacity-75 p-5 shadow-lg'>
           <div>
             <Link to='/home' className='text-orange-400 text-2xl font-semibold cursor-pointer'>Diabeat</Link>
           </div>

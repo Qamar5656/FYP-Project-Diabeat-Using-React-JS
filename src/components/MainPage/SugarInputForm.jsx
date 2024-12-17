@@ -91,7 +91,7 @@ const SugarInputForm = () => {
       if (response.ok) {
         setRecommendation(data.recommendation);
       } else {
-        setError(data.error || 'An error occurred while processing your request.');
+        setError(data.error || 'Please Login Again');
       }
     } catch (err) {
       setError('An error occurred while connecting to the server.');
