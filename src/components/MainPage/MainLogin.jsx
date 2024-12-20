@@ -5,6 +5,7 @@ import 'aos/dist/aos.css';
 const MainLogin = ({ closeForm }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [userType, setUserType] = useState('patient'); // Default to 'patient'
   const [success, setSuccess] = useState(false); // Track successful login
   const [errorMessage, setErrorMessage] = useState(''); // Track error messages
 
@@ -17,7 +18,7 @@ const MainLogin = ({ closeForm }) => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email, password, user_type: userType }), // Add user type to the body
       });
 
       if (response.ok) {
@@ -68,7 +69,7 @@ const MainLogin = ({ closeForm }) => {
                 <svg className="w-8 h-8 text-green-500 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                 </svg>
-                <p className="ml-2">Logged in Successfully</p>
+                <p className="ml-2">Logged in Successfully as {userType}</p>
               </div>
             </div>
           )}
@@ -79,6 +80,20 @@ const MainLogin = ({ closeForm }) => {
               <p>{errorMessage}</p>
             </div>
           )}
+
+          {/* User Type Selection (Doctor or Patient) */}
+          <div className="flex flex-col">
+            <label className="mb-2">Select User Type</label>
+            <select
+              className="py-3 px-2 bg-[#d5f2ec] rounded-lg"
+              value={userType}
+              onChange={(e) => setUserType(e.target.value)}
+              required
+            >
+              <option value="patient">Patient</option>
+              <option value="doctor">Doctor</option>
+            </select>
+          </div>
 
           {/* Email Field */}
           <div className='flex flex-col'>
