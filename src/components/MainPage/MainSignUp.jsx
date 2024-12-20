@@ -3,15 +3,19 @@ import Aos from 'aos';
 import 'aos/dist/aos.css';
 
 const MainSignUp = ({ closeForm }) => {
+  const [userType, setUserType] = useState(''); // New state for user type
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [cnic, setCnic] = useState('');
-  const [gender, setGender] = useState('');
   const [contactNum, setContactNum] = useState('');
+  const [gender, setGender] = useState('')
   const [profilePic, setProfilePic] = useState(null);
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [bio, setBio] = useState(''); // For doctor signup
+  const [degree, setDegree] = useState(''); // For doctor signup
+  const [designation, setDesignation] = useState(''); // For doctor signup
   const [page, setPage] = useState(1);
   const [success, setSuccess] = useState(false);
 
@@ -32,16 +36,29 @@ const MainSignUp = ({ closeForm }) => {
     formData.append('first_name', firstName);
     formData.append('last_name', lastName);
     formData.append('password', password);
+    formData.append('confirm_password', confirmPassword);
     formData.append('cnic', cnic);
-    formData.append('gender', gender);
     formData.append('contact_num', contactNum);
+    formData.append('gender', gender)
     if (profilePic) formData.append('profile_pic', profilePic);
 
+    // Add doctor-specific fields if signing up as a doctor
+    if (userType === 'doctor') {
+      formData.append('bio', bio);
+      formData.append('degree', degree);
+      formData.append('designation', designation);
+    }
+
     try {
-      const response = await fetch('http://localhost:8000/api/patients/', {
-        method: 'POST',
-        body: formData,
-      });
+      const response = await fetch(
+        userType === 'patient'
+          ? 'http://localhost:8000/api/patients/'
+          : 'http://localhost:8000/api/doctors/',
+        {
+          method: 'POST',
+          body: formData,
+        }
+      );
 
       if (response.ok) {
         setSuccess(true);
@@ -90,63 +107,77 @@ const MainSignUp = ({ closeForm }) => {
 
             {page === 1 && (
               <>
-                <input
-                  type="text"
-                  placeholder="First Name"
-                  className="w-full py-3 px-2 bg-gray-100 rounded-lg focus:ring focus:ring-blue-200"
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
-                  required
-                  aria-label="First Name"
-                />
+                {!userType && (
+                  <div className="space-y-3">
+                    <button
+                      type="button"
+                      className="bg-blue-500 text-white w-full py-2 rounded-lg hover:bg-blue-600"
+                      onClick={() => setUserType('patient')}
+                    >
+                      Sign Up as Patient
+                    </button>
 
-                <input
-                  type="text"
-                  placeholder="Last Name"
-                  className="w-full py-3 px-2 bg-gray-100 rounded-lg focus:ring focus:ring-blue-200"
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
-                  required
-                  aria-label="Last Name"
-                />
+                    <button
+                      type="button"
+                      className="bg-green-500 text-white w-full py-2 rounded-lg hover:bg-green-600"
+                      onClick={() => setUserType('doctor')}
+                    >
+                      Sign Up as Doctor
+                    </button>
+                  </div>
+                )}
 
-                <input
-                  type="email"
-                  placeholder="Email"
-                  className="w-full py-3 px-2 bg-gray-100 rounded-lg focus:ring focus:ring-blue-200"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  aria-label="Email"
-                />
+                {userType && (
+                  <>
+                    <input
+                      type="text"
+                      placeholder="First Name"
+                      className="w-full py-3 px-2 bg-gray-100 rounded-lg focus:ring focus:ring-blue-200"
+                      value={firstName}
+                      onChange={(e) => setFirstName(e.target.value)}
+                      required
+                      aria-label="First Name"
+                    />
 
-                <input
-                  type="text"
-                  placeholder="CNIC (e.g., 12345-6789012-3)"
-                  className="w-full py-3 px-2 bg-gray-100 rounded-lg focus:ring focus:ring-blue-200"
-                  value={cnic}
-                  onChange={(e) => setCnic(e.target.value)}
-                  required
-                  aria-label="CNIC"
-                />
+                    <input
+                      type="text"
+                      placeholder="Last Name"
+                      className="w-full py-3 px-2 bg-gray-100 rounded-lg focus:ring focus:ring-blue-200"
+                      value={lastName}
+                      onChange={(e) => setLastName(e.target.value)}
+                      required
+                      aria-label="Last Name"
+                    />
 
-                <input
-                  type="text"
-                  placeholder="Gender"
-                  className="w-full py-3 px-2 bg-gray-100 rounded-lg focus:ring focus:ring-blue-200"
-                  value={gender}
-                  onChange={(e) => setGender(e.target.value)}
-                  required
-                  aria-label="Gender"
-                />
+                    <input
+                      type="email"
+                      placeholder="Email"
+                      className="w-full py-3 px-2 bg-gray-100 rounded-lg focus:ring focus:ring-blue-200"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
+                      aria-label="Email"
+                    />
 
-                <button
-                  type="button"
-                  className="bg-blue-500 text-white w-full py-2 rounded-lg hover:bg-blue-600"
-                  onClick={() => setPage(2)}
-                >
-                  Next
-                </button>
+                    <input
+                      type="text"
+                      placeholder="CNIC (e.g., 12345-6789012-3)"
+                      className="w-full py-3 px-2 bg-gray-100 rounded-lg focus:ring focus:ring-blue-200"
+                      value={cnic}
+                      onChange={(e) => setCnic(e.target.value)}
+                      required
+                      aria-label="CNIC"
+                    />
+
+                    <button
+                      type="button"
+                      className="bg-blue-500 text-white w-full py-2 rounded-lg hover:bg-blue-600"
+                      onClick={() => setPage(2)}
+                    >
+                      Next
+                    </button>
+                  </>
+                )}
               </>
             )}
 
@@ -168,6 +199,49 @@ const MainSignUp = ({ closeForm }) => {
                   onChange={(e) => setProfilePic(e.target.files[0])}
                   aria-label="Profile Picture"
                 />
+
+                <input
+                      type="text"
+                      placeholder="Gender"
+                      className="w-full py-3 px-2 bg-gray-100 rounded-lg focus:ring focus:ring-blue-200"
+                      value={gender}
+                      onChange={(e) => setGender(e.target.value)}
+                      required
+                      aria-label="Gender"
+                />
+
+                {userType === 'doctor' && (
+                  <>
+                    <textarea
+                      placeholder="Bio"
+                      className="w-full py-3 px-2 bg-gray-100 rounded-lg focus:ring focus:ring-blue-200"
+                      value={bio}
+                      onChange={(e) => setBio(e.target.value)}
+                      required
+                      aria-label="Bio"
+                    />
+
+                    <input
+                      type="text"
+                      placeholder="Degree"
+                      className="w-full py-3 px-2 bg-gray-100 rounded-lg focus:ring focus:ring-blue-200"
+                      value={degree}
+                      onChange={(e) => setDegree(e.target.value)}
+                      required
+                      aria-label="Degree"
+                    />
+
+                    <input
+                      type="text"
+                      placeholder="Designation"
+                      className="w-full py-3 px-2 bg-gray-100 rounded-lg focus:ring focus:ring-blue-200"
+                      value={designation}
+                      onChange={(e) => setDesignation(e.target.value)}
+                      required
+                      aria-label="Designation"
+                    />
+                  </>
+                )}
 
                 <input
                   type="password"

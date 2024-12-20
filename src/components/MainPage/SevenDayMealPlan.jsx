@@ -40,7 +40,8 @@ const SevenDayMealPlan = () => {
       });
 
       if (!response.ok) {
-        throw new Error('Please Login Again');
+        const errorData = await response.json(); // Parse the error response
+        throw new Error(errorData.error);
       }
 
       const data = await response.json();
