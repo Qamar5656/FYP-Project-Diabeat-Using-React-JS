@@ -1,5 +1,7 @@
 import React from "react";
-import 'animate.css';
+import { Link } from "react-router-dom"; // Import Link for navigation
+import "animate.css";
+import About from "./MainAbout";
 
 const MainHome = () => {
   return (
@@ -20,8 +22,34 @@ const MainHome = () => {
             <p className="animate__animated animate__fadeIn animate__delay-1s mt-4 text-lg text-orange-400">
               Explore healthy meal options tailored just for you.
             </p>
+
+            {/* Link to Glycemic Load Calculator */}
+            <div className="mt-8">
+              <h2 className="text-xl text-white font-semibold">
+                Unlock Personalized Meal Insights for Better Health!
+              </h2>
+              <p className="mt-2 animate__animated animate__fadeIn animate__delay-1s text-orange-400">
+                Receive tailored dietary recommendations according to the
+                selected meal and portion size to maintain balanced blood sugar
+                levels.
+              </p>
+              <Link
+                to="/meal_insights" // Link to the GL Calculator component route
+                className="inline-block mt-4 px-6 py-2 text-lg font-medium text-white bg-blue-500 hover:bg-blue-600 rounded-lg shadow-md"
+              >
+                Discover Your Meal Insights
+              </Link>
+            </div>
           </div>
         </div>
+
+        {/* Bottom-Right Positioned Div */}
+        
+      </div>
+
+      {/* About Section */}
+      <div id="about">
+        <About />
       </div>
     </>
   );
