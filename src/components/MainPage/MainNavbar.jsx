@@ -2,16 +2,19 @@ import React, { useState } from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
 import MainHome from './MainHome';
+import MainAbout from './MainAbout'
 import SugarInputForm from './SugarInputForm';
 import SevenDayMealPlan from './SevenDayMealPlan';
 import MainSignUp from './MainSignUp';
 import MainServices from './MainServices';
+import GlycemicLoadRecommendations from './GlycemicLoadRecommendations';
 import Doctors from '../DoctorPortal/Doctors';
 import DoctorDetail from '../DoctorPortal/DoctorDetail';
 import App from '../../App';
 import MainLogin from './MainLogin';
 import PrivateRoute from '../PrivateRoutes';
 import LogoutButton from './Logout';
+
 
 const MainNavbar = () => {
   const [menu, setMenu] = useState(false);
@@ -45,7 +48,7 @@ const MainNavbar = () => {
 
   return (
     <>
-      <div className="fixed w-full z-10 ">
+      <div className="fixed w-full z-10">
         <div className='flex justify-around bg-gray-800 bg-opacity-75 p-5 shadow-lg'>
           <div>
             <Link to='/home' className='text-orange-400 text-2xl font-semibold cursor-pointer'>Diabeat</Link>
@@ -62,19 +65,21 @@ const MainNavbar = () => {
               to="/sugarlevel"
               className="hover:text-yellow-300 transition-all cursor-pointer"
             >
-             Get Meal Recommendation
+              Meal Recommendation
             </Link>
+            
+          
             <Link
               to="/services"
               className="hover:text-yellow-300 transition-all cursor-pointer"
             >
-              Services
+            Meal Suggestion
             </Link>
             <Link
               to="/app"
               className="hover:text-yellow-300 transition-all cursor-pointer"
             >
-              Doctors
+            Doctors
             </Link>
             <Link
               to="/weekplan"
@@ -124,11 +129,12 @@ const MainNavbar = () => {
             Home
           </Link>
           <Link
-            to="/sugarlevel"
-            className="hover:text-hoverColor transition-all cursor-pointer"
-            onClick={closeMenu}
+            to="aboutSection" // Targeting the ID of the MainAbout component
+            smooth={true} // Enable smooth scrolling
+            duration={500} // Duration of the scroll
+            className="text-white font-semibold text-lg cursor-pointer"
           >
-            Get Meal Recommendation
+            About
           </Link>
           <Link
             to="/services"
@@ -169,6 +175,7 @@ const MainNavbar = () => {
         <Route path='/sugarlevel' element={<SugarInputForm />} />
         <Route path='/weekplan' element={<SevenDayMealPlan />} />
         <Route path='/services' element={<MainServices />} />
+        <Route path='/meal_insights' element={<GlycemicLoadRecommendations />} />
       </Routes>
     </>
   );
