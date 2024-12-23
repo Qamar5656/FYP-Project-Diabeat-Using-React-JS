@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
+import { FaCheckCircle, FaExclamationTriangle } from 'react-icons/fa'; // Import icons
 import Aos from 'aos';
 import 'aos/dist/aos.css';
 
-const MainLogin = ({ closeForm }) => {
+const MainLogin = ({ closeForm, setIsLoggedIn }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [userType, setUserType] = useState('patient'); // Default to 'patient'
@@ -36,6 +37,7 @@ const MainLogin = ({ closeForm }) => {
         // Close form after a delay to show success message and animation
         setTimeout(() => {
           setSuccess(false);
+          setIsLoggedIn(true); // Set logged-in state to true in parent component
           closeForm();
         }, 2000);
       } else {
@@ -49,43 +51,33 @@ const MainLogin = ({ closeForm }) => {
 
   return (
     <div className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-50'>
-      <div className='absolute mt-12 text-black'>
-        <form className='w-80 md:w-96 space-y-5 bg-white p-5 rounded-xl relative' onSubmit={handleLogin}>
-          {/* Close Button */}
-          <button
-            type="button"
-            className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
-            onClick={closeForm}
-          >
-            &#x2715;
-          </button>
+      <div className='bg-white p-8 rounded-xl w-full sm:w-[400px] shadow-lg'>
+        <h2 className='text-2xl font-bold mb-6 text-center text-gray-700'>
+          Welcome Back!
+        </h2>
+        
+        {/* Success Message */}
+        {success && (
+          <div className='flex items-center justify-center mb-4'>
+            <FaCheckCircle className='text-green-500 text-3xl mr-2' />
+            <p className='text-green-500 font-semibold'>Login successful as {userType}</p>
+          </div>
+        )}
 
-          <h1 className='text-4xl font-semibold text-center text-backgroundColor'>Login</h1>
+        {/* Error Message */}
+        {errorMessage && (
+          <div className='flex items-center justify-center mb-4'>
+            <FaExclamationTriangle className='text-red-500 text-3xl mr-2' />
+            <p className='text-red-500 font-semibold'>{errorMessage}</p>
+          </div>
+        )}
 
-          {/* Success Message with Tick Animation */}
-          {success && (
-            <div className='text-center text-green-500 mt-3'>
-              <div className="flex items-center justify-center">
-                <svg className="w-8 h-8 text-green-500 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                </svg>
-                <p className="ml-2">Logged in Successfully as {userType}</p>
-              </div>
-            </div>
-          )}
-
-          {/* Error Message */}
-          {errorMessage && (
-            <div className="text-center text-red-500 mt-3">
-              <p>{errorMessage}</p>
-            </div>
-          )}
-
-          {/* User Type Selection (Doctor or Patient) */}
+        <form onSubmit={handleLogin} className="flex flex-col gap-4">
+          {/* User Type Selection */}
           <div className="flex flex-col">
-            <label className="mb-2">Select User Type</label>
+            <label className="mb-2 text-gray-600">Select User Type</label>
             <select
-              className="py-3 px-2 bg-[#d5f2ec] rounded-lg"
+              className="py-3 px-4 bg-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               value={userType}
               onChange={(e) => setUserType(e.target.value)}
               required
@@ -96,34 +88,43 @@ const MainLogin = ({ closeForm }) => {
           </div>
 
           {/* Email Field */}
-          <div className='flex flex-col'>
-            <input
-              type="email"
-              placeholder='Email'
-              className='py-3 px-2 bg-[#d5f2ec] rounded-lg'
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </div>
+          <input
+            type="email"
+            placeholder="Email"
+            className="p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
 
           {/* Password Field */}
-          <div className='flex flex-col'>
-            <input
-              type="password"
-              placeholder='Password'
-              className='py-3 px-2 bg-[#d5f2ec] rounded-lg'
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div>
+          <input
+            type="password"
+            placeholder="Password"
+            className="p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
 
           {/* Submit Button */}
-          <button type='submit' className='bg-backgroundColor text-white px-4 py-2 rounded-md hover:bg-yellow-300'>
-            Log In
+          <button
+            type="submit"
+            className="bg-blue-500 text-white py-3 rounded-md hover:bg-blue-600 transition duration-300 ease-in-out mt-4"
+          >
+            Login
           </button>
         </form>
+
+        {/* Cancel Button */}
+        <div className="text-center mt-6">
+          <button
+            onClick={closeForm}
+            className="text-gray-500 hover:text-gray-700 transition-all text-sm"
+          >
+            Cancel
+          </button>
+        </div>
       </div>
     </div>
   );
