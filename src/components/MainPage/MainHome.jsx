@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom"; // Import Link for navigation
 import "animate.css";
 import About from "./MainAbout";
+import Logout from "./Logout";
 
 const MainHome = () => {
   return (
@@ -50,6 +51,9 @@ const MainHome = () => {
       {/* About Section */}
       <div id="about">
         <About />
+      </div>
+      <div id="about">
+        <Logout />
       </div>
     </>
   );
