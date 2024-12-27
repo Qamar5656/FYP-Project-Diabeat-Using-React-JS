@@ -8,13 +8,15 @@ import SevenDayMealPlan from './SevenDayMealPlan';
 import MainSignUp from './MainSignUp';
 import MainServices from './MainServices';
 import GlycemicLoadRecommendations from './GlycemicLoadRecommendations';
-import Doctors from '../DoctorPortal/Doctors';
-import DoctorDetail from '../DoctorPortal/DoctorDetail';
+// import Doctors from '../DoctorPortal/Doctors';
+// import DoctorDetail from '../DoctorPortal/DoctorDetail';
+import Appointment from './DoctorAppointment/Appointment';
 
 import App from '../../App';
 import MainLogin from './MainLogin';
-// import Doctors from './DoctorAppointment/Doctors';
-// import DoctorDetail from './DoctorAppointment/DoctorDetail'
+import Doctors from './DoctorAppointment/Doctors';
+import DoctorDetail from './DoctorAppointment/DoctorDetail'
+import Messages from '../DoctorPortal/Messages';
 
 
 const MainNavbar = () => {
@@ -113,7 +115,7 @@ const MainNavbar = () => {
               Meal Suggestion
             </Link>
             <Link
-              to="/app"
+              to="/doctors"
               className="hover:text-yellow-300 transition-all cursor-pointer"
             >
               Doctors
@@ -224,6 +226,8 @@ const MainNavbar = () => {
         <Route path='/weekplan' element={<SevenDayMealPlan />} />
         <Route path='/services' element={<MainServices />} />
         <Route path='/meal_insights' element={<GlycemicLoadRecommendations />} />
+        <Route path='/appointment' element={<Appointment />} />
+        <Route path="/ws/appointments/:doctorId/:patientId/messages" element={<Messages/>} />
       </Routes>
     </>
   );

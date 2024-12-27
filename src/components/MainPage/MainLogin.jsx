@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { FaCheckCircle, FaExclamationTriangle } from 'react-icons/fa'; // Import icons
+import { FaCheckCircle, FaExclamationTriangle } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 import Aos from 'aos';
 import 'aos/dist/aos.css';
 
@@ -9,6 +10,7 @@ const MainLogin = ({ closeForm, setIsLoggedIn }) => {
   const [userType, setUserType] = useState('patient'); // Default to 'patient'
   const [success, setSuccess] = useState(false); // Track successful login
   const [errorMessage, setErrorMessage] = useState(''); // Track error messages
+  const navigate = useNavigate(); // Hook to handle redirection
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -24,9 +26,12 @@ const MainLogin = ({ closeForm, setIsLoggedIn }) => {
 
       if (response.ok) {
         const data = await response.json();
-        // Save access token to localStorage
+        
+        // Save tokens, user_id, and user_type to localStorage
         localStorage.setItem('access_token', data.access);
         localStorage.setItem('refresh_token', data.refresh);
+        localStorage.setItem('user_id', data.user_id);
+        localStorage.setItem('user_type', data.user_type);
 
         // Show success message
         setSuccess(true);
@@ -39,6 +44,13 @@ const MainLogin = ({ closeForm, setIsLoggedIn }) => {
           setSuccess(false);
           setIsLoggedIn(true); // Set logged-in state to true in parent component
           closeForm();
+
+          // Redirect based on userType
+          if (data.user_type === 'doctor') {
+            navigate('/app'); // Redirect doctor to /app
+          } else {
+            navigate('/services'); // Redirect patient to their dashboard (replace with actual patient route)
+          }
         }, 2000);
       } else {
         const errorData = await response.json();
