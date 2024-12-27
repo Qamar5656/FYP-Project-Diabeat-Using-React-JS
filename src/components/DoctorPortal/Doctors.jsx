@@ -1,29 +1,31 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
-const Doctors = () => {
-  const [doctors, setDoctors] = useState([]);
+const DoctorPortal = () => {
+  const [patients, setPatients] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const slider = useRef(null);
+
+  const doctorId = localStorage.getItem('user_id'); // This should be dynamically fetched based on the logged-in doctor
 
   useEffect(() => {
-    const fetchDoctors = async () => {
+    const fetchPatients = async () => {
       try {
-        const response = await fetch("http://localhost:8000/api/doctors/", {
+        const response = await fetch(`http://localhost:8000/ws/doctors/${doctorId}/patients/`, {
           headers: {
             "Content-Type": "application/json",
           },
         });
         if (!response.ok) {
-          throw new Error("Failed to fetch doctors");
+          throw new Error("Failed to fetch patients");
         }
         const data = await response.json();
-        setDoctors(data);
+
+        if (data.patients && Array.isArray(data.patients)) {
+          setPatients(data.patients);
+        } else {
+          setError("Invalid response format");
+        }
         setLoading(false);
       } catch (err) {
         setError(err.message);
@@ -31,28 +33,13 @@ const Doctors = () => {
       }
     };
 
-    fetchDoctors();
-  }, []);
-
-  const settings = {
-    accessibility: true,
-    dots: true,
-    infinite: true,
-    speed: 500,
-    arrows: false,
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    responsive: [
-      { breakpoint: 1023, settings: { slidesToShow: 3, slidesToScroll: 1 } },
-      { breakpoint: 768, settings: { slidesToShow: 2, slidesToScroll: 2 } },
-      { breakpoint: 480, settings: { slidesToShow: 1, slidesToScroll: 1 } },
-    ],
-  };
+    fetchPatients();
+  }, [doctorId]);
 
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-screen">
-        <p>Loading doctors...</p>
+        <p>Loading patients...</p>
       </div>
     );
   }
@@ -66,58 +53,33 @@ const Doctors = () => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col justify-center lg:px-32 px-5 pt-16">
-      <div className="flex flex-col items-center lg:flex-row justify-between mb-10 lg:mb-0">
-        <div>
-          <h1 className="text-4xl font-semibold text-center lg:text-start">
-            Our Doctors
-          </h1>
-          <p className="mt-2 text-center lg:text-start">
-            Connect with our talented doctors
-          </p>
-        </div>
-        <div className="flex gap-5 mt-4 lg:mt-0">
-          <button
-            className="bg-[#d5f2ec] text-backgroundColor px-4 py-2 rounded-lg active:bg-[#ade9dc]"
-            onClick={() => slider.current.slickPrev()}
-          >
-            <FaArrowLeft size={25} />
-          </button>
-          <button
-            className="bg-[#d5f2ec] text-backgroundColor px-4 py-2 rounded-lg active:bg-[#ade9dc]"
-            onClick={() => slider.current.slickNext()}
-          >
-            <FaArrowRight size={25} />
-          </button>
-        </div>
-      </div>
+    <div className="min-h-screen flex flex-col justify-center px-5 pt-16">
+      <h1 className="text-4xl font-semibold text-center">Patients Who Messaged You</h1>
+      <p className="mt-2 text-center">Click on "See Message" to view messages.</p>
       <div className="mt-5">
-        <Slider ref={slider} {...settings}>
-          {doctors.map((doctor) => (
-            <Link
-              to={`/doctor/${doctor.id}`} // Dynamic Link
-              key={doctor.id}
-              className="h-[350px] text-black rounded-xl shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px] mb-2 cursor-pointer"
-            >
-              <div>
-                <img
-                  src={doctor.profile_pic || "/src/assets/img/default-doctor.jpg"}
-                  alt={doctor.first_name}
-                  className="h-56 rounded-t-xl w-full object-cover"
-                />
-              </div>
-              <div className="flex flex-col justify-center items-center">
-                <h1 className="font-semibold text-xl pt-4">
-                  {doctor.first_name} {doctor.last_name}
-                </h1>
-                <h3 className="pt-2">{doctor.designation}</h3>
-              </div>
-            </Link>
-          ))}
-        </Slider>
+        {patients.length === 0 ? (
+          <p>No patients have messaged you yet.</p>
+        ) : (
+          <ul className="space-y-4">
+            {patients.map((patient) => (
+              <li key={patient.id} className="flex justify-between items-center border-b py-2">
+                <div>
+                  <p className="font-medium">{patient.name}</p>
+                  <p className="text-sm text-gray-500">{patient.email}</p>
+                </div>
+                <Link
+                  to={`/ws/appointments/${doctorId}/${patient.id}/messages/`}
+                  className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"
+                >
+                  See Message
+                </Link>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </div>
   );
 };
 
-export default Doctors;
+export default DoctorPortal;

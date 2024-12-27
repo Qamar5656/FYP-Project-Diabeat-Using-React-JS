@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import 'animate.css'; // Import Animate.css
+import Appointment from './Appointment' // Import the Appointment component
 
 const DoctorDetail = () => {
   const { id } = useParams(); // Get doctor id from the URL
   const [doctor, setDoctor] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  const [showAppointment, setShowAppointment] = useState(false); // Track whether the appointment component should be shown
+  const patientId = localStorage.getItem('user_id');
+  
   useEffect(() => {
     const fetchDoctor = async () => {
       try {
@@ -30,6 +33,10 @@ const DoctorDetail = () => {
 
     fetchDoctor();
   }, [id]);
+
+  const handleAppointmentClick = () => {
+    setShowAppointment(true); // Show the appointment section when clicked
+  };
 
   if (loading) return <div className="text-center text-xl text-orange-600">Loading...</div>;
   if (error) return <div className="text-center text-xl text-red-600">{error}</div>;
@@ -65,15 +72,22 @@ const DoctorDetail = () => {
           </p>
         </div>
 
-        {/* "Connect with Me" Button */}
-        <div className="mt-8 flex justify-center">
-          <a
-            // href={`mailto:${doctor.email}`} // Link to send an email to the doctor
-            className="px-6 py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-all animate__animated animate__zoomIn animate__delay-5s"
-          >
-            Connect with Me
-          </a>
-        </div>
+        {/* Appointment Button */}
+        {!showAppointment && (
+          <div className="mt-8 flex justify-center">
+            <button
+              onClick={handleAppointmentClick}
+              className="px-6 py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-all animate__animated animate__zoomIn animate__delay-s"
+            >
+              Let's Connect
+            </button>
+          </div>
+        )}
+
+        {/* Show Appointment Section */}
+        {showAppointment && (
+          <Appointment doctorId={id} patientId={patientId} />
+        )}
       </div>
     </div>
   );
