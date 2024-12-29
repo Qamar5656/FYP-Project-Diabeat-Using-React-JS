@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom"; // Import Link for navigation
 import "animate.css";
 import About from "./MainAbout";
-import Logout from "./Logout";
 
 const MainHome = () => {
   return (
@@ -15,7 +14,7 @@ const MainHome = () => {
         ></div>
 
         {/* Content on Top of the Background */}
-        <div className="relative z-10 px-10 flex items-start">
+        <div className="relative z-3 px-10 flex items-start">
           <div className="bg-gray-800 bg-opacity-75 p-6 rounded-lg shadow-lg max-w-md transition-transform transform hover:scale-105 hover:shadow-xl duration-300 ease-in-out">
             <h1 className="text-3xl font-bold text-white">
               Welcome to Your Diabeat.
@@ -51,9 +50,6 @@ const MainHome = () => {
       {/* About Section */}
       <div id="about">
         <About />
-      </div>
-      <div id="about">
-        <Logout />
       </div>
     </>
   );

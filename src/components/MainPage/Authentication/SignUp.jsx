@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Aos from 'aos';
 import 'aos/dist/aos.css';
 
-const MainSignUp = ({ closeForm }) => {
+const SignUp = ({ closeForm }) => {
   const [userType, setUserType] = useState(''); // New state for user type
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -288,4 +288,4 @@ const MainSignUp = ({ closeForm }) => {
   );
 };
 
-export default MainSignUp;
+export default SignUp;
