@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Aos from 'aos';
 import 'aos/dist/aos.css';
 
-const MainLogin = ({ closeForm, setIsLoggedIn }) => {
+const Login = ({ closeForm, setIsLoggedIn }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [userType, setUserType] = useState('patient'); // Default to 'patient'
@@ -26,11 +26,11 @@ const MainLogin = ({ closeForm, setIsLoggedIn }) => {
 
       if (response.ok) {
         const data = await response.json();
-        
         // Save tokens, user_id, and user_type to localStorage
         localStorage.setItem('access_token', data.access);
         localStorage.setItem('refresh_token', data.refresh);
         localStorage.setItem('user_id', data.user_id);
+        localStorage.setItem('first_name', data.first_name);
         localStorage.setItem('user_type', data.user_type);
 
         // Show success message
@@ -49,7 +49,7 @@ const MainLogin = ({ closeForm, setIsLoggedIn }) => {
           if (data.user_type === 'doctor') {
             navigate('/app'); // Redirect doctor to /app
           } else {
-            navigate('/services'); // Redirect patient to their dashboard (replace with actual patient route)
+            navigate('/home'); // Redirect patient to their dashboard (replace with actual patient route)
           }
         }, 2000);
       } else {
@@ -62,8 +62,8 @@ const MainLogin = ({ closeForm, setIsLoggedIn }) => {
   };
 
   return (
-    <div className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-50'>
-      <div className='bg-white p-8 rounded-xl w-full sm:w-[400px] shadow-lg'>
+    <div className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 '>
+      <div className='bg-white p-8 rounded-xl w-full sm:w-[400px] shadow-lg '>
         <h2 className='text-2xl font-bold mb-6 text-center text-gray-700'>
           Welcome Back!
         </h2>
@@ -142,4 +142,4 @@ const MainLogin = ({ closeForm, setIsLoggedIn }) => {
   );
 };
 
-export default MainLogin;
+export default Login;

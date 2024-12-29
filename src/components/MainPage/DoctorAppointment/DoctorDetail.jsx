@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import 'animate.css'; // Import Animate.css
-import Appointment from './Appointment' // Import the Appointment component
+import Appointment from './Appointment'; // Import the Appointment component
 
 const DoctorDetail = () => {
   const { id } = useParams(); // Get doctor id from the URL
@@ -9,6 +9,21 @@ const DoctorDetail = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showAppointment, setShowAppointment] = useState(false); // Track whether the appointment component should be shown
+  
+  // Get access token from localStorage
+  const accessToken = localStorage.getItem('access_token');
+  
+  // Redirect to login page if there's no access token
+  if (!accessToken) {
+    return (
+      <div className="flex justify-center items-center min-h-screen bg-gray-100">
+        <div className="text-center text-xl text-gray-700">
+          <p className="animate__animated animate__zoomIn">Please Login to connect with me</p>
+        </div>
+      </div>
+    );
+  }
+
   const patientId = localStorage.getItem('user_id');
   
   useEffect(() => {
@@ -17,6 +32,7 @@ const DoctorDetail = () => {
         const response = await fetch(`http://localhost:8000/api/doctors/${id}/`, {
           headers: {
             "Content-Type": "application/json",
+            "Authorization": `Bearer ${accessToken}`, // Pass the token in the headers
           },
         });
         if (!response.ok) {
@@ -32,7 +48,7 @@ const DoctorDetail = () => {
     };
 
     fetchDoctor();
-  }, [id]);
+  }, [id, accessToken]); // Fetch doctor details when `id` or `accessToken` changes
 
   const handleAppointmentClick = () => {
     setShowAppointment(true); // Show the appointment section when clicked
