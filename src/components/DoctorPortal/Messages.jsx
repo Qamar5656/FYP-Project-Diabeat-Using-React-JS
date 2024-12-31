@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useParams } from 'react-router-dom'; 
+import { useParams } from 'react-router-dom';
 
 const PatientMessages = () => {
   const { patientId } = useParams();
@@ -9,12 +9,27 @@ const PatientMessages = () => {
   const [isMessagesVisible, setIsMessagesVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [patientDetails, setPatientDetails] = useState(null);
   const messageInputRef = useRef(null);
   const messagesEndRef = useRef(null);
 
   const socket = useRef(null);
+  const doctorId = localStorage.getItem('user_id');
 
-  const doctorId = localStorage.getItem('user_id')
+  const fetchPatientDetails = async () => {
+    try {
+      const response = await fetch(`http://localhost:8000/api/patients/${patientId}/`);
+      if (!response.ok) {
+        throw new Error(`Error fetching patient details: ${response.status}`);
+      }
+      const data = await response.json();
+      console.log(data);
+      setPatientDetails(data);
+    } catch (err) {
+      console.error(err.message);
+      setError(err.message);
+    }
+  };
 
   const fetchMessages = async () => {
     setIsLoading(true);
@@ -24,7 +39,6 @@ const PatientMessages = () => {
         throw new Error(`Error: ${response.status}`);
       }
       const data = await response.json();
-      console.log('Fetched messages:', data);
       setMessages(data);
       setIsLoading(false);
     } catch (err) {
@@ -41,7 +55,6 @@ const PatientMessages = () => {
     };
     socket.current.onmessage = (event) => {
       const data = JSON.parse(event.data);
-      console.log('WebSocket message:', data);
       setMessages((prevMessages) => [
         ...prevMessages,
         {
@@ -79,6 +92,10 @@ const PatientMessages = () => {
   };
 
   useEffect(() => {
+    fetchPatientDetails();
+  }, [patientId]);
+
+  useEffect(() => {
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
     }
@@ -95,6 +112,19 @@ const PatientMessages = () => {
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
       <div className="w-full max-w-md bg-white p-6 rounded-lg shadow-md">
+        {patientDetails && (
+          <div className="flex items-center mb-6">
+            <img
+              src={patientDetails.profile_pic}
+              alt={`${patientDetails.first_name} ${patientDetails.last_name}`}
+              className="w-40 h-40 rounded-full object-cover border-4 border-gray-200"
+            />
+            <div>
+              <h2 className="text-3xl font-semibold text-gray-800">{`${patientDetails.first_name} ${patientDetails.last_name}`}</h2>
+              <p className="text-gray-500">{patientDetails.email}</p>
+            </div>
+          </div>
+        )}
         {!isMessagesVisible ? (
           <button
             onClick={handleShowMessages}
