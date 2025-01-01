@@ -105,7 +105,7 @@ const SevenDayMealPlan = () => {
   return (
     <div className="w-full min-h-screen flex flex-col justify-center items-center px-5 lg:px-32 text-center bg-[url('assets/img/foodimg.jpeg')] bg-no-repeat bg-cover">
       <div className="absolute inset-0 bg-black bg-opacity-40"></div>
-      <div className="relative z-20 text-white">
+      <div className="relative z-0 text-white">
         <div className="mb-6">
           <p className="text-lg mt-10 animate__animated animate__bounceInDown">
             Diabetes is a condition that affects how your body processes blood sugar (glucose)

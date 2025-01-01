@@ -3,6 +3,7 @@ import { FaCheckCircle, FaExclamationTriangle } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import Aos from 'aos';
 import 'aos/dist/aos.css';
+import SignUp from './SignUp';
 
 const Login = ({ closeForm, setIsLoggedIn }) => {
   const [email, setEmail] = useState('');
@@ -11,6 +12,11 @@ const Login = ({ closeForm, setIsLoggedIn }) => {
   const [success, setSuccess] = useState(false); // Track successful login
   const [errorMessage, setErrorMessage] = useState(''); // Track error messages
   const navigate = useNavigate(); // Hook to handle redirection
+  const [showSignUp, setShowSignUp] = useState(false); // State to control sign-up form visibility
+
+  const handleSignUpClick = () => {
+    setShowSignUp(true); // Show the sign-up form when the button is clicked
+  };
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -119,6 +125,8 @@ const Login = ({ closeForm, setIsLoggedIn }) => {
             required
           />
 
+          <h3>Don't have an account? <button className='text-black underline' onClick={handleSignUpClick}>Sign Up</button></h3>
+
           {/* Submit Button */}
           <button
             type="submit"
@@ -126,6 +134,8 @@ const Login = ({ closeForm, setIsLoggedIn }) => {
           >
             Login
           </button>
+          {/* Conditionally render SignUp form */}
+          {showSignUp && <SignUp />}
         </form>
 
         {/* Cancel Button */}

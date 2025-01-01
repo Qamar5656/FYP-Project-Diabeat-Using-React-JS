@@ -99,26 +99,26 @@ const SugarInputForm = () => {
   };
 
   return (
-    <div
-      className={`w-full h-screen flex lg:flex-row flex-col justify-center px-5 text-center bg-[url('assets/img/diabetes.jpg')] bg-no-repeat bg-cover opacity-90 relative transition-all duration-300 `}
-    >
+    <>
+    <div className={`w-full h-screen sm:h-lvh flex lg:flex-row flex-col justify-center px-5 text-center 
+              bg-[url('assets/img/diabetes.jpg')] bg-no-repeat sm:bg-cover lg:bg-cover opacity-90 transition-all duration-300`}>
       {/* Semi-Transparent Overlay */}
       <div className="absolute inset-0 bg-black bg-opacity-50"></div>
 
       {/* Left Side Welcome Text */}
-      <div className="lg:w-1/3 w-full text-white flex flex-col justify-center items-start px-5">
-        <p className="animate__animated animate__fadeIn animate__delay-1s mt-20">
-          Simply enter your sugar level, choose the time of day (e.g., fasting, post-meal), and select your meal 
-        </p>
-        <p className=' font-semibold animate__animated animate__heartBeat text-gray-900'>
-          Based on this information, we’ll recommend meals that suit your condition and help you maintain healthy sugar levels.
-        </p>
+      <div className="lg:w-2.5/3 w-full text-white md:ml-4 flex flex-col justify-center items-start px-5 md:mt-40 sm:mt-52  mt lg:mt-0 font-roboto">
+      <p className="animate__animated font-semibold animate__fadeIn animate__delay-1s mt-0 text-2xl">
+        Simply enter your sugar level, choose the time of day (e.g., fasting, post-meal), and select your meal 
+      </p>
+      <p className="font-semibold animate__animated animate__heartBeat text-white mt-3 text-xl">
+        Based on this information, we’ll recommend meals that suit your condition and help you maintain healthy sugar levels.
+      </p>
       </div>
 
       {/* Content */}
       <div className="relative z-10 lg:w-2/3 w-full text-white">
         {/* Animated Welcome Text */}
-        <h2 className="text-2xl font-bold mb-4 animate__animated animate__bounceInLeft mt-28">
+        <h2 className="text-2xl font-bold mb-4 animate__animated animate__bounceInLeft lg:mt-28 md:mt-8 sm:mt-3">
           Enter Sugar Level and Meal
         </h2>
 
@@ -163,12 +163,12 @@ const SugarInputForm = () => {
               required
               className="w-full sm:w-96 bg-gray-800 text-white border-2 border-gray-400 rounded-md p-2 focus:outline-none focus:ring focus:ring-blue-500"
               placeholder="Enter the meal name"
-            />
+              />
           </div>
 
           <button
             type="submit"
-            className="w-full sm:w-80 bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700"
+            className="lg:w-96 md:w-96 w-full sm:w-96 bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700"
           >
             Submit
           </button>
@@ -180,8 +180,8 @@ const SugarInputForm = () => {
             handleFetchMeals();
             setIsModalOpen(true); // Open the modal
           }}
-          className="w-full sm:w-80 bg-green-600 text-white py-2 rounded-md hover:bg-green-700 mt-4"
-        >
+          className="lg:w-96 md:w-96 w-full sm:w-96 bg-green-600 text-white py-2 rounded-md hover:bg-green-700 mt-4"
+          >
           View Meal List
         </button>
 
@@ -232,6 +232,7 @@ const SugarInputForm = () => {
         )}
       </div>
     </div>
+  </>
   );
 };
 

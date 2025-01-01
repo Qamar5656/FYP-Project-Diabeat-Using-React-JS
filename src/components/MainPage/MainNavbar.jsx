@@ -81,7 +81,7 @@ const MainNavbar = () => {
   return (
     <>
       <div className="fixed w-full z-10">
-        <div className="flex justify-between items-center bg-gray-800 bg-opacity-75 p-5 shadow-lg">
+        <div className="flex justify-between items-center bg-gray-800 bg-opacity-95 p-5 shadow-lg">
           <div>
             <Link to='/home' className='text-orange-400 text-2xl font-semibold cursor-pointer'>Diabeat</Link>
           </div>
@@ -113,48 +113,74 @@ const MainNavbar = () => {
 
           {/* Mobile Menu Toggle */}
           <div className="lg:hidden flex items-center cursor-pointer text-white">
-            {menu ? (
-              <AiOutlineClose
-                size={28}
-                onClick={handleMenuToggle}
-                className="text-white opacity-80 hover:opacity-100 transition duration-300"
-              />
-            ) : (
-              <AiOutlineMenu
-                size={28}
-                onClick={handleMenuToggle}
-                className="text-white opacity-80 hover:opacity-100 transition duration-300"
-              />
-            )}
-          </div>
-
-
+          {menu ? (
+          <AiOutlineClose
+            size={28}
+            onClick={handleMenuToggle}
+            className="text-white opacity-80 hover:opacity-100 transition duration-300"
+          />
+        ) : (
+          <AiOutlineMenu
+            size={28}
+            onClick={handleMenuToggle}
+            className="text-white opacity-80 hover:opacity-100 transition duration-300"
+          />
+        )}
+      </div>
         </div>
 
         {/* Mobile Menu */}
-        {menu && (
-          <div className="lg:hidden absolute top-0 left-0 right-0 bg-gray-800 bg-opacity-75 p-5 z-50">
-            <nav className="flex flex-col items-center text-white">
-              {userType !== 'doctor' && (
-                <>
-                  <Link to="/home" className="hover:text-yellow-300 transition-all py-2" onClick={handleMenuToggle}>Home</Link>
-                  <Link to="/sugarlevel" className="hover:text-yellow-300 transition-all py-2" onClick={handleMenuToggle}>Meal Recommendation</Link>
-                  <Link to="/services" className="hover:text-yellow-300 transition-all py-2" onClick={handleMenuToggle}>Meal Suggestion</Link>
-                  <Link to="/doctors" className="hover:text-yellow-300 transition-all py-2" onClick={handleMenuToggle}>Doctors</Link>
-                  <Link to="/weekplan" className="hover:text-yellow-300 transition-all py-2" onClick={handleMenuToggle}>Generate Meal Plan</Link>
-                </>
-              )}
-              {!isLoggedIn ? (
-                <>
-                  <button className="bg-brightColor text-white px-4 py-2 rounded-md hover:bg-yellow-300 transition duration-300 ease-in-out mt-4" onClick={openSignUpForm}>Sign Up</button>
-                  <button className="bg-brightColor text-white px-4 py-2 rounded-md hover:bg-yellow-300 transition duration-300 ease-in-out mt-2" onClick={openLoginForm}>Log In</button>
-                </>
-              ) : (
-                <button className="bg-brightColor text-white px-4 py-2 rounded-md hover:bg-yellow-300 transition duration-300 ease-in-out mt-4" onClick={handleLogoutConfirmation}>Log Out</button>
-              )}
-            </nav>
-          </div>
-        )}
+        <div
+        className={`lg:hidden flex flex-col items-center py-5 absolute bg-gray-800 text-white left-0 z-50 top-16 w-full transition-transform duration-300 ${
+          menu ? "translate-x-0" : "-translate-x-full"
+        }`}
+        >
+            {/* Links for Non-Doctor Users */}
+            {userType !== 'doctor' && (
+              <>
+                <Link to="/home" className="py-2 font-bold hover:text-yellow-300" onClick={() => setMenu(false)}>
+                  Home
+                </Link>
+                <Link to="/services" className="py-2 font-bold hover:text-yellow-300" onClick={() => setMenu(false)}>
+                  Meal Suggestion
+                </Link>
+                <Link to="/sugarlevel" className="py-2 font-bold hover:text-yellow-300" onClick={() => setMenu(false)}>
+                  Meal Recommendation
+                </Link>
+                <Link to="/weekplan" className="py-2 font-bold hover:text-yellow-300" onClick={() => setMenu(false)}>
+                  Generate Meal Plan
+                </Link>
+                <Link to="/app" className="py-2 font-bold hover:text-yellow-300" onClick={() => setMenu(false)}>
+                  Doctors
+                </Link>
+              </>
+            )}
+
+            {/* Authentication Buttons */}
+            {!isLoggedIn ? (
+              <>
+                <button
+                  className="bg-brightColor text-white px-4 py-2 rounded-md hover:bg-yellow-300 transition duration-300 ease-in-out mt-4 sm:hidden md:hidden lg:block"
+                  onClick={openSignUpForm}
+                >
+                  Sign Up
+                </button>
+                <button
+                  className="bg-brightColor text-white px-4 py-2 rounded-md hover:bg-yellow-300 transition duration-300 ease-in-out mt-2 sm:hidden md:hidden lg:block"
+                  onClick={openLoginForm}
+                >
+                  Log In
+                </button>
+              </>
+            ) : (
+              <button
+                className="bg-brightColor text-white px-4 py-2 rounded-md hover:bg-yellow-300 transition duration-300 ease-in-out mt-4"
+                onClick={handleLogoutConfirmation}
+              >
+                Log Out
+              </button>
+            )}
+        </div>
 
         {/* Show Forms Conditionally */}
         {showSignUpForm && <SignUp closeForm={closeSignUpForm} />}
