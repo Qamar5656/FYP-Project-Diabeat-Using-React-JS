@@ -10,8 +10,12 @@ export default {
         hoverColors: "#FFC000",
         brightColor: "#dd8036",
         backgroundColor: "#36ae9a"
-      }
+      },
+      extend: {
+        fontFamily: {
+          roboto: ['Roboto', 'sans-serif'],
+        },
     },
   },
   plugins: [],
-}
+},}
