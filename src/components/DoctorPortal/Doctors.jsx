@@ -1,19 +1,27 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const DoctorPortal = () => {
   const [patients, setPatients] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const doctorId = localStorage.getItem('user_id'); // This should be dynamically fetched based on the logged-in doctor
+  const navigate = useNavigate();
+  const doctorId = localStorage.getItem("user_id"); // This should be dynamically fetched based on the logged-in doctor
+  const accessToken = localStorage.getItem("access_token"); // Fetch the access token
 
   useEffect(() => {
+    if (!accessToken) {
+      navigate("/home");
+      return;
+    }
+
     const fetchPatients = async () => {
       try {
         const response = await fetch(`http://localhost:8000/ws/doctors/${doctorId}/patients/`, {
           headers: {
             "Content-Type": "application/json",
+
           },
         });
         if (!response.ok) {
@@ -34,7 +42,7 @@ const DoctorPortal = () => {
     };
 
     fetchPatients();
-  }, [doctorId]);
+  }, [accessToken, doctorId, navigate]);
 
   if (loading) {
     return (

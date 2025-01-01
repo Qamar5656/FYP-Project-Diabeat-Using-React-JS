@@ -38,6 +38,7 @@ const Login = ({ closeForm, setIsLoggedIn }) => {
         localStorage.setItem('user_id', data.user_id);
         localStorage.setItem('first_name', data.first_name);
         localStorage.setItem('user_type', data.user_type);
+        window.location.reload(); // This will refresh the page
 
         // Show success message
         setSuccess(true);
