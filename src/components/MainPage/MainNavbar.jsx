@@ -52,8 +52,11 @@ const MainNavbar = () => {
       if (response.ok) {
         localStorage.removeItem('access_token');
         localStorage.removeItem('refresh_token');
+        localStorage.removeItem('user_type');
+        localStorage.removeItem('first_name');
         setIsLoggedIn(false);
         navigate('/home');
+        window.location.reload()
       } else {
         console.error('Logout failed:', response.statusText);
         alert('Failed to log out. Please try again.');
@@ -95,6 +98,23 @@ const MainNavbar = () => {
                 <Link to="/services" className="hover:text-yellow-300 transition-all cursor-pointer">Meal Suggestion</Link>
                 <Link to="/doctors" className="hover:text-yellow-300 transition-all cursor-pointer">Doctors</Link>
                 <Link to="/weekplan" className="hover:text-yellow-300 transition-all cursor-pointer">Generate Meal Plan</Link>
+              </>
+            )}
+            {userType === 'doctor' && (
+              <>
+                <button
+                  className="py-2 font-bold hover:text-yellow-300"
+                  onClick={() => {
+                    if (!isLoggedIn) {
+                      alert("Please log in to access Patient Appointments."); // Or show a modal
+                    } else {
+                      navigate("/app"); // Navigate only if the user is logged in
+                      setMenu(false);   // Close the menu
+                    }
+                  }}
+                >
+                  Patient Appointments
+                </button>
               </>
             )}
           </nav>
@@ -150,11 +170,30 @@ const MainNavbar = () => {
                 <Link to="/weekplan" className="py-2 font-bold hover:text-yellow-300" onClick={() => setMenu(false)}>
                   Generate Meal Plan
                 </Link>
-                <Link to="/app" className="py-2 font-bold hover:text-yellow-300" onClick={() => setMenu(false)}>
+                <Link to="/doctors" className="py-2 font-bold hover:text-yellow-300" onClick={() => setMenu(false)}>
                   Doctors
                 </Link>
               </>
             )}
+
+             {userType === 'doctor' && (
+              <>
+                <button
+                  className="py-2 font-bold hover:text-yellow-300"
+                  onClick={() => {
+                    if (!isLoggedIn) {
+                      alert("Please log in to access Patient Appointments."); // Or show a modal
+                    } else {
+                      navigate("/app"); // Navigate only if the user is logged in
+                      setMenu(false);   // Close the menu
+                    }
+                  }}
+                >
+                  Patient Appointments
+                </button>
+              </>
+            )}
+
 
             {/* Authentication Buttons */}
             {!isLoggedIn ? (
