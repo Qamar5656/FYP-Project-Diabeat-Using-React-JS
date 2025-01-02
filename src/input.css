@@ -12,4 +12,22 @@ body{
 .slick-slide > div {
   margin: 0 10px;
 }
+/* Custom Tailwind-based styles for the slick buttons */
+.slick-prev{
+  background-color: #000; /* Background color */
+  color: green; /* Text color */
+  padding: 10px; /* Padding around the button */
+  border-radius: 50%; /* To make the buttons round */
+}
+.slick-next {
+  background-color: #000; /* Background color */
+  color: #fff; /* Text color */
+  padding: 10px; /* Padding around the button */
+  border-radius: 50%; /* To make the buttons round */
+}
 
+.slick-prev:hover,
+.slick-next:hover {
+  background-color: #ff6347; /* Change background color on hover */
+  color: #fff; /* Text color on hover */
+}

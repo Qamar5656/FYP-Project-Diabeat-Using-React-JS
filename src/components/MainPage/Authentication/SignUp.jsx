@@ -94,7 +94,7 @@ const SignUp = ({ closeForm }) => {
           >
             <button
               type="button"
-              className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
+              className="absolute top-4 font-bold text-3xl right-6 text-gray-500 hover:text-gray-700"
               onClick={closeForm}
               aria-label="Close Sign-Up Form"
             >

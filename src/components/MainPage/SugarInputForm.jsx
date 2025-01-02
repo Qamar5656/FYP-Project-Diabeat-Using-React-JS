@@ -100,7 +100,7 @@ const SugarInputForm = () => {
 
   return (
     <>
-    <div className={`w-full h-screen sm:h-lvh flex lg:flex-row flex-col justify-center px-5 text-center 
+    <div className={`w-full min-h-screen overflow-hidden sm:h-lvh flex lg:flex-row flex-col justify-center px-5 text-center 
               bg-[url('assets/img/diabetes.jpg')] bg-no-repeat sm:bg-cover lg:bg-cover opacity-90 transition-all duration-300`}>
       {/* Semi-Transparent Overlay */}
       <div className="absolute inset-0 bg-black bg-opacity-50"></div>
@@ -188,41 +188,46 @@ const SugarInputForm = () => {
         {/* Modal for meal carousel */}
         {isModalOpen && (
           <div className="fixed inset-0 z-50 bg-black bg-opacity-75 flex justify-center items-center">
-            <div className="relative p-6 rounded-lg max-w-lg w-full animate__animated animate__bounceInDown bg-[url('assets/img/plates.jpg')] ">
+            <div className="relative p-10 rounded-lg max-w-lg w-full animate__animated animate__bounceInDown bg-[url('assets/img/bgimg.jpg')] bg-no-repeat bg-auto">
               <button
                 onClick={() => setIsModalOpen(false)} // Close modal
-                className="absolute top-2 right-2 text-xl text-black"
+                className="absolute top-2 right-2 text-6xl hover:text-gray-500 text-black"
               >
                 &times;
               </button>
 
-              <h3 className="text-lg font-bold mb-4 text-black animate__animated animate__fadeIn">Available Meals</h3>
+              <h3 className="text-2xl font-bold mb-8 text-black animate__animated animate__fadeIn">Available Meals</h3>
 
-              {/* Meal Carousel */}
-              {meals.length > 0 && (
-                <Slider {...settings}>
-                  {meals.map((meal, index) => (
-                    <div
-                      key={index}
-                      className="text-black p-4 rounded-lg shadow-md cursor-pointer animate__animated animate__backInDown"
-                      onClick={() => handleMealClick(meal.name)} // Meal click handler
-                    >
-                      <h4 className="font-extrabold animate-pulse">{meal.name}</h4>
-                      <p>{meal.gi_level} GI</p>
-                    </div>
-                  ))}
-                </Slider>
-              )}
+                      {/* Meal Carousel */}
+                      {meals.length > 0 && (
+                        <Slider {...settings} className="slick-slider text-green-700">
+                          {meals.map((meal, index) => (                                               
+                            <div
+                              key={index}
+                              className="text-black p-4 bg-white rounded-lg shadow-md cursor-pointer animate__animated animate__backInDown"
+                              onClick={() => handleMealClick(meal.name)} // Meal click handler
+                            >
+                              <h4 className="font-extrabold animate-pulse">{meal.name}</h4>
+                              <p>{meal.gi_level} GI</p>
+                            </div>
+                          ))}
+                        </Slider>
+                      )}
             </div>
           </div>
         )}
 
         {/* Animated Recommendation Text */}
         {recommendation && (
-          <div className="mt-4 text-green-500 animate__animated animate__fadeIn">
-            Recommendation: <strong>{recommendation}</strong>
-          </div>
+        <div
+          className={`mt-4 animate__animated animate__fadeIn ${
+            recommendation.toLowerCase() === 'not recommended' ? 'text-red-500' : 'text-green-500'
+          }`}
+        >
+          Recommendation: <strong>{recommendation}</strong>
+        </div>
         )}
+
 
         {/* Animated Error Text */}
         {error && (

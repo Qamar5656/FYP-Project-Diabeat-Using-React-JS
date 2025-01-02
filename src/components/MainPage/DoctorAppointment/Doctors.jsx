@@ -125,6 +125,7 @@ const Doctors = () => {
         </div>
 
         <div className="mt-5">
+          <div className="">    
           <Slider ref={slider} {...settings}>
             {doctors.map((doctor) => (
               <Link
@@ -150,6 +151,7 @@ const Doctors = () => {
               </Link>
             ))}
           </Slider>
+        </div>
         </div>
       </div>
     </div>

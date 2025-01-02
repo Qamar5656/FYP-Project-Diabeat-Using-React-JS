@@ -13,9 +13,11 @@ const Login = ({ closeForm, setIsLoggedIn }) => {
   const [errorMessage, setErrorMessage] = useState(''); // Track error messages
   const navigate = useNavigate(); // Hook to handle redirection
   const [showSignUp, setShowSignUp] = useState(false); // State to control sign-up form visibility
+  const [showSignIn, setShowSignIn] = useState(true);  // State to control sign-in form visibility
 
   const handleSignUpClick = () => {
-    setShowSignUp(true); // Show the sign-up form when the button is clicked
+    setShowSignIn(false);  // Hide the sign-in form
+    setShowSignUp(true);    // Show the sign-up form
   };
 
   const handleLogin = async (e) => {
@@ -126,18 +128,26 @@ const Login = ({ closeForm, setIsLoggedIn }) => {
             required
           />
 
-          <h3>Don't have an account? <button className='text-black underline' onClick={handleSignUpClick}>Sign Up</button></h3>
-
-          {/* Submit Button */}
+<div>
+      <h3>
+        Don't have an account?{' '}
+        <button
+          className="text-black underline"
+          onClick={handleSignUpClick}
+        >
+          Sign Up
+        </button>
+      </h3>
+      {showSignUp && <SignUp closeForm={closeSignUpForm} />}
+    </div>
+            {/* Submit Button */}
           <button
             type="submit"
             className="bg-blue-500 text-white py-3 rounded-md hover:bg-blue-600 transition duration-300 ease-in-out mt-4"
           >
             Login
           </button>
-          {/* Conditionally render SignUp form */}
-          {showSignUp && <SignUp />}
-        </form>
+          </form>
 
         {/* Cancel Button */}
         <div className="text-center mt-6">
