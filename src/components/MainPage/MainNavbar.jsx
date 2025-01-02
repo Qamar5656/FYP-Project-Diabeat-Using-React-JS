@@ -191,15 +191,15 @@ const MainNavbar = () => {
           <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
             <div className="bg-white p-6 rounded-md shadow-lg z-60">
               <h3 className="text-lg font-semibold text-gray-900">Are you sure you want to log out?</h3>
-              <div className="flex space-x-4 mt-4">
+              <div className="flex items-center ml-5 space-x-4 mt-5">
                 <button
-                  className="bg-red-500 text-white px-6 py-3 rounded-md hover:bg-red-600 transition duration-300"
+                  className="bg-red-500 text-white px-12 py-3 rounded-md hover:bg-red-600 transition duration-300"
                   onClick={handleConfirmLogout}
                 >
                   Yes
                 </button>
                 <button
-                  className="bg-gray-500 text-white px-6 py-3 rounded-md hover:bg-gray-600 transition duration-300"
+                  className="bg-gray-500 text-white px-12 py-3 rounded-md hover:bg-gray-600 transition duration-300"
                   onClick={handleCancelLogout}
                 >
                   No

@@ -103,28 +103,28 @@ const SevenDayMealPlan = () => {
   const currentMeals = mealPlan.slice(currentIndex * 3, currentIndex * 3 + 3);
 
   return (
-    <div className="w-full min-h-screen flex flex-col justify-center items-center px-5 lg:px-32 text-center bg-[url('assets/img/foodimg.jpeg')] bg-no-repeat bg-cover">
-      <div className="absolute inset-0 bg-black bg-opacity-40"></div>
-      <div className="relative z-0 text-white">
-        <div className="mb-6">
-          <p className="text-lg mt-10 animate__animated animate__bounceInDown">
+    <div className="w-full min-h-screen flex flex-col justify-center items-center px-4 sm:px-6 md:px-10 lg:px-20 text-center bg-[url('assets/img/foodimg.jpeg')] bg-no-repeat bg-cover">
+      <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+      <div className="relative z-0 text-white w-full max-w-5xl">
+        <div className="mb-6 mt-20 sm:mt-16">
+          <p className="font-bold text-2xl sm:text-lg md:mt-5 animate__animated animate__bounceInDown">
             Diabetes is a condition that affects how your body processes blood sugar (glucose)
           </p>
-          <p className="text-lg mt-2 animate__animated animate__flash animate__delay-1s">
+          <p className="text-sm sm:text-base mt-2 animate__animated animate__flash animate__delay-1s">
             A well-balanced diet can help prevent spikes in blood sugar and improve overall health. The following meal plan is designed to offer a variety of foods that can help manage your diabetes and maintain a healthy lifestyle.
           </p>
         </div>
-
-        <div className="text-center">
+  
+        <div className="flex flex-wrap justify-center gap-4">
           <button
-            className="bg-blue-500 text-white px-4 py-2 lg:px-6 lg:py-3 rounded-lg text-sm lg:text-lg font-medium hover:bg-blue-600 mr-2 lg:mr-4"
+            className="bg-blue-500 text-white px-4 py-2 sm:px-6 sm:py-3 rounded-lg text-sm sm:text-base font-medium hover:bg-blue-600"
             onClick={fetchMealPlan}
             disabled={loading}
           >
             {loading ? 'Fetching Meal Plan...' : isFetched ? 'Want Another Meal Plan?' : 'Get Your 7-Day Meal Plan'}
           </button>
           <button
-            className={`px-4 py-2 lg:px-6 lg:py-3 rounded-lg text-sm lg:text-lg font-medium ${
+            className={`px-4 py-2 sm:px-6 sm:py-3 rounded-lg text-sm sm:text-base font-medium ${
               mealPlan.length === 0
                 ? 'bg-gray-400 text-white cursor-not-allowed'
                 : 'bg-green-500 text-white hover:bg-green-600'
@@ -135,53 +135,55 @@ const SevenDayMealPlan = () => {
             {saving ? 'Saving...' : 'Save Meal Plan'}
           </button>
         </div>
-
-        {message && <div className="mt-4 text-sm lg:text-lg font-medium text-green-500">{message}</div>}
-        {error && <div className="text-red-500 mt-4 text-sm lg:text-base">{error}</div>}
-
+  
+        {message && <div className="mt-4 text-sm sm:text-base font-medium text-green-500">{message}</div>}
+        {error && <div className="text-red-500 mt-4 text-sm sm:text-base">{error}</div>}
+  
         {mealPlan.length === 0 ? (
-          <p className="text-white mt-6 animate-pulse text-sm lg:text-base">Please click the button above to fetch the plan.</p>
+          <p className="text-white mt-6 animate-pulse text-sm sm:text-base">Please click the button above to fetch the plan.</p>
         ) : (
-          <div className="mt-6">
-            <div className="flex flex-col lg:flex-row justify-between items-center">
+          <div className="mt-6 w-full">
+            <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
               <button
-                className="bg-gray-800 text-white px-3 py-1 lg:px-4 lg:py-2 rounded-md disabled:opacity-50 mb-4 lg:mb-0"
+                className="bg-gray-800 text-white px-3 py-1 sm:px-4 sm:py-2 rounded-md disabled:opacity-50"
                 onClick={handlePrev}
                 disabled={currentIndex === 0}
               >
                 &lt; Prev
               </button>
-              <div
-                className={`grid grid-cols-1 sm:grid-cols-2 lg:flex gap-4 overflow-hidden animate__animated ${animationClass}`}
-              >
+              <div className="grid grid-cols-1 text-center sm:grid-cols-2 md:grid-cols-3 gap-4 animate__animated ${animationClass}">
                 {currentMeals.map((day) => (
                   <div
                     key={day.day}
-                    className="bg-white text-gray-800 p-4 rounded-lg shadow-md w-full sm:w-auto flex-shrink-0 bg-[url('assets/img/corner.jpg')]"
+                    className="bg-white text-gray-800 p-4 text-center rounded-lg shadow-md flex flex-col items-start"
                   >
-                    <h3 className="text-lg lg:text-xl font-semibold text-blue-500 mb-2 lg:mb-3">{day.day}</h3>
-                    <div className="mb-2">
-                      <h4 className="font-medium text-sm lg:text-base">Breakfast:</h4>
+                    <div className="flex ">
+                    <h3 className="text-lg items-center justify-center sm:text-xl font-semibold text-blue-500 mb-2">
+                      {day.day}
+                      </h3>
+                      </div>
+                      <div className="mb-2 w-full text-center">
+                      <h4 className="font-medium text-sm sm:text-base">Breakfast:</h4>
                       <button
-                        className="text-blue-600 hover:underline text-sm lg:text-base"
+                        className="text-blue-600 hover:underline text-sm sm:text-base"
                         onClick={() => handleMealClick(day.breakfast)}
                       >
                         {day.breakfast}
                       </button>
                     </div>
-                    <div className="mb-2">
-                      <h4 className="font-medium text-sm lg:text-base">Lunch:</h4>
+                    <div className="mb-2 w-full">
+                      <h4 className="font-medium text-sm sm:text-base">Lunch:</h4>
                       <button
-                        className="text-blue-600 hover:underline text-sm lg:text-base"
+                        className="text-blue-600 hover:underline text-sm sm:text-base"
                         onClick={() => handleMealClick(day.lunch)}
                       >
                         {day.lunch}
                       </button>
                     </div>
-                    <div className="mb-2">
-                      <h4 className="font-medium text-sm lg:text-base">Dinner:</h4>
+                    <div className="mb-2 w-full">
+                      <h4 className="font-medium text-sm sm:text-base">Dinner:</h4>
                       <button
-                        className="text-blue-600 hover:underline text-sm lg:text-base"
+                        className="text-blue-600 hover:underline text-sm sm:text-base"
                         onClick={() => handleMealClick(day.dinner)}
                       >
                         {day.dinner}
@@ -191,7 +193,7 @@ const SevenDayMealPlan = () => {
                 ))}
               </div>
               <button
-                className="bg-gray-800 text-white px-3 py-1 lg:px-4 lg:py-2 rounded-md disabled:opacity-50"
+                className="bg-gray-800 text-white px-3 py-1 sm:px-4 sm:py-2 rounded-md disabled:opacity-50"
                 onClick={handleNext}
                 disabled={currentIndex >= Math.ceil(mealPlan.length / 3) - 1}
               >
@@ -202,7 +204,6 @@ const SevenDayMealPlan = () => {
         )}
       </div>
     </div>
-  );
-};
+)}  
 
 export default SevenDayMealPlan;
