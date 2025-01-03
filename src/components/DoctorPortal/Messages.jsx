@@ -77,6 +77,10 @@ const PatientMessages = () => {
     connectWebSocket();
     setIsMessagesVisible(true);
   };
+  
+  const handleCloseMessages =()=>{
+    setIsMessagesVisible(false);
+  }
 
   const handleSendMessage = () => {
     if (newMessage.trim() === '') return;
@@ -110,6 +114,7 @@ const PatientMessages = () => {
   }, []);
 
   return (
+    //logic to show doctor messages portal
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
     <div className="bg-white p-6 rounded-md shadow-lg z-60">
       {!isMessagesVisible ? (
@@ -138,12 +143,20 @@ const PatientMessages = () => {
         </>
       ) : (
         <>
+        {/*close button to close messages */}
+          <button
+          className='text-black text-3xl hover:text-gray-500 cursor-pointer font-bold mb-4'
+          onClick={handleCloseMessages}
+          >
+            X
+          </button>
+          {/* if message not shown then error visible*/}
           {isLoading ? (
             <p>Loading messages...</p>
           ) : error ? (
             <p className="text-red-500">{error}</p>
-          ) : (
-            <div className="h-52 overflow-y-auto mb-6">
+          ) : ( 
+            <div className="h-52 overflow-y-auto mb-6"> {/*Message window*/}
               {messages.map((msg, index) => (
                 <div
                   key={index}
@@ -168,6 +181,7 @@ const PatientMessages = () => {
               <div ref={messagesEndRef} />
             </div>
           )}
+          {/*space to enter message*/}
           <textarea
             ref={messageInputRef}
             className="w-full p-3 border border-gray-300 rounded-lg mb-4"
@@ -175,6 +189,7 @@ const PatientMessages = () => {
             onChange={(e) => setNewMessage(e.target.value)}
             placeholder="Type your message..."
           />
+          {/*send message button*/}
           <button
             className="w-full bg-blue-500 text-white py-3 rounded-lg"
             onClick={handleSendMessage}

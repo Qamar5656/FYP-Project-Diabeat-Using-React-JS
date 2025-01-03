@@ -61,6 +61,7 @@ const DoctorPortal = () => {
   }
 
   return (
+    //shwo patient details to doctor
     <div className="min-h-screen flex flex-col justify-center px-5 pt-16">
       <h1 className="text-4xl font-semibold text-center">Patients Who Messaged You</h1>
       <p className="mt-2 text-center">Click on "See Message" to view messages.</p>
