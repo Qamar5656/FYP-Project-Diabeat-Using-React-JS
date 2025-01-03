@@ -20,6 +20,10 @@ const Login = ({ closeForm, setIsLoggedIn }) => {
     setShowSignUp(true);    // Show the sign-up form
   };
 
+  const closeSignUpForm = ()=>{
+    closeForm(true);
+  }
+
   const handleLogin = async (e) => {
     e.preventDefault();
 
@@ -128,7 +132,7 @@ const Login = ({ closeForm, setIsLoggedIn }) => {
             required
           />
 
-<div>
+      <div>
       <h3>
         Don't have an account?{' '}
         <button

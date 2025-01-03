@@ -1,11 +1,17 @@
 import React, { useState, useEffect, useRef } from 'react';
+import DoctorDetail from './DoctorDetail';
 
 const Appointment = ({ doctorId, patientId }) => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
   const [senderType, setSenderType] = useState('patient'); // Default is 'patient'
+  const [showAppointment, setShowAppointment] = useState(false);
   const messageInputRef = useRef(null);
   const messagesEndRef = useRef(null);
+  
+  const handleCloseMessages = ()=>{
+    setShowAppointment(true);
+  }
 
   // WebSocket connection
   const socket = useRef(null);
@@ -78,10 +84,18 @@ const Appointment = ({ doctorId, patientId }) => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-md bg-white p-6 rounded-lg shadow-md">
-        <div className="h-80 overflow-y-auto mb-6">
-          <div className="space-y-4">
+    //doctor message portal
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+    <div className="bg-white p-4 rounded-md shadow-lg z-60">
+      {/* Message Close Button */}
+      <button
+        className="text-black text-3xl hover:text-gray-500 cursor-pointer font-bold mb-4"
+        onClick={handleCloseMessages} // Attach the handler here
+      >
+        X
+      </button>
+        <div className="h-48 overflow-y-auto mb-6">
+          <div className="space-y-4 px-8 ">
             {messages.map((msg, index) => (
               <div key={index} className={`flex ${msg.senderType === 'doctor' ? 'justify-end' : 'justify-start'}`}>
                 <div className={`max-w-xs p-4 rounded-lg ${msg.senderType === 'doctor' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}>
