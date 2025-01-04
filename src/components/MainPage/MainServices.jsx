@@ -51,11 +51,12 @@ const RecommendedMeals = () => {
     slidesToShow: 2,
     slidesToScroll: 2, // Fixed: Scroll two slides at a time
     autoplay: true,
-    autoplaySpeed: 3000,
+    autoplaySpeed: 5000,
     arrows: false,
   };
 
   return (
+    //Not sure what to eat portal
     <div className="h-screen flex flex-col justify-center text-center text-black relative">
       <div
         className="absolute inset-0 bg-[url('assets/img/services.jpg')] bg-cover bg-center"
@@ -64,10 +65,11 @@ const RecommendedMeals = () => {
       <div className="absolute inset-0 bg-black opacity-50"></div>
       <div className="relative mt-6">
         <div className="mb-6">
-          <p className="text-xl font-medium text-white animate__animated animate__fadeIn mt-20">
+          {/*Greetings to user */}
+          <p className="lg:text-3xl md:text-lg font-medium text-white animate__animated animate__fadeIn mt-20">
             Hello, {userName}
           </p>
-          <p className="text-base text-white mt-2 leading-relaxed animate__animated animate__fadeIn animate__delay-1s">
+          <p className="lg:text-xl md:text-lg text-white mt-2 leading-relaxed animate__animated animate__fadeIn animate__delay-1s">
             Not sure what to eat? Click the button below to receive meal recommendations based on your previous sugar levels.
           </p>
         </div>

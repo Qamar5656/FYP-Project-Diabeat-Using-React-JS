@@ -86,7 +86,7 @@ const Appointment = ({ doctorId, patientId }) => {
   return (
     //doctor message portal
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-    <div className="bg-white p-4 rounded-md shadow-lg z-60">
+    <div className="bg-white p-4 w-96 mt-9 rounded-md shadow-lg z-60">
       {/* Message Close Button */}
       <button
         className="text-black text-3xl hover:text-gray-500 cursor-pointer font-bold mb-4"
@@ -94,24 +94,27 @@ const Appointment = ({ doctorId, patientId }) => {
       >
         X
       </button>
-        <div className="h-48 overflow-y-auto mb-6">
-          <div className="space-y-4 px-8 ">
-            {messages.map((msg, index) => (
-              <div key={index} className={`flex ${msg.senderType === 'doctor' ? 'justify-end' : 'justify-start'}`}>
-                <div className={`max-w-xs p-4 rounded-lg ${msg.senderType === 'doctor' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}>
-                  <p className="text-sm">{msg.message}</p>
-                  <p className="text-xs text-gray-500 mt-1">{new Date(msg.createdAt).toLocaleString()}</p>
-                </div>
-              </div>
-            ))}
-            <div ref={messagesEndRef} />
-          </div>
+      <div className="h-56 overflow-y-auto mb-6">
+  {/* Message window */}
+  <div className="flex flex-col space-y-4">
+    {messages.map((msg, index) => (
+      <div key={index} className={`flex ${msg.senderType === 'doctor' ? 'justify-end' : 'justify-start'}`}>
+        <div className={`max-w-xs p-4 rounded-lg ${msg.senderType === 'doctor' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}>
+          <p className="text-sm">{msg.message}</p>
+          <p className="text-xs text-gray-500 mt-1">{new Date(msg.createdAt).toLocaleString()}</p>
         </div>
+      </div>
+    ))}
+    <div ref={messagesEndRef} />
+  </div>
+</div>
+
 
         <div className="flex flex-col">
+          {/*message text area */}
           <textarea
             ref={messageInputRef}
-            className="w-full p-3 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="w-full px-3 border border-gray-300 rounded-lg h-32 mb-4 focus:outline-none focus:ring-2 focus:ring-blue-400"
             value={newMessage}
             onChange={(e) => setNewMessage(e.target.value)}
             placeholder="Type your message..."
