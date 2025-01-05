@@ -116,14 +116,14 @@ const PatientMessages = () => {
   return (
     //logic to show doctor messages portal
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-    <div className="bg-white p-6 rounded-md shadow-lg z-60">
+    <div className="bg-white p-4 mt-3 rounded-md shadow-lg z-60">
       {!isMessagesVisible ? (
         <>
           {patientDetails && (
             <div className="flex items-center mb-3">
               <img
                 src={patientDetails.profile_pic}
-                alt={`${patientDetails.first_name} ${patientDetails.last_name}`}
+                alt={'...Loading Image'}
                 className="w-40 h-40 rounded-full object-cover border-4 border-gray-200"
               />
               <div>
@@ -143,9 +143,10 @@ const PatientMessages = () => {
         </>
       ) : (
         <>
+        <div className='w-96'>
         {/*close button to close messages */}
           <button
-          className='text-black text-3xl hover:text-gray-500 cursor-pointer font-bold mb-4'
+          className='text-black text-3xl hover:text-gray-500 cursor-pointer font-bold'
           onClick={handleCloseMessages}
           >
             X
@@ -156,12 +157,12 @@ const PatientMessages = () => {
           ) : error ? (
             <p className="text-red-500">{error}</p>
           ) : ( 
-            <div className="h-52 overflow-y-auto mb-6"> {/*Message window*/}
+            <div className="h-52 overflow-y-auto mb-6 space-y-4"> {/*Message window*/}
               {messages.map((msg, index) => (
                 <div
                   key={index}
                   className={`flex ${
-                    msg.senderType === 'doctor' ? 'justify-end' : 'justify-start'
+                    msg.senderType === 'patient' ? 'justify-end' : 'justify-start'
                   }`}
                 >
                   <div
@@ -170,7 +171,7 @@ const PatientMessages = () => {
                         ? 'bg-blue-500 text-white'
                         : 'bg-gray-200'
                     }`}
-                  >
+                    >
                     <p className="text-sm">{msg.message}</p>
                     <p className="text-xs text-gray-500 mt-1">
                       {new Date(msg.createdAt).toLocaleString()}
@@ -181,10 +182,11 @@ const PatientMessages = () => {
               <div ref={messagesEndRef} />
             </div>
           )}
+          </div>
           {/*space to enter message*/}
           <textarea
             ref={messageInputRef}
-            className="w-full p-3 border border-gray-300 rounded-lg mb-4"
+            className="w-full p-3  h-32 border border-gray-300 rounded-lg mb-4"
             value={newMessage}
             onChange={(e) => setNewMessage(e.target.value)}
             placeholder="Type your message..."
