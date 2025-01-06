@@ -107,11 +107,11 @@ const SevenDayMealPlan = () => {
     <div className="w-full min-h-screen flex flex-col justify-center items-center px-4 sm:px-6 md:px-10 lg:px-20 text-center bg-[url('assets/img/foodimg.jpeg')] bg-no-repeat bg-cover">
       <div className="absolute inset-0 bg-black bg-opacity-50"></div>
       <div className="relative z-0 text-white w-full max-w-5xl">
-        <div className="mb-6 mt-20 sm:mt-16">
-          <p className="font-bold lg:text-3xl sm:text-lg md:mt-5 lg:mt-8 animate__animated animate__bounceInDown">
+        <div className="mb-6 mt-20 sm:mt-18">
+          <p className="font-bold lg:text-2xl sm:text-lg md:mt-5 lg:mt-8 animate__animated animate__bounceInDown">
             Diabetes is a condition that affects how your body processes blood sugar (glucose)
           </p>
-          <p className="lg:text-xl md:text-lg sm:text-base mt-2 animate__animated animate__flash animate__delay-1s">
+          <p className=" md:text-lg sm:text-base mt-2 animate__animated animate__flash animate__delay-1s">
             A well-balanced diet can help prevent spikes in blood sugar and improve overall health. The following meal plan is designed to offer a variety of foods that can help manage your diabetes and maintain a healthy lifestyle.
           </p>
         </div>
@@ -156,18 +156,19 @@ const SevenDayMealPlan = () => {
                 &lt; Prev
               </button>
               {/*Meal Plan div */}
-              <div className="grid grid-cols-1 text-center sm:grid-cols-2 md:grid-cols-3 gap-4 animate__animated ${animationClass}">
+              <div className="grid grid-cols-1 text-center sm:grid-cols-2 md:grid-cols-3 gap-5 animate__animated ${animationClass}">
                 {currentMeals.map((day) => (
                   <div
-                  key={day.day}
-                  className="bg-white text-gray-800 p-4 text-center rounded-lg shadow-md flex flex-col items-start"
+                    key={day.day}
+                    className="bg-white text-gray-800 p-4 w-48 rounded-lg shadow-md flex flex-col items-center justify-center"
                   >
-                    <div className="flex ">
-                    <h3 className="text-lg ml-7 sm:text-xl font-semibold text-blue-500 mb-2">
-                      {day.day}
+                    <div className="mb-4">
+                      <h3 className="text-lg sm:text-xl font-semibold text-blue-500 mb-2 text-center">
+                        {day.day}
                       </h3>
-                      </div>
-                      <div className="mb-2 w-full text-center">
+                    </div>
+
+                    <div className="mb-4 w-full text-center">
                       <h4 className="font-medium text-sm sm:text-base">Breakfast:</h4>
                       <button
                         className="text-blue-600 hover:underline text-sm sm:text-base"
@@ -176,7 +177,8 @@ const SevenDayMealPlan = () => {
                         {day.breakfast}
                       </button>
                     </div>
-                    <div className="mb-2 w-full">
+
+                    <div className="mb-4 w-full text-center">
                       <h4 className="font-medium text-sm sm:text-base">Lunch:</h4>
                       <button
                         className="text-blue-600 hover:underline text-sm sm:text-base"
@@ -185,18 +187,20 @@ const SevenDayMealPlan = () => {
                         {day.lunch}
                       </button>
                     </div>
-                    <div className="mb-2 w-full">
+
+                    <div className="mb-4 w-full text-center">
                       <h4 className="font-medium text-sm sm:text-base">Dinner:</h4>
                       <button
                         className="text-blue-600 hover:underline text-sm sm:text-base"
                         onClick={() => handleMealClick(day.dinner)}
-                        >
+                      >
                         {day.dinner}
                       </button>
                     </div>
                   </div>
                 ))}
               </div>
+
               {/*Next Button */}
               <button
                 className="bg-gray-800 hover:bg-slate-400 text-white px-3 py-1 sm:px-4 sm:py-2 rounded-md disabled:opacity-50"

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import 'animate.css'; // Import Animate.css
 import Appointment from './Appointment'; // Import the Appointment component
+import StarRating from './StarRating'; // Import the StarRating component (to be created)
 
 const DoctorDetail = () => {
   const { id } = useParams(); // Get doctor id from the URL
@@ -9,10 +10,12 @@ const DoctorDetail = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showAppointment, setShowAppointment] = useState(false); // Track whether the appointment component should be shown
+  const [ratingSubmitted, setRatingSubmitted] = useState(false); // Track rating submission
+  const [ratingError, setRatingError] = useState(null); // Track rating submission error
   
   // Get access token from localStorage
   const accessToken = localStorage.getItem('access_token');
-  
+
   // Redirect to login page if there's no access token
   if (!accessToken) {
     return (
@@ -25,7 +28,7 @@ const DoctorDetail = () => {
   }
 
   const patientId = localStorage.getItem('user_id');
-  
+
   useEffect(() => {
     const fetchDoctor = async () => {
       try {
@@ -54,12 +57,41 @@ const DoctorDetail = () => {
     setShowAppointment(true); // Show the appointment section when clicked
   };
 
+  const handleRatingSubmit = async (rating, review) => {
+    try {
+      const response = await fetch("http://localhost:8000/api/ratings/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify({
+          patient: patientId,
+          doctor: id,
+          rating,
+          review,
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json(); // Capture the error message from the response body
+        console.log(errorData);
+        throw new Error(errorData || "Failed to submit rating"); // Use the 'detail' field if it exists
+      }
+
+      setRatingSubmitted(true);
+      setRatingError(null); // Reset the error if rating is successful
+    } catch (err) {
+      setRatingError(`${err.message}`); // Set the error to display it on the screen
+    }
+  };
+
   if (loading) return <div className="text-center text-xl text-orange-600">Loading...</div>;
   if (error) return <div className="text-center text-xl text-red-600">{error}</div>;
 
   return (
-    <div className="flex justify-center py-10 bg-gray-100 min-h-screen">
-      <div className="bg-white shadow-xl rounded-lg p-8 w-full max-w-4xl mt-5">
+    <div className="flex justify-center py-10 min-h-screen">
+      <div className="bg-white p-8 w-full max-w-4xl mt-5">
         <div className="flex items-center justify-center space-x-6 mb-8">
           <img
             src={doctor.profile_pic || "/src/assets/img/default-doctor.jpg"}
@@ -100,10 +132,26 @@ const DoctorDetail = () => {
           </div>
         )}
 
-        {/* Show Appointment Section */}
-        {showAppointment && (
-          <Appointment doctorId={id} patientId={patientId} />
+        {/* Star Rating Section */}
+        {!ratingSubmitted ? (
+          <div className="mt-8">
+            <StarRating onSubmit={handleRatingSubmit} />
+          </div>
+        ) : (
+          <div className="mt-8 text-center text-green-600">
+            Thank you for submitting your review!
+          </div>
         )}
+
+        {/* Error Message for Rating Submission */}
+        {ratingError && (
+          <div className="mt-4 text-center text-red-600 animate__animated animate__fadeIn">
+            {ratingError}
+          </div>
+        )}
+
+        {/* Show Appointment Section */}
+        {showAppointment && <Appointment doctorId={id} patientId={patientId} />}
       </div>
     </div>
   );

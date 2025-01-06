@@ -86,7 +86,7 @@ const Appointment = ({ doctorId, patientId }) => {
   return (
     //doctor message portal
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-    <div className="bg-white p-4 w-96 mt-9 rounded-md shadow-lg z-60">
+    <div className="bg-white p-4 w-96 mt-9 rounded-md shadow-lg z-60 ">
       {/* Message Close Button */}
       <button
         className="text-black text-3xl hover:text-gray-500 cursor-pointer font-bold mb-4"
@@ -114,7 +114,7 @@ const Appointment = ({ doctorId, patientId }) => {
           {/*message text area */}
           <textarea
             ref={messageInputRef}
-            className="w-full px-3 border border-gray-300 rounded-lg h-32 mb-4 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="w-full px-3 border border-gray-300 rounded-lg h-24 mb-4 focus:outline-none focus:ring-2 focus:ring-blue-400"
             value={newMessage}
             onChange={(e) => setNewMessage(e.target.value)}
             placeholder="Type your message..."
