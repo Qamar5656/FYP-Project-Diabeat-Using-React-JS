@@ -38,7 +38,7 @@ const MainNavbar = () => {
   const handleMenuToggle = () => setMenu(!menu);
 
   const handleLogoutConfirmation = () => setShowLogoutConfirmation(true); // Show the confirmation dialog
-
+  
   const handleLogout = async () => {
     try {
       const response = await fetch('http://127.0.0.1:8000/api/logout/', {
@@ -151,7 +151,7 @@ const MainNavbar = () => {
 
         {/* Mobile Menu */}
         <div
-        className={`lg:hidden flex flex-col items-center py-5 absolute bg-gray-800 text-white left-0 z-50 top-16 w-full transition-transform duration-300 ${
+        className={`lg:hidden flex flex-col items-center py-5 absolute bg-gray-800 text-white left-0 z-0 top-16 w-full transition-transform duration-300 ${
           menu ? "translate-x-0" : "-translate-x-full"
         }`}
         >
@@ -199,13 +199,13 @@ const MainNavbar = () => {
             {!isLoggedIn ? (
               <>
                 <button
-                  className="bg-brightColor text-white px-4 py-2 rounded-md hover:bg-yellow-300 transition duration-300 ease-in-out mt-4 sm:hidden md:hidden lg:block"
+                  className="bg-brightColor text-white px-4 py-2 rounded-md hover:bg-yellow-300 transition duration-300 ease-in-out mt-4 block"
                   onClick={openSignUpForm}
                 >
                   Sign Up
                 </button>
                 <button
-                  className="bg-brightColor text-white px-4 py-2 rounded-md hover:bg-yellow-300 transition duration-300 ease-in-out mt-2 sm:hidden md:hidden lg:block"
+                  className="bg-brightColor text-white px-4 py-2 rounded-md hover:bg-yellow-300 transition duration-300 ease-in-out mt-2 block"
                   onClick={openLoginForm}
                 >
                   Log In

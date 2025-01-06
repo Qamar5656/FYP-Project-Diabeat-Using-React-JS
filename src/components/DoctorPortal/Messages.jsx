@@ -81,7 +81,6 @@ const PatientMessages = () => {
   const handleCloseMessages =()=>{
     setIsMessagesVisible(false);
   }
-
   const handleSendMessage = () => {
     if (newMessage.trim() === '') return;
 

@@ -12,7 +12,6 @@ const MainHome = () => {
           className="absolute inset-0 bg-[url('assets/img/homepage.jpg')] bg-cover bg-center"
           style={{ opacity: 0.8 }} // Adjust the opacity level here
         ></div>
-
         {/* Content on Top of the Background */}
         <div className="relative z-3 px-10 flex items-start">
           <div className="bg-gray-800 bg-opacity-75 p-6 rounded-lg shadow-lg max-w-md transition-transform transform hover:scale-105 hover:shadow-xl duration-300 ease-in-out">

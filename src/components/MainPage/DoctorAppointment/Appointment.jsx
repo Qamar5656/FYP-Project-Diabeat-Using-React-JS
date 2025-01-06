@@ -5,14 +5,16 @@ const Appointment = ({ doctorId, patientId }) => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
   const [senderType, setSenderType] = useState('patient'); // Default is 'patient'
+  const [showDoctorDetail, setShowDoctorDetail] = useState(false);
   const [showAppointment, setShowAppointment] = useState(false);
   const messageInputRef = useRef(null);
   const messagesEndRef = useRef(null);
   
+  // Function to handle the closing of messages and show DoctorDetail
   const handleCloseMessages = ()=>{
-    setShowAppointment(true);
+      setShowAppointment(true); // Show DoctorDetail when the button is clicked
   }
-
+  
   // WebSocket connection
   const socket = useRef(null);
 
@@ -90,11 +92,16 @@ const Appointment = ({ doctorId, patientId }) => {
       {/* Message Close Button */}
       <button
         className="text-black text-3xl hover:text-gray-500 cursor-pointer font-bold mb-4"
-        onClick={handleCloseMessages} // Attach the handler here
+        onClick={handleCloseMessages}
       >
         X
       </button>
-      <div className="h-56 overflow-y-auto mb-6">
+
+      {/* Conditionally render DoctorDetail component */}
+{showAppointment && (
+            <Appointment doctorId={id} patientId={patientId} /> // Render Appointment component with doctorId and patientId as props
+          )}    
+  <div className="h-56 overflow-y-auto mb-6">
   {/* Message window */}
   <div className="flex flex-col space-y-4">
     {messages.map((msg, index) => (
