@@ -122,7 +122,7 @@ const PatientMessages = () => {
           {patientDetails && (
             <div className="flex items-center mb-3">
               <img
-                src={patientDetails.profile_pic}
+                src={patientDetails.profile_pic || "/src/assets/img/default-patient.jpg"}
                 alt={'...Loading Image'}
                 className="w-40 h-40 rounded-full object-cover border-4 border-gray-200"
               />
@@ -186,7 +186,7 @@ const PatientMessages = () => {
           {/*space to enter message*/}
           <textarea
             ref={messageInputRef}
-            className="w-full p-3  h-32 border border-gray-300 rounded-lg mb-4"
+            className="w-full p-3  h-24 border border-gray-300 rounded-lg mb-4 "
             value={newMessage}
             onChange={(e) => setNewMessage(e.target.value)}
             placeholder="Type your message..."

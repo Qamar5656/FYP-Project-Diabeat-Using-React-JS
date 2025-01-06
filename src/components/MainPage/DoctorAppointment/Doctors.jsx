@@ -64,6 +64,19 @@ const Doctors = () => {
     ],
   };
 
+  const renderStars = (rating) => {
+    const fullStars = Math.floor(rating);
+    const halfStar = rating % 1 >= 0.5 ? 1 : 0;
+    const emptyStars = 5 - fullStars - halfStar;
+    const stars = [];
+
+    for (let i = 0; i < fullStars; i++) stars.push("★"); // Full stars
+    if (halfStar) stars.push("☆"); // Half star
+    for (let i = 0; i < emptyStars; i++) stars.push("☆"); // Empty stars
+
+    return stars.join(" ");
+  };
+
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-screen">
@@ -125,7 +138,6 @@ const Doctors = () => {
         </div>
 
         <div className="mt-5">
-          <div className="">    
           <Slider ref={slider} {...settings}>
             {doctors.map((doctor) => (
               <Link
@@ -147,11 +159,15 @@ const Doctors = () => {
                     {doctor.first_name} {doctor.last_name}
                   </h1>
                   <h3 className="pt-2">{doctor.designation}</h3>
+                  {doctor.average_rating && (
+                    <div className="mt-2 text-yellow-500">
+                      <span>{renderStars(doctor.average_rating)}</span>
+                    </div>
+                  )}
                 </div>
               </Link>
             ))}
           </Slider>
-        </div>
         </div>
       </div>
     </div>
