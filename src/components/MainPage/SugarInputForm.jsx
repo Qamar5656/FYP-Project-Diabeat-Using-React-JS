@@ -219,14 +219,18 @@ const SugarInputForm = () => {
 
         {/* Animated Recommendation Text */}
         {recommendation && (
-        <div
-          className={`mt-4 animate__animated animate__fadeIn ${
-            recommendation.toLowerCase() === 'not recommended' ? 'text-red-500' : 'text-green-500'
-          }`}
-        >
-          Recommendation: <strong>{recommendation}</strong>
-        </div>
+          <div
+            className={`fixed top-10px left-0 right-0 bottom-0 flex justify-center items-cente animate__animated animate__fadeIn ${recommendation.toLowerCase() === 'not recommended' ? 'text-red-500' : 'text-green-500'}`}
+            style={{ fontSize: '2rem', borderRadius: '10px' }}
+          >
+            <div className="text-center">
+              <p>
+                Recommendation: <strong>{recommendation}</strong>
+              </p>
+            </div>
+          </div>
         )}
+
 
 
         {/* Animated Error Text */}

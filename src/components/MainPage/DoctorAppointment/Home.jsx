@@ -18,10 +18,8 @@ const Home = () => {
         data-aos-delay="200"
       >
         <h1 className='text-5xl'>We have Talented Doctors</h1>
-        <p>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consequuntur
-          sint dolore quos expedita quia minima blanditiis pariatur ea, magnam
-          ratione mollitia, delectus porro alias nobis.
+        <p className='text-1xl'>
+          Easily book appointments with certified doctors and health professionals! Whether you're seeking medical advice, a second opinion, or ongoing care, our platform allows you to schedule doctor consultations with just a few clicks.
         </p>
       </div>
     </div>
