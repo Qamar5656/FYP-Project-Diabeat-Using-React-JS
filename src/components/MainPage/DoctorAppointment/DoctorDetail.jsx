@@ -90,8 +90,8 @@ const DoctorDetail = () => {
   if (error) return <div className="text-center text-xl text-red-600">{error}</div>;
 
   return (
-    <div className="flex justify-center py-10 bg-gray-100 min-h-screen">
-      <div className="bg-white shadow-xl rounded-lg p-8 w-full max-w-4xl mt-5">
+    <div className="flex justify-center py-10  min-h-screen">
+      <div className="bg-white  rounded-lg p-8 w-full max-w-4xl mt-5">
         <div className="flex items-center justify-center space-x-6 mb-8">
           <img
             src={doctor.profile_pic || "/src/assets/img/default-doctor.jpg"}
@@ -119,6 +119,23 @@ const DoctorDetail = () => {
             <strong>Bio:</strong> {doctor.bio}
           </p>
         </div>
+        {/* Star Rating Section */}
+        {!ratingSubmitted ? (
+          <div className="mt-8">
+            <StarRating onSubmit={handleRatingSubmit} />
+          </div>
+        ) : (
+          <div className="mt-8 text-center text-green-600">
+            Thank you for submitting your review!
+          </div>
+        )}
+
+        {/* Error Message for Rating Submission */}
+        {ratingError && (
+          <div className="mt-4 text-center text-red-600 animate__animated animate__fadeIn">
+            {ratingError}
+          </div>
+        )}
 
         {/* Appointment Button */}
         {!showAppointment && (
