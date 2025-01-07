@@ -62,7 +62,7 @@ const Login = ({ closeForm, setIsLoggedIn }) => {
           if (data.user_type === 'doctor') {
             navigate('/app'); // Redirect doctor to /app
           } else {
-            navigate('/home'); // Redirect patient to their dashboard (replace with actual patient route)
+            navigate('/'); // Redirect patient to their dashboard (replace with actual patient route)
           }
         }, 2000);
       } else {
