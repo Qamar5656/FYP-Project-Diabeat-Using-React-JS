@@ -55,7 +55,7 @@ const MainNavbar = () => {
         localStorage.removeItem('user_type');
         localStorage.removeItem('first_name');
         setIsLoggedIn(false);
-        navigate('/home');
+        navigate('/');
         window.location.reload()
       } else {
         console.error('Logout failed:', response.statusText);
@@ -86,14 +86,14 @@ const MainNavbar = () => {
       <div className="fixed w-full z-10">
         <div className="flex justify-between items-center bg-gray-800 bg-opacity-95 p-5 shadow-lg">
           <div>
-            <Link to='/home' className='text-orange-400 text-2xl font-semibold cursor-pointer'>Diabeat</Link>
+            <Link to='/' className='text-orange-400 text-2xl font-semibold cursor-pointer'>Diabeat</Link>
           </div>
 
           {/* Navbar Links for Large Screens */}
           <nav className="hidden lg:flex font-bold text-white text-lg flex-row items-center gap-14">
             {userType !== 'doctor' && (
               <>
-                <Link to="/home" className="hover:text-yellow-300 transition-all cursor-pointer">Home</Link>
+                <Link to="/" className="hover:text-yellow-300 transition-all cursor-pointer">Home</Link>
                 <Link to="/sugarlevel" className="hover:text-yellow-300 transition-all cursor-pointer">Meal Recommendation</Link>
                 <Link to="/services" className="hover:text-yellow-300 transition-all cursor-pointer">Meal Suggestion</Link>
                 <Link to="/doctors" className="hover:text-yellow-300 transition-all cursor-pointer">Doctors</Link>
@@ -158,7 +158,7 @@ const MainNavbar = () => {
             {/* Links for Non-Doctor Users */}
             {userType !== 'doctor' && (
               <>
-                <Link to="/home" className="py-2 font-bold hover:text-yellow-300" onClick={() => setMenu(false)}>
+                <Link to="/" className="py-2 font-bold hover:text-yellow-300" onClick={() => setMenu(false)}>
                   Home
                 </Link>
                 <Link to="/services" className="py-2 font-bold hover:text-yellow-300" onClick={() => setMenu(false)}>
@@ -253,6 +253,7 @@ const MainNavbar = () => {
         <Route path='/app' element={<App />} />
         <Route path="/doctors" element={<Doctors />} />
         <Route path="/doctor/:id" element={<DoctorDetail />} />
+        <Route path='/' element={<MainHome />} />
         <Route path='/home' element={<MainHome />} />
         <Route path='/sugarlevel' element={<SugarInputForm />} />
         <Route path='/weekplan' element={<SevenDayMealPlan />} />
