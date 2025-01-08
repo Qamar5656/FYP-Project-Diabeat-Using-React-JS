@@ -30,29 +30,32 @@ const DoctorDetail = () => {
   const patientId = localStorage.getItem('user_id');
 
   useEffect(() => {
-    const fetchDoctor = async () => {
-      try {
-        const response = await fetch(`http://localhost:8000/api/doctors/${id}/`, {
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${accessToken}`, // Pass the token in the headers
-          },
-        });
-        if (!response.ok) {
-          throw new Error("Failed to fetch doctor details");
+    if (id && accessToken) {
+      const fetchDoctor = async () => {
+        try {
+          const response = await fetch(`http://localhost:8000/api/doctors/${id}/`, {
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${accessToken}`,
+            },
+          });
+          if (!response.ok) {
+            throw new Error("Failed to fetch doctor details");
+          }
+          const data = await response.json();
+          setDoctor(data);
+          setLoading(false);
+        } catch (err) {
+          setError(err.message);
+          setLoading(false);
         }
-        const data = await response.json();
-        setDoctor(data);
-        setLoading(false);
-      } catch (err) {
-        setError(err.message);
-        setLoading(false);
-      }
-    };
-
-    fetchDoctor();
-  }, [id, accessToken]); // Fetch doctor details when `id` or `accessToken` changes
-
+      };
+      fetchDoctor();
+    } else {
+      console.error("Missing id or accessToken");
+    }
+  }, [id, accessToken]);
+  
   const handleAppointmentClick = () => {
     setShowAppointment(true); // Show the appointment section when clicked
   };
@@ -91,7 +94,7 @@ const DoctorDetail = () => {
 
   return (
     <div className="flex justify-center py-10  min-h-screen">
-      <div className="bg-white  rounded-lg p-8 w-full max-w-4xl mt-5">
+      <div className="bg-white rounded-lg p-8 w-full max-w-4xl mt-14">
         <div className="flex items-center justify-center space-x-6 mb-8">
           <img
             src={doctor.profile_pic || "/src/assets/img/default-doctor.jpg"}
@@ -99,16 +102,16 @@ const DoctorDetail = () => {
             className="w-40 h-40 rounded-full object-cover border-4 border-gray-200 animate__animated animate__fadeIn animate__delay-0s"
           />
           <div>
-            <h1 className="text-3xl font-semibold text-gray-800 animate__animated animate__fadeIn animate__delay-1s">
+            <h1 className="text-3xl text-gray-500 font-semibold animate__animated animate__fadeIn animate__delay-1s">
               {doctor.first_name} {doctor.last_name}
             </h1>
-            <p className="text-lg text-gray-600 animate__animated animate__fadeInUp animate__delay-1s">
+            <p className="text-lg text-gray-500 animate__animated animate__fadeInUp animate__delay-1s">
               <strong>Designation:</strong> {doctor.designation}
             </p>
           </div>
         </div>
 
-        <div className="space-y-4 text-gray-700">
+        <div className="space-y-4 text-gray-500">
           <p className="animate__animated animate__fadeInUp animate__delay-2s">
             <strong>Email:</strong> {doctor.email}
           </p>
