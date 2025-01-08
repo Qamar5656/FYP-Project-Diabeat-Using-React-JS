@@ -14,7 +14,7 @@ const Appointment = ({ doctorId, patientId }) => {
   const handleCloseMessages = ()=>{
       setShowAppointment(true); // Show DoctorDetail when the button is clicked
   }
-  
+
   // WebSocket connection
   const socket = useRef(null);
 
@@ -96,10 +96,9 @@ const Appointment = ({ doctorId, patientId }) => {
       >
         X
       </button>
-
       {/* Conditionally render DoctorDetail component */}
-{showAppointment && (
-            <Appointment doctorId={id} patientId={patientId} /> // Render Appointment component with doctorId and patientId as props
+        {showAppointment && (
+            <Appointment doctorId={doctorId} patientId={patientId} /> // Render Appointment component with doctorId and patientId as props
           )}    
   <div className="h-56 overflow-y-auto mb-6">
   {/* Message window */}

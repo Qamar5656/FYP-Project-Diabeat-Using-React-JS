@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import 'animate.css';
+import Aos from 'aos';
+import 'aos/dist/aos.css';
 
 const SevenDayMealPlan = () => {
+  // State variables to manage meal plans, errors, loading, and UI states
   const [mealPlan, setMealPlan] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -12,6 +15,7 @@ const SevenDayMealPlan = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [animationClass, setAnimationClass] = useState('');
 
+  // Fetch access token from localStorage on component mount
   useEffect(() => {
     const token = localStorage.getItem('access_token') || '';
     if (!token) {
@@ -21,6 +25,7 @@ const SevenDayMealPlan = () => {
     setAccessToken(token);
   }, []);
 
+  // Fetch meal plan data from the server
   const fetchMealPlan = async () => {
     if (!accessToken) {
       setError('Access token is missing. Please log in again.');
@@ -40,7 +45,7 @@ const SevenDayMealPlan = () => {
       });
 
       if (!response.ok) {
-        const errorData = await response.json(); // Parse the error response
+        const errorData = await response.json();
         throw new Error(errorData.error);
       }
 
@@ -54,6 +59,7 @@ const SevenDayMealPlan = () => {
     }
   };
 
+  // Save the current meal plan to the server
   const saveMealPlan = async () => {
     setMessage('');
     setSaving(true);
@@ -80,10 +86,12 @@ const SevenDayMealPlan = () => {
     }
   };
 
+  // Handle meal click for interactivity
   const handleMealClick = (meal) => {
     alert(`You clicked on ${meal}`);
   };
 
+  // Handle previous button click to navigate between meal days
   const handlePrev = () => {
     if (currentIndex > 0) {
       setAnimationClass('animate__fadeInLeft');
@@ -91,6 +99,7 @@ const SevenDayMealPlan = () => {
     }
   };
 
+  // Handle next button click to navigate between meal days
   const handleNext = () => {
     if (currentIndex < Math.ceil(mealPlan.length / 3) - 1) {
       setAnimationClass('animate__fadeInRight');
@@ -100,31 +109,38 @@ const SevenDayMealPlan = () => {
     }
   };
 
+  // Slice current meals for pagination
   const currentMeals = mealPlan.slice(currentIndex * 3, currentIndex * 3 + 3);
 
+  // Initialize AOS for animations
+  useEffect(() => {
+    Aos.init({ duration: 2000 });
+  }, []);
+
   return (
-    //Main Page Top content
     <div className="w-full min-h-screen flex flex-col justify-center items-center px-4 sm:px-6 md:px-10 lg:px-20 text-center bg-[url('assets/img/foodimg.jpeg')] bg-no-repeat bg-cover">
+      {/* Background Overlay */}
       <div className="absolute inset-0 bg-black bg-opacity-50"></div>
       <div className="relative z-0 text-white w-full max-w-5xl">
+        {/* Top Content */}
         <div className="mb-6 mt-20 sm:mt-18">
           <p className="font-bold lg:text-2xl sm:text-lg md:mt-5 lg:mt-8 animate__animated animate__bounceInDown">
             Diabetes is a condition that affects how your body processes blood sugar (glucose)
           </p>
-          <p className=" md:text-lg sm:text-base mt-2 animate__animated animate__flash animate__delay-1s">
+          <p className="md:text-lg sm:text-base mt-2 animate__animated animate__flash animate__delay-1s">
             A well-balanced diet can help prevent spikes in blood sugar and improve overall health. The following meal plan is designed to offer a variety of foods that can help manage your diabetes and maintain a healthy lifestyle.
           </p>
         </div>
-        {/*Buttons for getting meal plan */}
+
+        {/* Buttons */}
         <div className="flex flex-wrap justify-center gap-4">
           <button
             className="bg-blue-500 text-white px-4 py-2 sm:px-6 sm:py-3 rounded-lg text-sm sm:text-base font-medium hover:bg-blue-600"
             onClick={fetchMealPlan}
             disabled={loading}
-            >
+          >
             {loading ? 'Fetching Meal Plan...' : isFetched ? 'Want Another Meal Plan?' : 'Get Your 7-Day Meal Plan'}
           </button>
-          {/*Buttons for saving meal plan */}
           <button
             className={`px-4 py-2 sm:px-6 sm:py-3 rounded-lg text-sm sm:text-base font-medium ${
               mealPlan.length === 0
@@ -137,37 +153,37 @@ const SevenDayMealPlan = () => {
             {saving ? 'Saving...' : 'Save Meal Plan'}
           </button>
         </div>
-  
+
         {message && <div className="mt-4 text-sm sm:text-base font-medium text-green-500">{message}</div>}
         {error && <div className="text-red-500 mt-4 text-sm sm:text-base">{error}</div>}
-            
-        {/*Button to fetch meal plan */}
+
+        {/* Meal Plan Display */}
         {mealPlan.length === 0 ? (
-          <p className="text-white mt-6 animate-pulse md:text-lg lg:text-xl sm:text-base">Please click the button above to fetch the plan.</p> 
+          <p className="text-white mt-6 animate-pulse md:text-lg lg:text-xl sm:text-base">
+            Please click the button above to fetch the plan.
+          </p>
         ) : (
           <div className="mt-6 w-full">
             <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
-            {/*Previous Button */}
               <button
-                className="bg-gray-800  hover:bg-slate-400 text-white px-3 py-1 sm:px-4 sm:py-2 rounded-md disabled:opacity-50"
+                className="bg-gray-800 hover:bg-slate-400 text-white px-3 py-1 sm:px-4 sm:py-2 rounded-md disabled:opacity-50"
                 onClick={handlePrev}
                 disabled={currentIndex === 0}
-                >
+              >
                 &lt; Prev
               </button>
-              {/*Meal Plan div */}
-              <div className="grid grid-cols-1 text-center sm:grid-cols-2 md:grid-cols-3 gap-5 animate__animated ${animationClass}">
+              <div className="grid grid-cols-1 text-center sm:grid-cols-2 md:grid-cols-3 gap-5" data-aos="zoom-in">
                 {currentMeals.map((day) => (
                   <div
                     key={day.day}
                     className="bg-white text-gray-800 p-4 w-48 rounded-lg shadow-md flex flex-col items-center justify-center"
+                    data-aos={day.day === "Day 4" || day.day === "Day 5" || day.day === "Day 6" || day.day === "Day 7" ? "zoom-in" : ""}
                   >
                     <div className="mb-4">
                       <h3 className="text-lg sm:text-xl font-semibold text-blue-500 mb-2 text-center">
                         {day.day}
                       </h3>
                     </div>
-
                     <div className="mb-4 w-full text-center">
                       <h4 className="font-medium text-sm sm:text-base">Breakfast:</h4>
                       <button
@@ -177,7 +193,6 @@ const SevenDayMealPlan = () => {
                         {day.breakfast}
                       </button>
                     </div>
-
                     <div className="mb-4 w-full text-center">
                       <h4 className="font-medium text-sm sm:text-base">Lunch:</h4>
                       <button
@@ -187,7 +202,6 @@ const SevenDayMealPlan = () => {
                         {day.lunch}
                       </button>
                     </div>
-
                     <div className="mb-4 w-full text-center">
                       <h4 className="font-medium text-sm sm:text-base">Dinner:</h4>
                       <button
@@ -200,13 +214,11 @@ const SevenDayMealPlan = () => {
                   </div>
                 ))}
               </div>
-
-              {/*Next Button */}
               <button
                 className="bg-gray-800 hover:bg-slate-400 text-white px-3 py-1 sm:px-4 sm:py-2 rounded-md disabled:opacity-50"
                 onClick={handleNext}
                 disabled={currentIndex >= Math.ceil(mealPlan.length / 3) - 1}
-                >
+              >
                 Next &gt;
               </button>
             </div>
@@ -214,6 +226,7 @@ const SevenDayMealPlan = () => {
         )}
       </div>
     </div>
-)}  
+  );
+};
 
 export default SevenDayMealPlan;
