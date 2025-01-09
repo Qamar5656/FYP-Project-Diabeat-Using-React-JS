@@ -5,10 +5,13 @@ const PasswordResetRequest = () => {
   const [email, setEmail] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  const [loading, setLoading] = useState(false); // State to track loading status
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    setLoading(true); // Set loading to true when form is submitted
 
     try {
       const response = await fetch('http://localhost:8000/api/password-reset-request/', {
@@ -19,6 +22,8 @@ const PasswordResetRequest = () => {
         body: JSON.stringify({ email }),
       });
 
+      setLoading(false); // Set loading to false after receiving response
+
       if (response.ok) {
         setSuccessMessage('Password reset link sent to your email.');
         setErrorMessage('');
@@ -27,6 +32,7 @@ const PasswordResetRequest = () => {
         setErrorMessage(errorData.error || 'Error requesting password reset');
       }
     } catch (error) {
+      setLoading(false); // Ensure loading is turned off if there's a network error
       setErrorMessage('Network error occurred');
     }
   };
@@ -47,8 +53,16 @@ const PasswordResetRequest = () => {
             required
             className="p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-          <button type="submit" className="bg-blue-500 text-white py-3 rounded-md hover:bg-blue-600 transition-all">
-            Send Reset Link
+          <button
+            type="submit"
+            className="bg-blue-500 text-white py-3 rounded-md hover:bg-blue-600 transition-all"
+            disabled={loading} // Disable the button when loading
+          >
+            {loading ? (
+              <span className="loader"></span> // Replace with actual loader component or text
+            ) : (
+              'Send Reset Link'
+            )}
           </button>
         </form>
 
