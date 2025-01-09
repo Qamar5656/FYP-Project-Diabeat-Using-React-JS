@@ -13,6 +13,8 @@ import Doctors from './DoctorAppointment/Doctors';
 import DoctorDetail from './DoctorAppointment/DoctorDetail'
 import Messages from '../DoctorPortal/Messages';
 import App from '../../App'
+import PasswordResetRequest from './Authentication/PasswordResetRequest';
+import PasswordReset from './Authentication/PasswordReset';
 
 const MainNavbar = () => {
   const [menu, setMenu] = useState(false);
@@ -254,6 +256,8 @@ const MainNavbar = () => {
         <Route path="/doctors" element={<Doctors />} />
         <Route path="/doctor/:id" element={<DoctorDetail />} />
         <Route path='/' element={<MainHome />} />
+        <Route path="/password-reset-request" element={<PasswordResetRequest />} />
+        <Route path="/reset-password" element={<PasswordReset />} />
         <Route path='/home' element={<MainHome />} />
         <Route path='/sugarlevel' element={<SugarInputForm />} />
         <Route path='/weekplan' element={<SevenDayMealPlan />} />
