@@ -136,12 +136,27 @@ const Login = ({ closeForm, setIsLoggedIn }) => {
       <h3>
         Don't have an account?{' '}
         <button
-          className="text-black underline"
+          className="text-blue-500 underline"
           onClick={handleSignUpClick}
         >
           Sign Up
         </button>
       </h3>
+      <div>
+      <h3>
+        Forgot your password?{' '}
+        <button
+          className="text-blue-500 underline"
+          onClick={() => {
+            navigate('/password-reset-request'); // Redirect to password reset page
+            closeForm(); // Close the login popup
+          }}
+        >
+          Reset it
+        </button>
+      </h3>
+    </div>
+
       {showSignUp && <SignUp closeForm={closeSignUpForm} />}
     </div>
             {/* Submit Button */}
