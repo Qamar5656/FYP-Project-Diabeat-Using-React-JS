@@ -13,7 +13,6 @@ const RecommendedMeals = () => {
 
   useEffect(() => {
     const name = localStorage.getItem('first_name');
-    console.log(name);
     setUserName(name);
   }, []);
 
@@ -67,7 +66,7 @@ const RecommendedMeals = () => {
         <div className="mb-6">
           {/*Greetings to user */}
           <p className="lg:text-3xl md:text-lg font-medium text-white animate__animated animate__fadeIn mt-20">
-            Hello, {userName}
+            Hi, {userName}
           </p>
           <p className="lg:text-xl md:text-lg text-white mt-2 leading-relaxed animate__animated animate__fadeIn animate__delay-1s">
             Not sure what to eat? Click the button below to receive meal recommendations based on your previous sugar levels.
