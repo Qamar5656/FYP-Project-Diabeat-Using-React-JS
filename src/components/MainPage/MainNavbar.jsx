@@ -17,6 +17,7 @@ import PasswordResetRequest from './Authentication/PasswordResetRequest';
 import PasswordReset from './Authentication/PasswordReset';
 import PatientProfile from './PatientProfile/PatientProfile';
 import DoctorProfile from '../DoctorPortal/DoctorProfile/DoctorProfile';
+import SavedMealPlan from './SavedMealPlan';
 
 const MainNavbar = () => {
   const [menu, setMenu] = useState(false);
@@ -332,6 +333,7 @@ const MainNavbar = () => {
         <Route path='/home' element={<MainHome />} />
         <Route path='/sugarlevel' element={<SugarInputForm />} />
         <Route path='/weekplan' element={<SevenDayMealPlan />} />
+        <Route path='/saved-meal-plan' element={<SavedMealPlan/>}/>
         <Route path='/services' element={<MainServices />} />
         <Route path='/meal_insights' element={<GlycemicLoadRecommendations />} />
         <Route path='/appointment' element={<Appointment />} />

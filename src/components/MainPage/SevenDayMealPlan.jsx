@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'; // Use useNavigate instead of useHistory
 import 'animate.css';
 import Aos from 'aos';
 import 'aos/dist/aos.css';
 
 const SevenDayMealPlan = () => {
-  // State variables to manage meal plans, errors, loading, and UI states
   const [mealPlan, setMealPlan] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -15,8 +15,12 @@ const SevenDayMealPlan = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [animationClass, setAnimationClass] = useState('');
 
-  // Fetch access token from localStorage on component mount
+  
+
+  const navigate = useNavigate(); // Use useNavigate for page navigation
+
   useEffect(() => {
+    
     const token = localStorage.getItem('access_token') || '';
     if (!token) {
       setError('Access token is missing. Please log in again.');
@@ -25,7 +29,6 @@ const SevenDayMealPlan = () => {
     setAccessToken(token);
   }, []);
 
-  // Fetch meal plan data from the server
   const fetchMealPlan = async () => {
     if (!accessToken) {
       setError('Access token is missing. Please log in again.');
@@ -59,7 +62,6 @@ const SevenDayMealPlan = () => {
     }
   };
 
-  // Save the current meal plan to the server
   const saveMealPlan = async () => {
     setMessage('');
     setSaving(true);
@@ -86,9 +88,9 @@ const SevenDayMealPlan = () => {
     }
   };
 
-  // Handle meal click for interactivity
-  const handleMealClick = (meal) => {
-    alert(`You clicked on ${meal}`);
+  // Navigate to the saved meal plan page
+  const viewSavedMealPlan = () => {
+    navigate('/saved-meal-plan'); // Use navigate instead of history.push
   };
 
   // Handle previous button click to navigate between meal days
@@ -119,7 +121,6 @@ const SevenDayMealPlan = () => {
 
   return (
     <div className="w-full min-h-screen flex flex-col justify-center items-center px-4 sm:px-6 md:px-10 lg:px-20 text-center bg-[url('assets/img/foodimg.jpeg')] bg-no-repeat bg-cover">
-      {/* Background Overlay */}
       <div className="absolute inset-0 bg-black bg-opacity-50"></div>
       <div className="relative z-0 text-white w-full max-w-5xl">
         {/* Top Content */}
@@ -151,6 +152,13 @@ const SevenDayMealPlan = () => {
             disabled={saving || mealPlan.length === 0}
           >
             {saving ? 'Saving...' : 'Save Meal Plan'}
+          </button>
+          {/* View Saved Meal Plan Button */}
+          <button
+            className="bg-purple-500 text-white px-4 py-2 sm:px-6 sm:py-3 rounded-lg text-sm sm:text-base font-medium hover:bg-purple-600"
+            onClick={viewSavedMealPlan}
+          >
+            View Saved Meal Plan
           </button>
         </div>
 
@@ -188,7 +196,7 @@ const SevenDayMealPlan = () => {
                       <h4 className="font-medium text-sm sm:text-base">Breakfast:</h4>
                       <button
                         className="text-blue-600 hover:underline text-sm sm:text-base"
-                        onClick={() => handleMealClick(day.breakfast)}
+                        onClick={() => alert(`You clicked on ${day.breakfast}`)}
                       >
                         {day.breakfast}
                       </button>
@@ -197,7 +205,7 @@ const SevenDayMealPlan = () => {
                       <h4 className="font-medium text-sm sm:text-base">Lunch:</h4>
                       <button
                         className="text-blue-600 hover:underline text-sm sm:text-base"
-                        onClick={() => handleMealClick(day.lunch)}
+                        onClick={() => alert(`You clicked on ${day.lunch}`)}
                       >
                         {day.lunch}
                       </button>
@@ -206,7 +214,7 @@ const SevenDayMealPlan = () => {
                       <h4 className="font-medium text-sm sm:text-base">Dinner:</h4>
                       <button
                         className="text-blue-600 hover:underline text-sm sm:text-base"
-                        onClick={() => handleMealClick(day.dinner)}
+                        onClick={() => alert(`You clicked on ${day.dinner}`)}
                       >
                         {day.dinner}
                       </button>
