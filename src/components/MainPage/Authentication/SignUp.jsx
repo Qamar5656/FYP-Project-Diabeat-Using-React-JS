@@ -13,11 +13,17 @@ const SignUp = ({ closeForm }) => {
   const [profilePic, setProfilePic] = useState(null);
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false); // Use boolean for show password functionality
   const [bio, setBio] = useState(''); // For doctor signup
   const [degree, setDegree] = useState(''); // For doctor signup
   const [designation, setDesignation] = useState(''); // For doctor signup
   const [page, setPage] = useState(1);
   const [success, setSuccess] = useState(false);
+
+  //handle show password
+  const handleShowPassword = () => {
+    setShowPassword(prevState => !prevState); // Toggle the state
+  }
 
   useEffect(() => {
     Aos.init();
@@ -285,7 +291,7 @@ const SignUp = ({ closeForm }) => {
 
               {/* Password and Confirm Password fields */}
               <input
-                type="password"
+                type={showPassword ? "text" : "password"} // Toggle input type based on showPassword state
                 placeholder="Password"
                 className="w-full py-3 px-2 bg-gray-100 rounded-lg focus:ring focus:ring-blue-200"
                 value={password}
@@ -295,7 +301,7 @@ const SignUp = ({ closeForm }) => {
               />
 
               <input
-                type="password"
+                type={showPassword ? "text" : "password"} // Toggle input type based on showPassword state
                 placeholder="Confirm Password"
                 className="w-full py-3 px-2 bg-gray-100 rounded-lg focus:ring focus:ring-blue-200"
                 value={confirmPassword}
@@ -303,6 +309,16 @@ const SignUp = ({ closeForm }) => {
                 required
                 aria-label="Confirm Password"
               />
+
+              {/* Show Password Checkbox */}
+            <div className="flex items-center space-x-2">
+              <input
+                type="checkbox"
+                onChange={handleShowPassword} // Toggle showPassword state
+                checked={showPassword} // Reflect current state
+              />
+              <label>Show Password</label>
+            </div>
 
               {/* Navigation buttons */}
               <div className="flex gap-4">

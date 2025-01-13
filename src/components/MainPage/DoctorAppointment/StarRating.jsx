@@ -32,11 +32,11 @@ const StarRating = ({ onSubmit }) => {
         value={review}
         onChange={(e) => setReview(e.target.value)}
         placeholder="Write your review (optional)"
-        className="mt-4 w-3/4 p-2 border border-gray-300 rounded-md"
+        className="mt-4 w-3/4 p-6 border border-gray-300 rounded-md"
       ></textarea>
       <button
         onClick={handleSubmit}
-        className="mt-4 px-6 py-2 bg-green-500 text-white rounded-full hover:bg-green-600"
+        className="mt-4 px-14 py-3 text-xl bg-green-500 text-white rounded-full hover:bg-green-700"
       >
         Submit
       </button>

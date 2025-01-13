@@ -8,6 +8,7 @@ import SignUp from './SignUp';
 const Login = ({ closeForm, setIsLoggedIn }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false); // Use boolean for show password functionality
   const [userType, setUserType] = useState('patient'); // Default to 'patient'
   const [success, setSuccess] = useState(false); // Track successful login
   const [errorMessage, setErrorMessage] = useState(''); // Track error messages
@@ -20,8 +21,14 @@ const Login = ({ closeForm, setIsLoggedIn }) => {
     setShowSignUp(true);    // Show the sign-up form
   };
 
-  const closeSignUpForm = ()=>{
+  // Close sign up form
+  const closeSignUpForm = () => {
     closeForm(true);
+  }
+
+  // Toggle show password functionality
+  const handleShowPassword = () => {
+    setShowPassword(prevState => !prevState); // Toggle the state
   }
 
   const handleLogin = async (e) => {
@@ -124,7 +131,7 @@ const Login = ({ closeForm, setIsLoggedIn }) => {
 
           {/* Password Field */}
           <input
-            type="password"
+            type={showPassword ? "text" : "password"} // Toggle input type based on showPassword state
             placeholder="Password"
             className="p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             value={password}
@@ -132,26 +139,38 @@ const Login = ({ closeForm, setIsLoggedIn }) => {
             required
           />
 
-      <div>
-      <h3>
-        Don't have an account?{' '}
-        <button
-          className="text-black underline"
-          onClick={handleSignUpClick}
-        >
-          Sign Up
-        </button>
-      </h3>
-      {showSignUp && <SignUp closeForm={closeSignUpForm} />}
-    </div>
-            {/* Submit Button */}
+          {/* Show Password Checkbox */}
+          <div className="flex items-center space-x-2">
+            <input
+              type="checkbox"
+              onChange={handleShowPassword} // Toggle showPassword state
+              checked={showPassword} // Reflect current state
+            />
+            <label>Show Password</label>
+          </div>
+
+          {/* Sign Up Link */}
+          <div>
+            <h3>
+              Don't have an account?{' '}
+              <button
+                className="text-black underline"
+                onClick={handleSignUpClick}
+              >
+                Sign Up
+              </button>
+            </h3>
+            {showSignUp && <SignUp closeForm={closeSignUpForm} />}
+          </div>
+
+          {/* Submit Button */}
           <button
             type="submit"
             className="bg-blue-500 text-white py-3 rounded-md hover:bg-blue-600 transition duration-300 ease-in-out mt-4"
           >
             Login
           </button>
-          </form>
+        </form>
 
         {/* Cancel Button */}
         <div className="text-center mt-6">
