@@ -19,6 +19,7 @@ const SignUp = ({ closeForm }) => {
   const [designation, setDesignation] = useState(''); // For doctor signup
   const [page, setPage] = useState(1);
   const [success, setSuccess] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   //handle show password
   const handleShowPassword = () => {

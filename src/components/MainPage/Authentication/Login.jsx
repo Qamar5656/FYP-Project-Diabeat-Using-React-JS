@@ -131,7 +131,7 @@ const Login = ({ closeForm, setIsLoggedIn }) => {
 
           {/* Password Field */}
           <input
-            type={showPassword ? "text" : "password"} // Toggle input type based on showPassword state
+            type={showPassword ? "text" : "password"} // Toggle input type based on showPassword state hide or show password
             placeholder="Password"
             className="p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             value={password}
@@ -139,31 +139,29 @@ const Login = ({ closeForm, setIsLoggedIn }) => {
             required
           />
 
-          {/* Show Password Checkbox */}
-          <div className="flex items-center space-x-2">
-            <input
-              type="checkbox"
-              onChange={handleShowPassword} // Toggle showPassword state
-              checked={showPassword} // Reflect current state
-            />
-            <label>Show Password</label>
-          </div>
+            {/* Show Password Checkbox */}
+            <div className="flex items-center space-x-2">
+              <input
+                type="checkbox"
+                onChange={handleShowPassword} // Toggle showPassword state
+                checked={showPassword} // Reflect current state
+              />
+              <label>Show Password</label>
+            </div>
 
-          {/* Sign Up Link */}
-          <div>
-            <h3>
-              Don't have an account?{' '}
-              <button
-                className="text-black underline"
-                onClick={handleSignUpClick}
-              >
-                Sign Up
-              </button>
-            </h3>
-            {showSignUp && <SignUp closeForm={closeSignUpForm} />}
-          </div>
-
-          {/* Submit Button */}
+      <div>
+      <h3>
+        Don't have an account?{' '}
+        <button
+          className="text-black underline"
+          onClick={handleSignUpClick}
+        >
+          Sign Up
+        </button>
+      </h3>
+      {showSignUp && <SignUp closeForm={closeSignUpForm} />}
+    </div>
+            {/* Submit Button */}
           <button
             type="submit"
             className="bg-blue-500 text-white py-3 rounded-md hover:bg-blue-600 transition duration-300 ease-in-out mt-4"

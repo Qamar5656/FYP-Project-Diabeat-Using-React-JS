@@ -13,6 +13,11 @@ import Doctors from './DoctorAppointment/Doctors';
 import DoctorDetail from './DoctorAppointment/DoctorDetail'
 import Messages from '../DoctorPortal/Messages';
 import App from '../../App'
+import PasswordResetRequest from './Authentication/PasswordResetRequest';
+import PasswordReset from './Authentication/PasswordReset';
+import PatientProfile from './PatientProfile/PatientProfile';
+import DoctorProfile from '../DoctorPortal/DoctorProfile/DoctorProfile';
+import SavedMealPlan from './SavedMealPlan';
 
 const MainNavbar = () => {
   const [menu, setMenu] = useState(false);
@@ -80,6 +85,7 @@ const MainNavbar = () => {
       setIsLoggedIn(true);
     }
   }, []);
+  const user_id = localStorage.getItem("user_id");
 
   return (
     <>
@@ -93,6 +99,7 @@ const MainNavbar = () => {
           <nav className="hidden lg:flex font-bold text-white text-lg flex-row items-center gap-14">
             {userType !== 'doctor' && (
               <>
+               
                 <Link to="/" className="hover:text-yellow-300 transition-all cursor-pointer">Home</Link>
                 <Link to="/sugarlevel" className="hover:text-yellow-300 transition-all cursor-pointer">Meal Recommendation</Link>
                 <Link to="/services" className="hover:text-yellow-300 transition-all cursor-pointer">Meal Suggestion</Link>
@@ -121,15 +128,50 @@ const MainNavbar = () => {
 
           {/* Login / SignUp / Logout Button */}
           <div className="hidden lg:flex space-x-4">
-            {!isLoggedIn ? (
-              <>
-                <button className="bg-brightColor text-white px-4 py-2 rounded-md hover:bg-yellow-300 transition duration-300 ease-in-out" onClick={openSignUpForm}>Sign Up</button>
-                <button className="bg-brightColor text-white px-4 py-2 rounded-md hover:bg-yellow-300 transition duration-300 ease-in-out" onClick={openLoginForm}>Log In</button>
-              </>
-            ) : (
-              <button className="bg-brightColor text-white px-4 py-2 rounded-md hover:bg-yellow-300 transition duration-300 ease-in-out" onClick={handleLogoutConfirmation}>Log Out</button>
-            )}
-          </div>
+          {!isLoggedIn ? (
+            <>
+              <button
+                className="bg-brightColor text-white px-4 py-2 rounded-md hover:bg-yellow-300 transition duration-300 ease-in-out"
+                onClick={openSignUpForm}
+              >
+                Sign Up
+              </button>
+              <button
+                className="bg-brightColor text-white px-4 py-2 rounded-md hover:bg-yellow-300 transition duration-300 ease-in-out"
+                onClick={openLoginForm}
+              >
+                Log In
+              </button>
+            </>
+          ) : (
+            <>
+              <button
+                className="bg-brightColor text-white px-4 py-2 rounded-md hover:bg-yellow-300 transition duration-300 ease-in-out"
+                onClick={handleLogoutConfirmation}
+              >
+                Log Out
+              </button>
+              {userType === 'doctor' ? (
+                <button
+                  className="bg-brightColor text-white px-4 py-2 rounded-md hover:bg-yellow-300 transition duration-300 ease-in-out"
+                  onClick={() => navigate(`/doctor_profile/${user_id}`)}
+                >
+                  Profile
+                </button>
+              ) : (
+                <button
+                  className="bg-brightColor text-white px-4 py-2 rounded-md hover:bg-yellow-300 transition duration-300 ease-in-out"
+                  onClick={() => navigate(`/patient_profile/${user_id}`)}
+                >
+                  Profile
+                </button>
+              )}
+            </>
+          )}
+        </div>
+
+
+          
 
           {/* Mobile Menu Toggle */}
           <div className="lg:hidden flex items-center cursor-pointer text-white">
@@ -176,7 +218,7 @@ const MainNavbar = () => {
               </>
             )}
 
-             {userType === 'doctor' && (
+            {userType === 'doctor' && (
               <>
                 <button
                   className="py-2 font-bold hover:text-yellow-300"
@@ -191,34 +233,66 @@ const MainNavbar = () => {
                 >
                   Patient Appointments
                 </button>
+
+                <button
+                  className="py-2 font-bold hover:text-yellow-300"
+                  onClick={() => {
+                    if (!isLoggedIn) {
+                      alert("Please log in to access the Doctor Profile."); // Or show a modal
+                    } else {
+                      navigate('/doctor_profile/{user_id}'); // Navigate to the Doctor Profile page
+                      setMenu(false);   // Close the menu
+                    }
+                  }}
+                >
+                  Doctor Profile
+                </button>
               </>
             )}
+
 
 
             {/* Authentication Buttons */}
             {!isLoggedIn ? (
-              <>
-                <button
-                  className="bg-brightColor text-white px-4 py-2 rounded-md hover:bg-yellow-300 transition duration-300 ease-in-out mt-4 block"
-                  onClick={openSignUpForm}
-                >
-                  Sign Up
-                </button>
-                <button
-                  className="bg-brightColor text-white px-4 py-2 rounded-md hover:bg-yellow-300 transition duration-300 ease-in-out mt-2 block"
-                  onClick={openLoginForm}
-                >
-                  Log In
-                </button>
-              </>
-            ) : (
-              <button
-                className="bg-brightColor text-white px-4 py-2 rounded-md hover:bg-yellow-300 transition duration-300 ease-in-out mt-4"
-                onClick={handleLogoutConfirmation}
-              >
-                Log Out
-              </button>
-            )}
+    <>
+      <button
+        className="bg-brightColor text-white px-4 py-2 rounded-md hover:bg-yellow-300 transition duration-300 ease-in-out mt-4 block"
+        onClick={openSignUpForm}
+      >
+        Sign Up
+      </button>
+      <button
+        className="bg-brightColor text-white px-4 py-2 rounded-md hover:bg-yellow-300 transition duration-300 ease-in-out mt-2 block"
+        onClick={openLoginForm}
+      >
+        Log In
+      </button>
+    </>
+  ) : (
+    <>
+      <button
+        className="bg-brightColor text-white px-4 py-2 rounded-md hover:bg-yellow-300 transition duration-300 ease-in-out mt-4 block"
+        onClick={handleLogoutConfirmation}
+      >
+        Log Out
+      </button>
+      {userType === 'doctor' ? (
+        <button
+          className="bg-brightColor text-white px-4 py-2 rounded-md hover:bg-yellow-300 transition duration-300 ease-in-out mt-2 block"
+          onClick={() => (window.location.href = `/doctor_profile/${user_id}`)}
+        >
+          Profile
+        </button>
+      ) : (
+        <button
+          className="bg-brightColor text-white px-4 py-2 rounded-md hover:bg-yellow-300 transition duration-300 ease-in-out mt-2 block"
+          onClick={() => (window.location.href = `/patient_profile/${user_id}`)}
+        >
+          Profile
+        </button>
+      )}
+    </>
+  )}
         </div>
 
         {/* Show Forms Conditionally */}
@@ -254,13 +328,18 @@ const MainNavbar = () => {
         <Route path="/doctors" element={<Doctors />} />
         <Route path="/doctor/:id" element={<DoctorDetail />} />
         <Route path='/' element={<MainHome />} />
+        <Route path="/password-reset-request" element={<PasswordResetRequest />} />
+        <Route path="/reset-password" element={<PasswordReset />} />
         <Route path='/home' element={<MainHome />} />
         <Route path='/sugarlevel' element={<SugarInputForm />} />
         <Route path='/weekplan' element={<SevenDayMealPlan />} />
+        <Route path='/saved-meal-plan' element={<SavedMealPlan/>}/>
         <Route path='/services' element={<MainServices />} />
         <Route path='/meal_insights' element={<GlycemicLoadRecommendations />} />
         <Route path='/appointment' element={<Appointment />} />
         <Route path="/ws/appointments/:doctorId/:patientId/messages" element={<Messages />} />
+        <Route path="/patient_profile/:pk" element={<PatientProfile />} />
+        <Route path="/doctor_profile/:pk" element={<DoctorProfile />} />
       </Routes>
     </>
   );
