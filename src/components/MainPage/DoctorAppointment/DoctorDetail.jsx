@@ -9,7 +9,7 @@ const DoctorDetail = () => {
   const [doctor, setDoctor] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [showAppointment, setShowAppointment] = useState(false); // Track whether the appointment component should be shown
+  const [showAppointment, setShowAppointment] = useState(true); // Track whether the appointment component should be shown
   const [ratingSubmitted, setRatingSubmitted] = useState(false); // Track rating submission
   const [ratingError, setRatingError] = useState(null); // Track rating submission error
   
@@ -21,7 +21,7 @@ const DoctorDetail = () => {
     return (
       <div className="flex justify-center items-center min-h-screen bg-gray-100">
         <div className="text-center text-xl text-gray-700">
-          <p className="animate__animated animate__zoomIn">Please Login to connect with me</p>
+          <p className="animate__animated animate__zoomIn mt-12">Please Login to connect with me</p>
         </div>
       </div>
     );
@@ -57,7 +57,7 @@ const DoctorDetail = () => {
   }, [id, accessToken]);
   
   const handleAppointmentClick = () => {
-    setShowAppointment(true); // Show the appointment section when clicked
+    setShowAppointment(false); // Show the appointment section when clicked
   };
 
   const handleRatingSubmit = async (rating, review) => {
@@ -89,7 +89,16 @@ const DoctorDetail = () => {
     }
   };
 
-  if (loading) return <div className="text-center text-xl text-orange-600">Loading...</div>;
+  // if (loading) {
+  //   return (
+  //     <div className="flex justify-center items-center min-h-screen">
+  //       {/* Tailwind CSS animated spinner */}
+  //       <div className="w-16 h-16 border-4 border-t-4 border-orange-600 border-solid rounded-full animate-spin"></div>
+  //     </div>
+  //   );
+  // }
+  
+  if (loading) return <div className="text-center text-xl text-red-600 flex justify-center items-center min-h-screen">... Loading</div>;
   if (error) return <div className="text-center text-xl text-red-600">{error}</div>;
 
   return (
@@ -122,6 +131,22 @@ const DoctorDetail = () => {
             <strong>Bio:</strong> {doctor.bio}
           </p>
         </div>
+        {/* Appointment Button */}
+        {!showAppointment && (
+          <div className="mt-8 flex justify-center">
+            <button
+              onClick={handleAppointmentClick}
+              className="px-6 py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-all animate__animated animate__zoomIn animate__delay-s"
+              >
+              Let's Connect
+            </button>
+          </div>
+        )}
+        {/* Show Appointment Section */}
+        {showAppointment && (
+          <Appointment doctorId={id} patientId={patientId} />
+        )}
+
         {/* Star Rating Section */}
         {!ratingSubmitted ? (
           <div className="mt-8">
@@ -138,23 +163,6 @@ const DoctorDetail = () => {
           <div className="mt-4 text-center text-red-600 animate__animated animate__fadeIn">
             {ratingError}
           </div>
-        )}
-
-        {/* Appointment Button */}
-        {!showAppointment && (
-          <div className="mt-8 flex justify-center">
-            <button
-              onClick={handleAppointmentClick}
-              className="px-6 py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-all animate__animated animate__zoomIn animate__delay-s"
-            >
-              Let's Connect
-            </button>
-          </div>
-        )}
-
-        {/* Show Appointment Section */}
-        {showAppointment && (
-          <Appointment doctorId={id} patientId={patientId} />
         )}
       </div>
     </div>
