@@ -76,12 +76,16 @@ const PasswordResetRequest = () => {
         {/* Back to login link */}
         <div className="mt-6 text-center">
           <button
-            onClick={() => navigate('/')}
+            onClick={() => {
+              navigate('/');  // Navigate to Home
+              window.location.reload(); // Reload the page after navigation
+            }}
             className="text-blue-500 hover:underline"
           >
             Back to Home
           </button>
         </div>
+
       </div>
     </div>
   );

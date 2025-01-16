@@ -8,28 +8,34 @@ import SignUp from './SignUp';
 const Login = ({ closeForm, setIsLoggedIn }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false); // Use boolean for show password functionality
-  const [userType, setUserType] = useState('patient'); // Default to 'patient'
-  const [success, setSuccess] = useState(false); // Track successful login
-  const [errorMessage, setErrorMessage] = useState(''); // Track error messages
-  const navigate = useNavigate(); // Hook to handle redirection
-  const [showSignUp, setShowSignUp] = useState(false); // State to control sign-up form visibility
-  const [showSignIn, setShowSignIn] = useState(true);  // State to control sign-in form visibility
+  const [showPassword, setShowPassword] = useState(false);
+  const [userType, setUserType] = useState('patient');
+  const [success, setSuccess] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const navigate = useNavigate();
+  const [showSignUp, setShowSignUp] = useState(false);
+  const [showSignIn, setShowSignIn] = useState(true);
+  const [showLogin, setShowLogin] = useState(true); // New state to control Login form visibility
+
+  const handleForgotPassword = () => {
+    setShowLogin(false); // Hide the Login form
+    navigate('/password-reset-request'); // Navigate to the password reset page
+  };
 
   const handleSignUpClick = () => {
-    setShowSignIn(false);  // Hide the sign-in form
-    setShowSignUp(true);    // Show the sign-up form
+    setShowLogin(false); // Hide the Login form
+    setShowSignUp(true);  // Show the SignUp form
   };
 
   // Close sign up form
   const closeSignUpForm = () => {
     closeForm(true);
-  }
+  };
 
   // Toggle show password functionality
   const handleShowPassword = () => {
     setShowPassword(prevState => !prevState); // Toggle the state
-  }
+  };
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -82,105 +88,124 @@ const Login = ({ closeForm, setIsLoggedIn }) => {
   };
 
   return (
-    <div className='fixed inset-0 flex items-center justify-center sm:z-10 md:z-10 lg:z-0 bg-black bg-opacity-50 '>
-      <div className='bg-white p-8 rounded-xl w-full sm:w-[400px] shadow-lg '>
-        <h2 className='text-2xl font-bold mb-6 text-center text-gray-700'>
-          Welcome Back!
-        </h2>
-        
-        {/* Success Message */}
-        {success && (
-          <div className='flex items-center justify-center mb-4'>
-            <FaCheckCircle className='text-green-500 text-3xl mr-2' />
-            <p className='text-green-500 font-semibold'>Login successful as {userType}</p>
-          </div>
-        )}
+    <>
+      {showLogin && ( // Render Login form only if showLogin is true
+        <div className='fixed inset-0 flex items-center justify-center sm:z-10 md:z-10 lg:z-0 bg-black bg-opacity-50 '>
+          <div className='bg-white p-8 rounded-xl w-full sm:w-[400px] shadow-lg '>
+            <h2 className='text-2xl font-bold mb-6 text-center text-gray-700'>
+              Welcome Back!
+            </h2>
+            
+            {/* Success Message */}
+            {success && (
+              <div className='flex items-center justify-center mb-4'>
+                <FaCheckCircle className='text-green-500 text-3xl mr-2' />
+                <p className='text-green-500 font-semibold'>Login successful as {userType}</p>
+              </div>
+            )}
 
-        {/* Error Message */}
-        {errorMessage && (
-          <div className='flex items-center justify-center mb-4'>
-            <FaExclamationTriangle className='text-red-500 text-3xl mr-2' />
-            <p className='text-red-500 font-semibold'>{errorMessage}</p>
-          </div>
-        )}
+            {/* Error Message */}
+            {errorMessage && (
+              <div className='flex items-center justify-center mb-4'>
+                <FaExclamationTriangle className='text-red-500 text-3xl mr-2' />
+                <p className='text-red-500 font-semibold'>{errorMessage}</p>
+              </div>
+            )}
 
-        <form onSubmit={handleLogin} className="flex flex-col gap-4">
-          {/* User Type Selection */}
-          <div className="flex flex-col">
-            <label className="mb-2 text-gray-600">Select User Type</label>
-            <select
-              className="py-3 px-4 bg-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              value={userType}
-              onChange={(e) => setUserType(e.target.value)}
-              required
-            >
-              <option value="patient">Patient</option>
-              <option value="doctor">Doctor</option>
-            </select>
-          </div>
+            <form onSubmit={handleLogin} className="flex flex-col gap-4">
+              {/* User Type Selection */}
+              <div className="flex flex-col">
+                <label className="mb-2 text-gray-600">Select User Type</label>
+                <select
+                  className="py-3 px-4 bg-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  value={userType}
+                  onChange={(e) => setUserType(e.target.value)}
+                  required
+                >
+                  <option value="patient">Patient</option>
+                  <option value="doctor">Doctor</option>
+                </select>
+              </div>
 
-          {/* Email Field */}
-          <input
-            type="email"
-            placeholder="Email"
-            className="p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-
-          {/* Password Field */}
-          <input
-            type={showPassword ? "text" : "password"} // Toggle input type based on showPassword state hide or show password
-            placeholder="Password"
-            className="p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-
-            {/* Show Password Checkbox */}
-            <div className="flex items-center space-x-2">
+              {/* Email Field */}
               <input
-                type="checkbox"
-                onChange={handleShowPassword} // Toggle showPassword state
-                checked={showPassword} // Reflect current state
+                type="email"
+                placeholder="Email"
+                className="p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
               />
-              <label>Show Password</label>
+
+              {/* Password Field */}
+              <input
+                type={showPassword ? "text" : "password"}
+                placeholder="Password"
+                className="p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+
+              {/* Show Password Checkbox */}
+              <div className="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  onChange={() => setShowPassword((prev) => !prev)}
+                  checked={showPassword}
+                />
+                <label>Show Password</label>
+              </div>
+
+              {/* Forgot Password Link */}
+              <div className="text-right text-sm mt-2">
+                <button
+                  type="button"
+                  className="text-blue-500 hover:underline"
+                  onClick={handleSignUpClick} // Hide Login form and navigate
+                >
+                  Not an account? Sign Up
+                </button>
+              </div>
+
+              {/* Forgot Password Link */}
+              <div className="text-right text-sm mt-2">
+                <button
+                  type="button"
+                  className="text-blue-500 hover:underline"
+                  onClick={handleForgotPassword} // Hide Login form and navigate
+                >
+                  Forgot Password?
+                </button>
+              </div>
+
+              {/* Submit Button */}
+              <button
+                type="submit"
+                className="bg-blue-500 text-white py-3 rounded-md hover:bg-blue-600 transition duration-300 ease-in-out mt-4"
+              >
+                Login
+              </button>
+            </form>
+
+            {/* Cancel Button */}
+            <div className="text-center mt-6">
+              <button
+                onClick={closeForm}
+                className="text-gray-500 hover:text-gray-700 transition-all text-sm"
+              >
+                Cancel
+              </button>
             </div>
-
-      <div>
-      <h3>
-        Don't have an account?{' '}
-        <button
-          className="text-black underline"
-          onClick={handleSignUpClick}
-        >
-          Sign Up
-        </button>
-      </h3>
-      {showSignUp && <SignUp closeForm={closeSignUpForm} />}
-    </div>
-            {/* Submit Button */}
-          <button
-            type="submit"
-            className="bg-blue-500 text-white py-3 rounded-md hover:bg-blue-600 transition duration-300 ease-in-out mt-4"
-          >
-            Login
-          </button>
-        </form>
-
-        {/* Cancel Button */}
-        <div className="text-center mt-6">
-          <button
-            onClick={closeForm}
-            className="text-gray-500 hover:text-gray-700 transition-all text-sm"
-          >
-            Cancel
-          </button>
+          </div>
         </div>
-      </div>
-    </div>
+      )}
+
+      {/* Show SignUp Form if sign-up button clicked */}
+      {showSignUp && (
+        <SignUp closeForm={closeSignUpForm} />
+      )}
+    </>
   );
 };
 

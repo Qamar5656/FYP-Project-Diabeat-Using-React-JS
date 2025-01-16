@@ -9,7 +9,7 @@ const DoctorDetail = () => {
   const [doctor, setDoctor] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [showAppointment, setShowAppointment] = useState(true); // Track whether the appointment component should be shown
+  const [showAppointment, setShowAppointment] = useState(false); // Track whether the appointment component should be shown
   const [ratingSubmitted, setRatingSubmitted] = useState(false); // Track rating submission
   const [ratingError, setRatingError] = useState(null); // Track rating submission error
   
@@ -57,8 +57,12 @@ const DoctorDetail = () => {
   }, [id, accessToken]);
   
   const handleAppointmentClick = () => {
-    setShowAppointment(false); // Show the appointment section when clicked
+    setShowAppointment(true); // Show the appointment section when clicked
   };
+
+  const handleCloseAppointment = () => {
+    setShowAppointment(false); // Show the appointment section when clicked
+  };
 
   const handleRatingSubmit = async (rating, review) => {
     try {
@@ -89,14 +93,14 @@ const DoctorDetail = () => {
     }
   };
 
-  // if (loading) {
-  //   return (
-  //     <div className="flex justify-center items-center min-h-screen">
-  //       {/* Tailwind CSS animated spinner */}
-  //       <div className="w-16 h-16 border-4 border-t-4 border-orange-600 border-solid rounded-full animate-spin"></div>
-  //     </div>
-  //   );
-  // }
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        {/* Tailwind CSS animated spinner */}
+        <div className="w-16 h-16 border-4 border-t-4 border-orange-600 border-solid rounded-full animate-spin"></div>
+      </div>
+    );
+  }
   
   if (loading) return <div className="text-center text-xl text-red-600 flex justify-center items-center min-h-screen">... Loading</div>;
   if (error) return <div className="text-center text-xl text-red-600">{error}</div>;
@@ -142,10 +146,16 @@ const DoctorDetail = () => {
             </button>
           </div>
         )}
-        {/* Show Appointment Section */}
+
+        {/* Conditional rendering of the Appointment component */}
         {showAppointment && (
-          <Appointment doctorId={id} patientId={patientId} />
+          <Appointment
+            doctorId={id}
+            patientId={patientId}
+            onClose={handleCloseAppointment}
+          />
         )}
+      
 
         {/* Star Rating Section */}
         {!ratingSubmitted ? (
