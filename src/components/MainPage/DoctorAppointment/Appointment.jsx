@@ -27,7 +27,13 @@ const Appointment = ({ doctorId, patientId }) => {
         const response = await fetch(`http://localhost:8000/ws/appointments/${doctorId}/${patientId}/messages/`);
         if (!response.ok) throw new Error(`Error: ${response.status}`);
         const data = await response.json();
-        setMessages(data);
+        const formattedMessages = data.map((msg) => ({
+          message: msg.message,
+          senderType: msg.sender_type,
+          createdAt: msg.created_at,
+          alignment: msg.sender_type === 'patient' ? 'right' : 'left',
+        }));
+        setMessages(formattedMessages);
       } catch (error) {
         console.error('Error fetching messages:', error); // Log error if the fetch fails
       }
@@ -99,7 +105,7 @@ const Appointment = ({ doctorId, patientId }) => {
       {/* Message Close Button */}
       <button
         className="text-black text-3xl hover:text-gray-500 cursor-pointer font-bold mb-4"
-        onClick={handleCloseMessages}
+        onClick={handleClose}
       >
         X
       </button>
@@ -107,20 +113,26 @@ const Appointment = ({ doctorId, patientId }) => {
         {showAppointment && (
             <Appointment doctorId={doctorId} patientId={patientId} /> // Render Appointment component with doctorId and patientId as props
           )}    
-  <div className="h-56 overflow-y-auto mb-6">
+          <div className="h-52 overflow-y-auto mb-6 space-y-4">
   {/* Message window */}
-  <div className="flex flex-col space-y-4">
-    {messages.map((msg, index) => (
-      <div key={index} className={`flex ${msg.senderType === 'doctor' ? 'justify-end' : 'justify-start'}`}>
-        <div className={`max-w-xs p-4 rounded-lg ${msg.senderType === 'doctor' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}>
-          <p className="text-sm">{msg.message}</p>
-          <p className="text-xs text-gray-500 mt-1">{new Date(msg.createdAt).toLocaleString()}</p>
-        </div>
+  {messages.map((msg, index) => (
+    <div
+      key={index}
+      className={`flex ${msg.alignment === 'left' ? 'justify-start' : 'justify-end'}`}
+    >
+      <div
+        className={`max-w-xs p-4 rounded-lg ${
+          msg.alignment === 'left' ? 'bg-gray-200 text-black' : 'bg-blue-500 text-white'
+        }`}
+      >
+        <p className="text-sm">{msg.message}</p>
       </div>
-    ))}
-    <div ref={messagesEndRef} />
-  </div>
+    </div>
+  ))}
+
+  <div ref={messagesEndRef} />
 </div>
+
 
 
         <div className="flex flex-col">
