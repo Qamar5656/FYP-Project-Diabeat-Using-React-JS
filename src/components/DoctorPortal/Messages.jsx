@@ -125,7 +125,7 @@ const PatientMessages = () => {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-      <div className="bg-white p-4 mt-3 rounded-md shadow-lg z-60 w-full max-w-3xl"> {/* Increased width */}
+      <div className="bg-white p-8 mt-3 rounded-md shadow-lg z-60 w-full max-w-xl"> {/* Increased width */}
         {!isMessagesVisible ? (
           <>
             {patientDetails && (
