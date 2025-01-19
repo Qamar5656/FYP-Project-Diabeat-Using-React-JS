@@ -101,7 +101,7 @@ const Appointment = ({ doctorId, patientId }) => {
   return (
     //doctor message portal
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-    <div className="bg-white p-4 w-96 mt-9 rounded-md shadow-lg z-60 ">
+    <div className="bg-white p-4 mt-9 rounded-md shadow-lg z-60 w-full max-w-xl">
       {/* Message Close Button */}
       <button
         className="text-black text-3xl hover:text-gray-500 cursor-pointer font-bold mb-4"

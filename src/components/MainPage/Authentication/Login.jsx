@@ -90,9 +90,9 @@ const Login = ({ closeForm, setIsLoggedIn }) => {
   return (
     <>
       {showLogin && ( // Render Login form only if showLogin is true
-        <div className='fixed inset-0 flex items-center justify-center sm:z-10 md:z-10 lg:z-0 bg-black bg-opacity-50 '>
-          <div className='bg-white p-8 rounded-xl w-full sm:w-[400px] shadow-lg '>
-            <h2 className='text-2xl font-bold mb-6 text-center text-gray-700'>
+        <div className='fixed inset-0 flex items-center justify-center sm:z-10 md:z-10 lg:z-0 bg-black bg-opacity-60'>
+          <div className='bg-white p-4 rounded-xl w-full sm:w-[400px] shadow-lg mt-20'>
+            <h2 className='text-2xl font-bold mb-1 text-center text-gray-700'>
               Welcome Back!
             </h2>
             
@@ -158,10 +158,10 @@ const Login = ({ closeForm, setIsLoggedIn }) => {
               </div>
 
               {/* Forgot Password Link */}
-              <div className="text-right text-sm mt-2">
+              <div className="text-sm mt-1">
                 <button
                   type="button"
-                  className="text-blue-500 hover:underline"
+                  className="text-black hover:underline"
                   onClick={handleSignUpClick} // Hide Login form and navigate
                 >
                   Not an account? Sign Up
@@ -169,10 +169,10 @@ const Login = ({ closeForm, setIsLoggedIn }) => {
               </div>
 
               {/* Forgot Password Link */}
-              <div className="text-right text-sm mt-2">
+              <div className="text-sm mt-1">
                 <button
                   type="button"
-                  className="text-blue-500 hover:underline"
+                  className="text-black hover:underline"
                   onClick={handleForgotPassword} // Hide Login form and navigate
                 >
                   Forgot Password?
