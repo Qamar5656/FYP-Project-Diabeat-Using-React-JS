@@ -55,7 +55,7 @@ const Footer = () => {
               duration={500}
               className=" hover:text-hoverColor transition-all cursor-pointer"
             >
-              Lab Test
+              Meal Plan
             </Link>
             <Link
               to="services"
@@ -64,7 +64,7 @@ const Footer = () => {
               duration={500}
               className=" hover:text-hoverColor transition-all cursor-pointer"
             >
-              Health Check
+              Weekly Diet Plan
             </Link>
             <Link
               to="services"
@@ -73,7 +73,7 @@ const Footer = () => {
               duration={500}
               className=" hover:text-hoverColor transition-all cursor-pointer"
             >
-              Heart Health
+              Doctor's Portal
             </Link>
           </nav>
         </div>
