@@ -115,7 +115,7 @@ const Login = ({ closeForm, setIsLoggedIn }) => {
             <form onSubmit={handleLogin} className="flex flex-col gap-4">
               {/* User Type Selection */}
               <div className="flex flex-col">
-                <label className="mb-2 text-gray-600">Select User Type</label>
+                <label className="mb-3 mt-3 text-gray-600">Select User Type</label>
                 <select
                   className="py-3 px-4 bg-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   value={userType}
@@ -151,17 +151,18 @@ const Login = ({ closeForm, setIsLoggedIn }) => {
               <div className="flex items-center space-x-2">
                 <input
                   type="checkbox"
+                  className='font-bold'
                   onChange={() => setShowPassword((prev) => !prev)}
                   checked={showPassword}
                 />
-                <label>Show Password</label>
+                <label className='font-bold'>Show Password</label>
               </div>
 
               {/* Forgot Password Link */}
               <div className="text-sm mt-1">
                 <button
                   type="button"
-                  className="text-black hover:underline"
+                  className="text-black font-bold hover:underline"
                   onClick={handleSignUpClick} // Hide Login form and navigate
                 >
                   Not an account? Sign Up
@@ -172,7 +173,7 @@ const Login = ({ closeForm, setIsLoggedIn }) => {
               <div className="text-sm mt-1">
                 <button
                   type="button"
-                  className="text-black hover:underline"
+                  className="text-black font-bold hover:underline"
                   onClick={handleForgotPassword} // Hide Login form and navigate
                 >
                   Forgot Password?
@@ -182,7 +183,7 @@ const Login = ({ closeForm, setIsLoggedIn }) => {
               {/* Submit Button */}
               <button
                 type="submit"
-                className="bg-blue-500 text-white py-3 rounded-md hover:bg-blue-600 transition duration-300 ease-in-out mt-4"
+                className="bg-blue-500 text-white font-bold text-lg py-3 rounded-md hover:bg-blue-600 transition duration-300 ease-in-out mt-4"
               >
                 Login
               </button>
@@ -192,7 +193,7 @@ const Login = ({ closeForm, setIsLoggedIn }) => {
             <div className="text-center mt-6">
               <button
                 onClick={closeForm}
-                className="text-gray-500 hover:text-gray-700 transition-all text-sm"
+                className="text-gray-500 hover:text-gray-700 font-bold text-lg transition-all "
               >
                 Cancel
               </button>

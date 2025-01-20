@@ -9,9 +9,6 @@ const BlogCard = ({ img, headlines }) => {
         alt="img"
       />
       <h2 className=" text-lg text-center font-semibold">{headlines}</h2>
-      <p className=" text-center text-sm">
-        djashdkqwehiwhywiehrwekjrgwkjhwerk
-      </p>
     </div>
   );
 };
