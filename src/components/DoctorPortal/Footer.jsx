@@ -81,13 +81,13 @@ const Footer = () => {
           <h1 className=" font-medium text-xl pb-4 pt-5 md:pt-0">Contact Us</h1>
           <nav className=" flex flex-col gap-2">
             <Link to="/" spy={true} smooth={true} duration={500}>
-              123 Elm Street, Suite 456 Springfield, IL 62701 United States
+              Lahore Garrison University, DHA phase 6 Sector C Lahore.
             </Link>
             <Link to="/" spy={true} smooth={true} duration={500}>
-              support@care.com
+              diabeat@gmail.com
             </Link>
             <Link to="/" spy={true} smooth={true} duration={500}>
-              +123-456-7890
+              +92 321-1234567
             </Link>
           </nav>
         </div>

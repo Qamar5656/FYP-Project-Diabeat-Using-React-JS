@@ -103,7 +103,7 @@ const DoctorDetail = () => {
   }
   
   if (loading) return <div className="text-center text-xl text-red-600 flex justify-center items-center min-h-screen">... Loading</div>;
-  if (error) return <div className="text-center text-xl text-red-600">{error}</div>;
+  if (error) return <div className="text-center flex items-center justify-center pt-60  text-xl text-red-600">{error}</div>;
 
   return (
     <div className="flex justify-center py-10  min-h-screen">

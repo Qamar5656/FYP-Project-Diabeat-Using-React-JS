@@ -53,7 +53,7 @@ const Navbar = () => {
             >
               About Us
             </Link>
-            <Link
+            {/* <Link
               to="services"
               spy={true}
               smooth={true}
@@ -61,7 +61,7 @@ const Navbar = () => {
               className="hover:text-yellow-300 transition-all cursor-pointer"
             >
               Services
-            </Link>
+            </Link> */}
             <Link
               to="doctors"
               spy={true}
@@ -121,7 +121,7 @@ const Navbar = () => {
           >
             About Us
           </Link>
-          <Link
+          {/* <Link
             to="services"
             spy={true}
             smooth={true}
@@ -130,7 +130,7 @@ const Navbar = () => {
             onClick={closeMenu}
           >
             Services
-          </Link>
+          </Link> */}
           <Link
             to="doctors"
             spy={true}

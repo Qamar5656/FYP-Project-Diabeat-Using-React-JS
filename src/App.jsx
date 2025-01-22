@@ -41,19 +41,19 @@ const App = () => {
         </button>
         <div id="about" data-aos="zoom-in">
           <About />
-        </div>
-        <div id="services" data-aos="flip-up">
-          <Services />
-        </div>
         <div id="doctors" data-aos="fade-left">
           <Doctors />
         </div>
+        </div>
+        {/* <div id="services" data-aos="flip-up">
+          <Services />
+        </div> */}
         <div id="blog" data-aos="zoom-out">
           <Blog />
         </div>
-        <div id="footer" data-aos="flip-down">
+        {/* <div id="footer" data-aos="flip-down">
           <Footer />
-        </div>
+        </div> */}
       </main> 
       
      
