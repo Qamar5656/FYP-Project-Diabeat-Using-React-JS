@@ -17,6 +17,16 @@ const DoctorDetail = () => {
 
   const accessToken = localStorage.getItem('access_token');
   const patientId = localStorage.getItem('user_id');
+  // Redirect to login page if there's no access token
+  if (!accessToken) {
+    return (
+      <div className="flex justify-center items-center min-h-screen bg-gray-100">
+        <div className="text-center text-xl text-gray-700">
+          <p className="animate__animated animate__zoomIn mt-12">Please Login to connect with me</p>
+        </div>
+      </div>
+    );
+  }
 
   useEffect(() => {
     if (id && accessToken) {
