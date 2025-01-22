@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import 'animate.css'; // Import Animate.css
 import Appointment from './Appointment'; // Import the Appointment component
-import StarRating from './StarRating'; // Import the StarRating component
+import StarRating from './StarRating'; 
 import Modal from "./Model";
 const DoctorDetail = () => {
   const { id } = useParams(); // Get doctor id from the URL
