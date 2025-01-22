@@ -111,7 +111,8 @@ const DoctorDetail = () => {
       </div>
     );
   }
-
+  
+  if (loading) return <div className="text-center text-xl text-red-600 flex justify-center items-center min-h-screen">... Loading</div>;
   if (error) return <div className="text-center text-xl text-red-600">{error}</div>;
 
   return (
