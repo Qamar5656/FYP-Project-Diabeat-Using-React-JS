@@ -16,7 +16,7 @@ import React from "react";
 
 const Modal = ({ reviews, onClose }) => {
   return (
-    <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
+    <div className="fixed inset-0 bg-gray-800 bg-opacity-50 mt-8 flex justify-center items-center z-50">
       <div className="bg-white rounded-lg shadow-lg w-full max-w-lg h-4/5 overflow-hidden relative">
         {/* Modal Header */}
         <div className="p-6 border-b flex justify-between items-center">

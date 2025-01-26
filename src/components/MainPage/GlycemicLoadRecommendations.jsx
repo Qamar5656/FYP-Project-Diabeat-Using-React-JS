@@ -53,7 +53,9 @@ const GlycemicLoadRecommendations = () => {
   const settings = {
     dots: true, // Show dots navigation
     infinite: true, // Infinite scrolling
-    speed: 500,
+    speed: 100,
+    autoplay: true, // Autoplay Setting
+    autoplaySpeed: 4000,
     slidesToShow: 2, // Show 5 meals at a time
     slidesToScroll: 2, // Scroll 5 meals at a time
     responsive: [
@@ -75,8 +77,8 @@ const GlycemicLoadRecommendations = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-50"> {/* Flexbox to center content */}
-      <div className="max-w-lg w-full p-6 bg-white rounded-lg shadow-lg animate__animated animate__fadeInUp"> {/* Add fadeInUp animation */}
+    <div className="flex justify-center items-center min-h-screen bg-white"> {/* Flexbox to center content */}
+      <div className="max-w-lg w-full p-6 border-4 border-black bg-white text-black rounded-lg shadow-xl animate__animated animate__fadeInUp"> {/* Add fadeInUp animation */}
         <h1 className="text-2xl font-bold text-center mb-6 animate__animated animate__fadeIn animate__delay-1s">Discover Your Meal Insights</h1>
 
         {/* Portion size input */}
@@ -98,13 +100,13 @@ const GlycemicLoadRecommendations = () => {
         {error && <p className="text-center text-red-500 animate__animated animate__shakeX animate__delay-1s">{error}</p>}
 
         {/* Carousel to display meals */}
-        <div className="mb-4 animate__animated animate__fadeIn animate__delay-2s">
+        <div className="my-4 mt-6 animate__animated animate__fadeIn animate__delay-2s">
           <Slider {...settings}>
             {meals.map((meal) => (
               <div 
                 key={meal.id} 
                 onClick={() => handleMealSelect(meal)} 
-                className="p-4 bg-gray-100 hover:bg-gray-200 cursor-pointer rounded-md shadow-md animate__animated animate__zoomIn animate__delay-2s"
+                className="p-4 bg-gray-100 hover:bg-gray-200 cursor-pointer rounded-md shadow-md animate__animated animate__zoomIn mb-4 animate__delay-2s" 
               >
                 <h3 className="text-xl font-semibold">{meal.name}</h3>
                 <p className="text-gray-600">Glycemic Index: {meal.gi_level}</p>
@@ -115,9 +117,9 @@ const GlycemicLoadRecommendations = () => {
 
         {/* Display Recommendation */}
         {selectedMeal && (
-          <div className="mt-6 p-4 bg-blue-50 rounded-md border border-blue-200 ">
-            <h3 className="text-xl font-semibold mb-2">Recommendation for {selectedMeal.name}</h3>
-            <p className="text-lg text-blue-700">{recommendation}</p>
+          <div className="mt-10 p-4 bg-blue-50 rounded-md border border-blue-200 ">
+            <h3 className="text-2xl text-center font-semibold mb-2">Recommendation for <span className='text-green-700'>{selectedMeal.name}</span></h3>
+            <p className="text-blue-500  font-bold text-2xl text-center">{recommendation}</p>
           </div>
         )}
       </div>
