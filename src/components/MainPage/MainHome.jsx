@@ -6,7 +6,7 @@ import About from "./MainAbout";
 const MainHome = () => {
   return (
     <>
-      <div className="h-screen flex flex-col justify-center text-left text-black relative">
+      <div className="h-screen flex flex-col justify-center pt-4 sm:pt-6 text-left text-black relative">
         {/* Background Image with Opacity */}
         <div
           className="absolute inset-0 bg-[url('assets/img/homepage.jpg')] bg-cover bg-center"
@@ -15,16 +15,16 @@ const MainHome = () => {
         {/* Content on Top of the Background */}
         <div className="relative z-3 px-10 flex items-start">
           <div className="bg-gray-800 bg-opacity-75 p-6 rounded-lg shadow-lg max-w-md transition-transform transform hover:scale-105 hover:shadow-xl duration-300 ease-in-out">
-            <h1 className="text-3xl font-bold text-white">
+            <h1 className="text:xl sm:text-3xl font-bold text-white">
               Welcome to Your Diabeat.
             </h1>
-            <p className="animate__animated animate__fadeIn animate__delay-1s mt-4 text-lg text-orange-400">
+            <p className="animate__animated animate__fadeIn animate__delay-1s mt-2 sm:mt-4 text-md sm:text-lg text-orange-400">
               Explore healthy meal options tailored just for you.
             </p>
 
             {/* Link to Glycemic Load Calculator */}
-            <div className="mt-8">
-              <h2 className="text-xl text-white font-semibold">
+            <div className="mt-3 sm:mt-8">
+              <h2 className="text-md sm:text-xl text-white font-semibold">
                 Unlock Personalized Meal Insights for Better Health!
               </h2>
               <p className="mt-2 animate__animated animate__fadeIn animate__delay-1s text-orange-400">
@@ -43,7 +43,6 @@ const MainHome = () => {
         </div>
 
         {/* Bottom-Right Positioned Div */}
-        
       </div>
 
       {/* About Section */}

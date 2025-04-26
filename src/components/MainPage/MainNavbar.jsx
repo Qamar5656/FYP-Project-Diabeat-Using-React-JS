@@ -90,18 +90,18 @@ const MainNavbar = () => {
   return (
     <>
       <div className="fixed w-full z-10">
-        <div className="flex justify-between lg:flex-col xl:flex-row lg:gap-4 xl:justify-between items-center bg-gray-800 bg-opacity-95 p-5 shadow-lg ">
+        <div className="flex justify-between lg:flex-row lg:gap-3 xl:justify-between items-center bg-gray-800 bg-opacity-95 p-5 shadow-lg ">
           <div>
             <Link
               to="/"
-              className="text-orange-400 text-2xl font-semibold cursor-pointer"
+              className="text-orange-400 text-2xl font-semibold cursor-pointer "
             >
               Diabeat
             </Link>
           </div>
 
           {/* Navbar Links for Large Screens */}
-          <nav className="hidden lg:flex font-bold text-white text-lg flex-row items-center gap-14">
+          <nav className="hidden xl:flex font-bold text-white lg:text-md xl:text-lg flex-row items-center gap-12">
             {userType !== "doctor" && (
               <>
                 <Link
@@ -156,7 +156,7 @@ const MainNavbar = () => {
           </nav>
 
           {/* Login / SignUp / Logout Button */}
-          <div className="hidden lg:flex space-x-4">
+          <div className="hidden xl:flex space-x-4">
             {!isLoggedIn ? (
               <>
                 <button
@@ -200,7 +200,7 @@ const MainNavbar = () => {
           </div>
 
           {/* Mobile Menu Toggle */}
-          <div className="lg:hidden flex items-center cursor-pointer text-white">
+          <div className="xl:hidden flex items-center cursor-pointer text-white">
             {menu ? (
               <AiOutlineClose
                 size={28}
