@@ -90,7 +90,7 @@ const MainNavbar = () => {
   return (
     <>
       <div className="fixed w-full z-10">
-        <div className="flex justify-between lg:flex-col xl:flex-row lg:gap-4 xl:justify-between items-center bg-gray-800 bg-opacity-95 p-5 shadow-lg">
+        <div className="flex justify-between lg:flex-col xl:flex-row lg:gap-4 xl:justify-between items-center bg-gray-800 bg-opacity-95 p-5 shadow-lg ">
           <div>
             <Link
               to="/"
@@ -114,13 +114,13 @@ const MainNavbar = () => {
                   to="/sugarlevel"
                   className="hover:text-yellow-300 transition-all cursor-pointer"
                 >
-                  Meal Recommendation
+                  Meal Recommendations
                 </Link>
                 <Link
                   to="/services"
                   className="hover:text-yellow-300 transition-all cursor-pointer"
                 >
-                  Meal Suggestion
+                  Meal Suggestions
                 </Link>
                 <Link
                   to="/doctors"
